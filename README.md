@@ -1,4 +1,5 @@
 Last.fm.API
 ===========
 
-Last.fm API
+
+<center>Last.fm API</center>
