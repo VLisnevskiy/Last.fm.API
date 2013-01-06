@@ -47,31 +47,43 @@
   <ItemGroup>
     <Compile Include="AlbumServices\IAlbumServices.cs" />
     <Compile Include="AlbumServices\IAlbumServicesApi.cs" />
+    <Compile Include="ArtistServices\IArtistServices.cs" />
+    <Compile Include="ArtistServices\IArtistServicesApi.cs" />
+    <Compile Include="AuthServices\IAuthServices.cs" />
+    <Compile Include="AuthServices\IAuthServicesApi.cs" />
     <Compile Include="Channel\BaseLastFmClient.cs" />
     <Compile Include="Channel\IApiKey.cs" />
     <Compile Include="Channel\LastFmChannelFactory.cs" />
     <Compile Include="Channel\LastFmServicesHolder.cs" />
+    <Compile Include="ChartServices\IChartServices.cs" />
+    <Compile Include="ChartServices\IChartServicesApi.cs" />
+    <Compile Include="EventServices\IEventServices.cs" />
+    <Compile Include="EventServices\IEventServicesApi.cs" />
+    <Compile Include="GeoServices\IGeoServices.cs" />
+    <Compile Include="GeoServices\IGeoServicesApi.cs" />
+    <Compile Include="GroupServices\IGroupServices.cs" />
+    <Compile Include="GroupServices\IGroupServicesApi.cs" />
+    <Compile Include="LibraryServices\ILibraryServices.cs" />
+    <Compile Include="LibraryServices\ILibraryServicesApi.cs" />
+    <Compile Include="PlaylistServices\IPlaylistServices.cs" />
+    <Compile Include="PlaylistServices\IPlaylistServicesApi.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RadioServices\IRadioServices.cs" />
+    <Compile Include="RadioServices\IRadioServicesApi.cs" />
+    <Compile Include="TagServices\ITagServices.cs" />
+    <Compile Include="TagServices\ITagServicesApi.cs" />
+    <Compile Include="TasteometerServices\ITasteometerServices.cs" />
+    <Compile Include="TasteometerServices\ITasteometerServicesApi.cs" />
+    <Compile Include="TrackServices\ITrackServices.cs" />
+    <Compile Include="TrackServices\ITrackServicesApi.cs" />
     <Compile Include="UserServices\IUserServices.cs" />
     <Compile Include="UserServices\IUserServicesApi.cs" />
     <Compile Include="UserServices\UserServicesClient.cs" />
+    <Compile Include="VenueServices\IVenueServices.cs" />
+    <Compile Include="VenueServices\IVenueServicesApi.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ArtistServices\" />
-    <Folder Include="AuthServices\" />
-    <Folder Include="ChartServices\" />
-    <Folder Include="EventServices\" />
-    <Folder Include="GeoServices\" />
-    <Folder Include="GroupServices\" />
-    <Folder Include="LibraryServices\" />
-    <Folder Include="PlaylistServices\" />
-    <Folder Include="RadioServices\" />
-    <Folder Include="TagServices\" />
-    <Folder Include="TasteometerServices\" />
-    <Folder Include="TrackServices\" />
-    <Folder Include="VenueServices\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
