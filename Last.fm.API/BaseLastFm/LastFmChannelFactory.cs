@@ -3,10 +3,12 @@ using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Description;
 
-namespace Last.fm.API.Channel
+namespace Last.fm.API.BaseLastFm
 {
     internal class LastFmChannelFactory<TChannel> : ChannelFactory<TChannel>
     {
+        #region Private
+
         private LastFmChannelFactory()
         {
             InitializeEndpoint();
@@ -48,18 +50,20 @@ namespace Last.fm.API.Channel
             InitializeEndpoint();
         }
 
-        public LastFmChannelFactory(Binding binding)
-            : base(binding)
-        {
-            InitializeEndpoint();
-        }
-
         private void InitializeEndpoint()
         {
             Endpoint.Address = new EndpointAddress("http://ws.audioscrobbler.com/2.0/");
             Endpoint.Behaviors.Add(new WebHttpBehavior());
         }
 
+        #endregion
+
+        public LastFmChannelFactory(Binding binding)
+            : base(binding)
+        {
+            InitializeEndpoint();
+        }
+        
         public new TChannel CreateChannel()
         {
             TChannel channel = base.CreateChannel();

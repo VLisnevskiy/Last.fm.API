@@ -1,4 +1,4 @@
-﻿namespace Last.fm.API.Channel
+﻿namespace Last.fm.API.BaseLastFm
 {
     public interface IApiKey
     {

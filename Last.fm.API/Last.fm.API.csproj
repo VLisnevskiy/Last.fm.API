@@ -51,10 +51,12 @@
     <Compile Include="ArtistServices\IArtistServicesApi.cs" />
     <Compile Include="AuthServices\IAuthServices.cs" />
     <Compile Include="AuthServices\IAuthServicesApi.cs" />
-    <Compile Include="Channel\BaseLastFmClient.cs" />
-    <Compile Include="Channel\IApiKey.cs" />
-    <Compile Include="Channel\LastFmChannelFactory.cs" />
-    <Compile Include="Channel\LastFmServicesHolder.cs" />
+    <Compile Include="BaseLastFm\BaseLastFmClient.cs" />
+    <Compile Include="BaseLastFm\ServicesError.cs" />
+    <Compile Include="BaseLastFm\IApiKey.cs" />
+    <Compile Include="BaseLastFm\LastFmChannelFactory.cs" />
+    <Compile Include="BaseLastFm\LastFmError.cs" />
+    <Compile Include="BaseLastFm\LastFmServicesHolder.cs" />
     <Compile Include="ChartServices\IChartServices.cs" />
     <Compile Include="ChartServices\IChartServicesApi.cs" />
     <Compile Include="EventServices\IEventServices.cs" />

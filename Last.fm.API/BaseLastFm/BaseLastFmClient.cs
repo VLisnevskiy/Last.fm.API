@@ -1,19 +1,50 @@
 ﻿using System;
 using System.ServiceModel.Channels;
 
-namespace Last.fm.API.Channel
+namespace Last.fm.API.BaseLastFm
 {
+    /// <summary>
+    /// Base client to call Last.fm services
+    /// </summary>
+    /// <typeparam name="TChannel">Type of using channel</typeparam>
     internal abstract class BaseLastFmClient<TChannel> : IDisposable, IApiKey
     {
+        /// <summary>
+        /// Using Channel
+        /// </summary>
         protected TChannel Channel { get; set; }
 
         protected BaseLastFmClient(string apiKey)
         {
             ApiKey = apiKey;
             Channel = LastFmServicesHolder.CreateChannel<TChannel>();
+            disposed = false;
         }
 
-        private bool disposed = false;
+        /// <summary>
+        /// Base method to call services
+        /// </summary>
+        /// <typeparam name="T">Type of needed response</typeparam>
+        /// <param name="servicesMethod">Services method</param>
+        /// <returns>Response from services</returns>
+        protected T BaseInvoke<T>(Func<T> servicesMethod)
+        {
+            T response;
+            try
+            {
+                response = servicesMethod();
+            }
+            catch (Exception e)
+            {
+                throw new LastFmError(e);
+            }
+
+            return response;
+        }
+
+        #region IDisposable
+
+        private bool disposed;
 
         public void Dispose()
         {
@@ -56,6 +87,12 @@ namespace Last.fm.API.Channel
             Dispose(false);
         }
 
+        #endregion
+
+        #region IApiKey
+
         public string ApiKey { get; set; }
+
+        #endregion
     }
 }

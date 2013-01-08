@@ -1,7 +1,7 @@
 ﻿using System.ServiceModel;
 using Last.fm.API.UserServices;
 
-namespace Last.fm.API.Channel
+namespace Last.fm.API.BaseLastFm
 {
     public static class LastFmServicesHolder
     {

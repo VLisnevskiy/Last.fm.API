@@ -1,7 +1,7 @@
 ﻿using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Xml;
-using Last.fm.API.Channel;
+using Last.fm.API.BaseLastFm;
 
 namespace Last.fm.API.AlbumServices
 {

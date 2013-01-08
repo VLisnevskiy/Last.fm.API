@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Last.fm.API.Channel;
+using Last.fm.API.BaseLastFm;
 using Last.fm.API.UserServices;
 
 namespace Last.fm.API
@@ -16,6 +16,7 @@ namespace Last.fm.API
                 try
                 {
                     var res = userServices.GetRecentTracks("jimmy_smile");
+                    Console.WriteLine(res);
                 }
                 catch (Exception)
                 {
@@ -24,6 +25,7 @@ namespace Last.fm.API
                 }
             }
 
+            
             Console.ReadKey();
         }
     }

@@ -1,12 +1,12 @@
 ﻿using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Xml;
-using Last.fm.API.Channel;
+using Last.fm.API.BaseLastFm;
 
 namespace Last.fm.API.UserServices
 {
     [ServiceContract]
-    [XmlSerializerFormat(Style = OperationFormatStyle.Document, SupportFaults = true)]
+    [XmlSerializerFormat]
     internal interface IUserServicesApi : IApiKey
     {
         #region Don't use User Authentication
@@ -33,7 +33,7 @@ namespace Last.fm.API.UserServices
             UriTemplate = "?method=user.getRecentTracks&raw=true" +
                           "&api_key={apiKey}" +
                           "&user={user}")]
-        XmlElement GetRecentTracks(string apiKey, string user);
+        XmlDocument GetRecentTracks(string apiKey, string user);
 
         #endregion
 

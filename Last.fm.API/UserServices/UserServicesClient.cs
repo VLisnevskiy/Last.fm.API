@@ -7,7 +7,8 @@ using System.ServiceModel;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
-using Last.fm.API.Channel;
+using System.Xml.Serialization;
+using Last.fm.API.BaseLastFm;
 
 namespace Last.fm.API.UserServices
 {
@@ -20,35 +21,22 @@ namespace Last.fm.API.UserServices
 
         #region IUserServices methods
 
-        public XmlElement GetRecentTracks(string user)
+        public XmlDocument GetRecentTracks(string user)
         {
-            XmlElement res;
-            try
-            {
-                res = Channel.GetRecentTracks(ApiKey, user);
-            }
-            catch (ProtocolException e)
-            {
-                HttpWebResponse rep = (HttpWebResponse)(((WebException)e.InnerException).Response);
-                Stream stream = rep.GetResponseStream();
-
-                var xml = XDocument.Load(rep.GetResponseStream());
-
-                throw;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-
+            XmlDocument res = BaseInvoke(() => Channel.GetRecentTracks(ApiKey, user));
             return res;
         }
 
         #endregion
 
+        #region IDisposable
+
         ~UserServicesClient()
         {
             Dispose(false);
         }
+
+        #endregion
+
     }
 }
