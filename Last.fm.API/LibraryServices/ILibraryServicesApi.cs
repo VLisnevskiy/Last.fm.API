@@ -2,7 +2,7 @@
 
 namespace Last.fm.API.LibraryServices
 {
-    internal interface ILibraryServicesApi : IApiKey
+    internal interface ILibraryServicesApi : IApiKeys
     {
     }
 }

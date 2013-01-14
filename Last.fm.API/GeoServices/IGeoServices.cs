@@ -2,7 +2,7 @@
 
 namespace Last.fm.API.GeoServices
 {
-    public interface IGeoServices : IApiKey
+    public interface IGeoServices : IApiKeys
     {
     }
 }

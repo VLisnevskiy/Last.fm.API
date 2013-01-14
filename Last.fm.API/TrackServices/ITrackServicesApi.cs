@@ -2,7 +2,7 @@
 
 namespace Last.fm.API.TrackServices
 {
-    internal interface ITrackServicesApi : IApiKey
+    internal interface ITrackServicesApi : IApiKeys
     {
     }
 }

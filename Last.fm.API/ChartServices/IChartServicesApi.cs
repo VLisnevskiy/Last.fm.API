@@ -2,7 +2,7 @@
 
 namespace Last.fm.API.ChartServices
 {
-    internal interface IChartServicesApi : IApiKey
+    internal interface IChartServicesApi : IApiKeys
     {
     }
 }

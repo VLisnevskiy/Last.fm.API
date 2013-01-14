@@ -2,7 +2,7 @@
 
 namespace Last.fm.API.ArtistServices
 {
-    internal interface IArtistServicesApi : IApiKey
+    internal interface IArtistServicesApi : IApiKeys
     {
     }
 }

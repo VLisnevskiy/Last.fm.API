@@ -2,7 +2,7 @@
 
 namespace Last.fm.API.TasteometerServices
 {
-    internal interface ITasteometerServicesApi : IApiKey
+    internal interface ITasteometerServicesApi : IApiKeys
     {
     }
 }

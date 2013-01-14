@@ -7,7 +7,7 @@ namespace Last.fm.API.UserServices
     /// <summary>
     /// Set of API Methods for User section
     /// </summary>
-    public interface IUserServices : IApiKey, IDisposable
+    public interface IUserServices : IApiKeys, IDisposable
     {
         #region user.getRecentTracks
 
@@ -27,65 +27,65 @@ namespace Last.fm.API.UserServices
 
         #endregion
 
-        #region user.getArtistTracks
+        //#region user.getArtistTracks
 
-        /*
-         * user (Required) : The last.fm username to fetch the recent tracks of.
-         * artist (Required) : The artist name you are interested in
-         * startTimestamp (Optional) : An unix timestamp to start at.
-         * page (Optional) : The page number to fetch. Defaults to first page.
-         * endTimestamp (Optional) : An unix timestamp to end at.
-         * 
-         * api_key (Required) : A Last.fm API key. 
-         * 
-         */
-        XmlDocument GetArtistTracks(string user, string artist, int? page = null, DateTime? endTimestamp = null);
+        ///*
+        // * user (Required) : The last.fm username to fetch the recent tracks of.
+        // * artist (Required) : The artist name you are interested in
+        // * startTimestamp (Optional) : An unix timestamp to start at.
+        // * page (Optional) : The page number to fetch. Defaults to first page.
+        // * endTimestamp (Optional) : An unix timestamp to end at.
+        // * 
+        // * api_key (Required) : A Last.fm API key. 
+        // * 
+        // */
+        //XmlDocument GetArtistTracks(string user, string artist, int? page = null, DateTime? endTimestamp = null);
 
-        #endregion
+        //#endregion
 
-        #region user.getBannedTracks
+        //#region user.getBannedTracks
 
-        /*
-         * user (Required) : The user name
-         * limit (Optional) : The number of results to fetch per page. Defaults to 50.
-         * page (Optional) : The page number to fetch. Defaults to first page.
-         * 
-         * api_key (Required) : A Last.fm API key.
-         * 
-         */
-        XmlDocument GetBannedTracks(string user, int? limit = null, int? page = null);
+        ///*
+        // * user (Required) : The user name
+        // * limit (Optional) : The number of results to fetch per page. Defaults to 50.
+        // * page (Optional) : The page number to fetch. Defaults to first page.
+        // * 
+        // * api_key (Required) : A Last.fm API key.
+        // * 
+        // */
+        //XmlDocument GetBannedTracks(string user, int? limit = null, int? page = null);
 
-        #endregion
+        //#endregion
 
-        #region user.getEvents
+        //#region user.getEvents
 
-        /*
-         * user (Required) : The user to fetch the events for.
-         * page (Optional) : The page number to fetch. Defaults to first page.
-         * festivalsonly[0|1] (Optional) : Whether only festivals should be returned, or all events.
-         * limit (Optional) : The number of results to fetch per page. Defaults to 50.
-         * 
-         * api_key (Required) : A Last.fm API key.
-         * 
-         */
-        XmlDocument GetEvents(string user, int? page = null, byte? festivalsonly = null, int? limit = null);
+        ///*
+        // * user (Required) : The user to fetch the events for.
+        // * page (Optional) : The page number to fetch. Defaults to first page.
+        // * festivalsonly[0|1] (Optional) : Whether only festivals should be returned, or all events.
+        // * limit (Optional) : The number of results to fetch per page. Defaults to 50.
+        // * 
+        // * api_key (Required) : A Last.fm API key.
+        // * 
+        // */
+        //XmlDocument GetEvents(string user, int? page = null, byte? festivalsonly = null, int? limit = null);
 
-        #endregion
+        //#endregion
 
-        #region user.getFriends
+        //#region user.getFriends
 
-        /*
-         * user (Required) : The last.fm username to fetch the friends of.
-         * recenttracks [0/1](Optional) : Whether or not to include information about friends' recent listening in the response.
-         * limit (Optional) : The number of results to fetch per page. Defaults to 50.
-         * page (Optional) : The page number to fetch. Defaults to first page.
-         * 
-         * api_key (Required) : A Last.fm API key.
-         * 
-         */
-        XmlDocument GetFriends(string user, int? page = null, byte? recenttracks = 0, int? limit = null);
+        ///*
+        // * user (Required) : The last.fm username to fetch the friends of.
+        // * recenttracks [0/1](Optional) : Whether or not to include information about friends' recent listening in the response.
+        // * limit (Optional) : The number of results to fetch per page. Defaults to 50.
+        // * page (Optional) : The page number to fetch. Defaults to first page.
+        // * 
+        // * api_key (Required) : A Last.fm API key.
+        // * 
+        // */
+        //XmlDocument GetFriends(string user, int? page = null, byte? recenttracks = 0, int? limit = null);
 
-        #endregion
+        //#endregion
 
         #region user.getInfo
 
@@ -99,75 +99,75 @@ namespace Last.fm.API.UserServices
 
         #endregion
 
-        #region user.getLovedTracks
+        //#region user.getLovedTracks
 
-        /*
-         * user (Required) : The user name to fetch the loved tracks for.
-         * limit (Optional) : The number of results to fetch per page. Defaults to 50.
-         * page (Optional) : The page number to fetch. Defaults to first page.
-         * 
-         * api_key (Required) : A Last.fm API key.
-         * 
-         */
-        XmlDocument GetLovedTracks(string user, int? limit = null, int? page = null);
+        ///*
+        // * user (Required) : The user name to fetch the loved tracks for.
+        // * limit (Optional) : The number of results to fetch per page. Defaults to 50.
+        // * page (Optional) : The page number to fetch. Defaults to first page.
+        // * 
+        // * api_key (Required) : A Last.fm API key.
+        // * 
+        // */
+        //XmlDocument GetLovedTracks(string user, int? limit = null, int? page = null);
 
-        #endregion
+        //#endregion
 
-        #region user.getNeighbours
+        //#region user.getNeighbours
 
-        /*
-         * user (Required) : The last.fm username to fetch the neighbours of.
-         * limit (Optional) : The number of results to fetch per page. Defaults to 50.
-         * 
-         * api_key (Required) : A Last.fm API key.
-         * 
-         */
-        XmlDocument GetNeighbours(string user, int? limit = null);
+        ///*
+        // * user (Required) : The last.fm username to fetch the neighbours of.
+        // * limit (Optional) : The number of results to fetch per page. Defaults to 50.
+        // * 
+        // * api_key (Required) : A Last.fm API key.
+        // * 
+        // */
+        //XmlDocument GetNeighbours(string user, int? limit = null);
 
-        #endregion
+        //#endregion
 
-        #region user.getNewReleases
+        //#region user.getNewReleases
 
-        /*
-         * user (Required) : The Last.fm username.
-         * userecs (Optional) : 0 or 1. If 1, the feed contains new releases based on Last.fm's artist recommendations for this user. Otherwise, it is based on their library (the default).
-         * 
-         * api_key (Required) : A Last.fm API key.
-         * 
-         */
-        XmlDocument GetNewReleases(string user, byte? userecs = 0);
+        ///*
+        // * user (Required) : The Last.fm username.
+        // * userecs (Optional) : 0 or 1. If 1, the feed contains new releases based on Last.fm's artist recommendations for this user. Otherwise, it is based on their library (the default).
+        // * 
+        // * api_key (Required) : A Last.fm API key.
+        // * 
+        // */
+        //XmlDocument GetNewReleases(string user, byte? userecs = 0);
 
-        #endregion
+        //#endregion
 
-        #region user.getPastEvents
+        //#region user.getPastEvents
 
-        /*
-         * user (Required) : The username to fetch the events for.
-         * page (Optional) : The page number to scan to.
-         * limit (Optional) : The number of results to fetch per page. Defaults to 50.
-         * 
-         * api_key (Required) : A Last.fm API key.
-         * 
-         */
-        XmlDocument GetPastEvents(string user, int? limit = null, int? page = null);
+        ///*
+        // * user (Required) : The username to fetch the events for.
+        // * page (Optional) : The page number to scan to.
+        // * limit (Optional) : The number of results to fetch per page. Defaults to 50.
+        // * 
+        // * api_key (Required) : A Last.fm API key.
+        // * 
+        // */
+        //XmlDocument GetPastEvents(string user, int? limit = null, int? page = null);
 
-        #endregion
+        //#endregion
 
-        #region user.getPersonalTags
+        //#region user.getPersonalTags
 
-        /*
-         * user (Required) : The user who performed the taggings.
-         * tag (Required) : The tag you're interested in.
-         * taggingType[artist|album|track] (Required) : The type of items which have been tagged
-         * limit (Optional) : The number of results to fetch per page. Defaults to 50.
-         * page (Optional) : The page number to fetch. Defaults to first page.
-         * 
-         * api_key (Required) : A Last.fm API key.
-         * 
-         */
-        XmlDocument GetPersonalTags(string user, string tag, TaggingType taggingType, int? limit = null, int? page = null);
+        ///*
+        // * user (Required) : The user who performed the taggings.
+        // * tag (Required) : The tag you're interested in.
+        // * taggingType[artist|album|track] (Required) : The type of items which have been tagged
+        // * limit (Optional) : The number of results to fetch per page. Defaults to 50.
+        // * page (Optional) : The page number to fetch. Defaults to first page.
+        // * 
+        // * api_key (Required) : A Last.fm API key.
+        // * 
+        // */
+        //XmlDocument GetPersonalTags(string user, string tag, TaggingType taggingType, int? limit = null, int? page = null);
 
-        #endregion
+        //#endregion
 
     }
 }

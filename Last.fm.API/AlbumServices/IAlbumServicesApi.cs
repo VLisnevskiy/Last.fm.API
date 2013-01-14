@@ -7,7 +7,7 @@ namespace Last.fm.API.AlbumServices
 {
     [ServiceContract]
     [XmlSerializerFormat(Style = OperationFormatStyle.Document, SupportFaults = true)]
-    internal interface IAlbumServicesApi : IApiKey
+    internal interface IAlbumServicesApi : IApiKeys
     {
         #region Don't use User Authentication
 

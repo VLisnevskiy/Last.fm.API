@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 
 namespace Last.fm.API.BaseLastFm
 {
-    [XmlType(AnonymousType = true)]
+    //[XmlType(AnonymousType = true)]
     [XmlRoot("error", IsNullable = true)]
     public class ServicesError
     {

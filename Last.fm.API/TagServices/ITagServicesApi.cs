@@ -2,7 +2,7 @@
 
 namespace Last.fm.API.TagServices
 {
-    internal interface ITagServicesApi : IApiKey
+    internal interface ITagServicesApi : IApiKeys
     {
     }
 }

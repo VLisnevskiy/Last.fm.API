@@ -2,7 +2,7 @@
 
 namespace Last.fm.API.GroupServices
 {
-    public interface IGroupServices : IApiKey
+    public interface IGroupServices : IApiKeys
     {
     }
 }

@@ -53,7 +53,7 @@ namespace Last.fm.API.BaseLastFm
         private void InitializeEndpoint()
         {
             Endpoint.Address = new EndpointAddress("http://ws.audioscrobbler.com/2.0/");
-            Endpoint.Behaviors.Add(new WebHttpBehavior());
+            Endpoint.Behaviors.Add(new LastFmHttpBehavior());
         }
 
         #endregion
@@ -63,12 +63,103 @@ namespace Last.fm.API.BaseLastFm
         {
             InitializeEndpoint();
         }
-        
+
         public new TChannel CreateChannel()
         {
             TChannel channel = base.CreateChannel();
             ((IClientChannel)channel).Open();
             return channel;
+        }
+    }
+
+    internal class LastFmHttpBehavior : WebHttpBehavior
+    {
+        protected override System.ServiceModel.Dispatcher.QueryStringConverter GetQueryStringConverter(OperationDescription operationDescription)
+        {
+            return new CustomQueryStringConverter();
+        }
+    }
+
+    internal class CustomQueryStringConverter : System.ServiceModel.Dispatcher.QueryStringConverter
+    {
+        public override bool CanConvert(Type type)
+        {
+            if (type == typeof(string[]))
+            {
+                return true;
+            }
+
+            if (type == typeof(double?))
+            {
+                return true;
+            }
+
+            if (type == typeof(int?))
+            {
+                return true;
+            }
+
+            if (type == typeof(byte?))
+            {
+                return true;
+            }
+
+            return base.CanConvert(type);
+        }
+
+        public override object ConvertStringToValue(string parameter, Type parameterType)
+        {
+            if (parameterType == typeof(string[]))
+            {
+                string[] parms = parameter.Split(',');
+                return parms;
+            }
+
+            if (parameterType == typeof(double?))
+            {
+                return parameter;
+            }
+
+            if (parameterType == typeof(int?))
+            {
+                return parameter;
+            }
+
+            if (parameterType == typeof(byte?))
+            {
+                return parameter;
+            }
+
+            return base.ConvertStringToValue(parameter, parameterType);
+        }
+
+        public override string ConvertValueToString(object parameter, Type parameterType)
+        {
+            if (parameterType == typeof(string[]))
+            {
+                string valstring = string.Join(",", (string[])parameter);
+                return valstring;
+            }
+
+            if (parameterType == typeof(double?))
+            {
+                double? val = (double?)parameter;
+                return val == null ? string.Empty:val.ToString();
+            }
+
+            if (parameterType == typeof (int?))
+            {
+                int? val = (int?) parameter;
+                return val == null ? string.Empty : val.ToString();
+            }
+
+            if (parameterType == typeof(byte?))
+            {
+                byte? val = (byte?)parameter;
+                return val == null ? string.Empty : val.ToString();
+            }
+
+            return base.ConvertValueToString(parameter, parameterType);
         }
     }
 }

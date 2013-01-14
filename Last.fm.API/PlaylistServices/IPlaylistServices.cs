@@ -2,7 +2,7 @@
 
 namespace Last.fm.API.PlaylistServices
 {
-    public interface IPlaylistServices : IApiKey
+    public interface IPlaylistServices : IApiKeys
     {
     }
 }

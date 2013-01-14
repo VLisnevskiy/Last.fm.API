@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ServiceModel;
 using System.ServiceModel.Channels;
 
 namespace Last.fm.API.BaseLastFm
@@ -7,7 +8,7 @@ namespace Last.fm.API.BaseLastFm
     /// Base client to call Last.fm services
     /// </summary>
     /// <typeparam name="TChannel">Type of using channel</typeparam>
-    internal abstract class BaseLastFmClient<TChannel> : IDisposable, IApiKey
+    internal abstract class BaseLastFmClient<TChannel> : IDisposable, IApiKeys
     {
         /// <summary>
         /// Using Channel
@@ -16,9 +17,23 @@ namespace Last.fm.API.BaseLastFm
 
         protected BaseLastFmClient(string apiKey)
         {
-            ApiKey = apiKey;
-            Channel = LastFmServicesHolder.CreateChannel<TChannel>();
+            this.apiKey = apiKey;
+            apiSig = null;
+            Channel = CreateChannel<TChannel>();
             disposed = false;
+        }
+
+        protected BaseLastFmClient(string apiKey, string apiSig)
+        {
+            this.apiKey = apiKey;
+            this.apiSig = apiSig;
+            Channel = CreateChannel<TChannel>();
+            disposed = false;
+        }
+
+        internal static T CreateChannel<T>()
+        {
+            return new LastFmChannelFactory<T>(new WebHttpBinding()).CreateChannel();
         }
 
         /// <summary>
@@ -89,9 +104,15 @@ namespace Last.fm.API.BaseLastFm
 
         #endregion
 
-        #region IApiKey
+        #region IApiKeys
 
-        public string ApiKey { get; set; }
+        private readonly string apiKey;
+
+        public string ApiKey { get { return apiKey; }}
+
+        private readonly string apiSig;
+
+        public string ApiSig{get { return apiSig; }}
 
         #endregion
     }
