@@ -31,7 +31,7 @@ namespace TestProgram
                 try
                 {
                     var r = proxy.GetInfo("jimmy_smile");
-                    var r1 = proxy.GetRecentTracks("jimmy_smile+6",page:2);
+                    var r1 = proxy.GetRecentTracks("jimmy_smile",page:2);
                 }
                 catch (LastFmError e)
                 {

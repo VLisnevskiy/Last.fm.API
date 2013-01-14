@@ -71,6 +71,8 @@
     <Compile Include="BaseLastFm\BaseLastFmClient.cs" />
     <Compile Include="BaseLastFm\Constants.cs" />
     <Compile Include="BaseLastFm\LastFmHelpers.cs" />
+    <Compile Include="BaseLastFm\LastFmHttpBehavior.cs" />
+    <Compile Include="BaseLastFm\LastFmQueryStringConverter.cs" />
     <Compile Include="BaseLastFm\ServicesError.cs" />
     <Compile Include="BaseLastFm\IApiKeys.cs" />
     <Compile Include="BaseLastFm\LastFmChannelFactory.cs" />
