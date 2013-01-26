@@ -1,36 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml;
-using Last.fm.API.BaseLastFm;
+﻿using Last.fm.API.BaseLastFm;
 
 namespace Last.fm.API.AuthServices
 {
-    class AuthServicesClient : BaseLastFmClient<IAuthServicesApi>, IAuthServices
+    internal class AuthServicesClient : BaseLastFmClient<IAuthServicesApi>, IAuthServices
     {
         public AuthServicesClient(string apiKey, string apiSig)
             : base(apiKey, apiSig)
         {
         }
-
+        
         #region IAuthServices methods
 
-        public XmlDocument GetMobileSession(string password, string username)
+        public AuthSession GetMobileSession(string password, string username)
         {
-            var result = BaseInvoke(() => Channel.GetMobileSession(ApiKey, ApiSig, password, username));
+            username = username.ToLowerInvariant();
+            string authToken = GetAuthToken(password, username);
+            string apiSig = BuildSig(SigMobileSession, authToken, MtN.Auth.MobileSession, username);
+            var result = Invoke(() => Channel.GetMobileSession(ApiKey, apiSig, authToken, username));
             return result;
         }
 
-        public XmlDocument GetToken()
+        public AuthToken GetToken()
         {
-            var result = BaseInvoke(() => Channel.GetToken(ApiKey, ApiSig));
+            string apiSig = BuildSig(SigToken, MtN.Auth.Token);
+            var result = Invoke(() => Channel.GetToken(ApiKey, apiSig)).SetUrl(ApiKey);
             return result;
         }
 
-        public XmlDocument GetSession(string token)
+        public AuthSession GetSession(string token)
         {
-            var result = BaseInvoke(() => Channel.GetSession(ApiKey, ApiSig, token));
+            string apiSig = BuildSig(SigSession, MtN.Auth.Session, token);
+            var result = Invoke(() => Channel.GetSession(ApiKey, apiSig, token));
             return result;
         }
 
@@ -44,5 +44,11 @@ namespace Last.fm.API.AuthServices
         }
 
         #endregion
+        
+        internal const string SigMobileSession = "api_key{0}authToken{1}method{2}rawtrueusername{3}{4}";
+        
+        internal const string SigSession = "api_key{0}method{1}rawtruetoken{2}{3}";
+
+        internal const string SigToken = "api_key{0}method{1}rawtrue{2}";
     }
 }

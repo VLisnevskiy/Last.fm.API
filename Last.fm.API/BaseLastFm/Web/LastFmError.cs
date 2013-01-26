@@ -1,9 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using System.Text;
 using System.Xml.Serialization;
 
-namespace Last.fm.API.BaseLastFm
+namespace Last.fm.API.BaseLastFm.Web
 {
     /// <summary>
     /// 
@@ -35,7 +36,7 @@ namespace Last.fm.API.BaseLastFm
             Error = GetBaseResponse(innerException);
             HelpLink = "http://www.last.fm/api/errorcodes";
         }
-        
+
         private ServicesError GetBaseResponse(Exception innerException)
         {
             WebException webException = (WebException)innerException.InnerException;

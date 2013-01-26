@@ -1,12 +1,12 @@
 ﻿using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 
-namespace Last.fm.API.BaseLastFm
+namespace Last.fm.API.BaseLastFm.Web
 {
-    //[XmlType(AnonymousType = true)]
     /// <summary>
     /// Class ServicesError
     /// </summary>
+    [XmlType(AnonymousType = true)]
     [XmlRoot("error", IsNullable = true)]
     public class ServicesError
     {

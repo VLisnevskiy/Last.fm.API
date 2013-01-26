@@ -1,6 +1,8 @@
 ﻿using System;
-using System.ServiceModel;
+using System.Security.Cryptography;
 using System.ServiceModel.Channels;
+using System.Text;
+using Last.fm.API.BaseLastFm.Web;
 
 namespace Last.fm.API.BaseLastFm
 {
@@ -8,32 +10,37 @@ namespace Last.fm.API.BaseLastFm
     /// Base client to call Last.fm services
     /// </summary>
     /// <typeparam name="TChannel">Type of using channel</typeparam>
-    internal abstract class BaseLastFmClient<TChannel> : IDisposable, IApiKeys
+    public abstract class BaseLastFmClient<TChannel> : IDisposable, IApiKeys
     {
         /// <summary>
         /// Using Channel
         /// </summary>
-        protected TChannel Channel { get; set; }
+        public TChannel Channel { get; protected set; }
 
         protected BaseLastFmClient(string apiKey)
         {
             this.apiKey = apiKey;
-            apiSig = null;
             Channel = CreateChannel<TChannel>();
             disposed = false;
         }
 
         protected BaseLastFmClient(string apiKey, string apiSig)
+            : this(apiKey)
         {
-            this.apiKey = apiKey;
             this.apiSig = apiSig;
-            Channel = CreateChannel<TChannel>();
-            disposed = false;
         }
-
-        internal static T CreateChannel<T>()
+        
+        
+        /// <summary>
+        /// Creates a channel of a specified type to a specified endpoint address.
+        /// </summary>
+        /// <typeparam name="T">Type of using channel</typeparam>
+        /// <returns>
+        /// The <paramref><name>T</name></paramref> of type <see cref="T:System.ServiceModel.Channels.IChannel"/> created by the factory.
+        /// </returns>
+        public static T CreateChannel<T>()
         {
-            return new LastFmChannelFactory<T>(new WebHttpBinding()).CreateChannel();
+            return new LastFmChannelFactory<T>().CreateChannel();
         }
 
         /// <summary>
@@ -42,7 +49,7 @@ namespace Last.fm.API.BaseLastFm
         /// <typeparam name="T">Type of needed response</typeparam>
         /// <param name="servicesMethod">Services method</param>
         /// <returns>Response from services</returns>
-        protected T BaseInvoke<T>(Func<T> servicesMethod)
+        protected T Invoke<T>(Func<T> servicesMethod)
         {
             T response;
             try
@@ -55,6 +62,37 @@ namespace Last.fm.API.BaseLastFm
             }
 
             return response;
+        }
+
+        protected string GetAuthToken(string password, string username)
+        {
+            return CreateSignature(username + CreateSignature(password));
+        }
+
+        protected string BuildSig(string formater, params object[] args)
+        {
+            object[] param = new object[args.Length + 2];
+            param[0] = ApiKey;
+            for (int i = 0; i < args.Length; i++)
+            {
+                param[i + 1] = args[i];
+            }
+
+            param[param.Length - 1] = ApiSig;
+            return CreateSignature(string.Format(formater, param));
+        }
+
+        protected string CreateSignature(string parameters)
+        {
+            string res = string.Empty;
+            byte[] hash = new MD5CryptoServiceProvider()
+                .ComputeHash(Encoding.UTF8.GetBytes(parameters));
+            foreach (byte b in hash)
+            {
+                res += b.ToString("x2");
+            }
+
+            return res;
         }
 
         #region IDisposable
@@ -75,7 +113,7 @@ namespace Last.fm.API.BaseLastFm
         protected virtual void Dispose(bool disposing)
         {
             // Check to see if Dispose has already been called. 
-            if (!this.disposed)
+            if (!disposed)
             {
                 // If disposing equals true, dispose all managed 
                 // and unmanaged resources. 
@@ -108,11 +146,11 @@ namespace Last.fm.API.BaseLastFm
 
         private readonly string apiKey;
 
-        public string ApiKey { get { return apiKey; }}
+        public string ApiKey { get { return apiKey; } }
 
         private readonly string apiSig;
 
-        public string ApiSig{get { return apiSig; }}
+        public string ApiSig { get { return apiSig; } }
 
         #endregion
     }

@@ -28,7 +28,7 @@ namespace Last.fm.API.UserServices
          */
         [OperationContract]
         [WebInvoke(Method = "GET", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Xml,
-            UriTemplate = "?method=user.getRecentTracks&raw=true&api_key={apiKey}&user={user}&limit={limit}&page={page}&extended={extended}&from={from}&to={to}")]
+            UriTemplate = "?method=" + MtN.User.RecentTracks + "&raw=true&api_key={apiKey}&user={user}&limit={limit}&page={page}&extended={extended}&from={from}&to={to}")]
         XmlDocument GetRecentTracks(string apiKey, string user, int? limit = null, int? page = null, byte? extended = null, double? from = null, double? to = null);
 
         #endregion
@@ -115,7 +115,7 @@ namespace Last.fm.API.UserServices
          */
         [OperationContract]
         [WebInvoke(Method = "GET", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Xml,
-            UriTemplate = "?method=user.getInfo&raw=true&api_key={apiKey}&user={user}")]
+            UriTemplate = "?method=" + MtN.User.Info + "&raw=true&api_key={apiKey}&user={user}")]
         XmlDocument GetInfo(string apiKey, string user);
         
         #endregion

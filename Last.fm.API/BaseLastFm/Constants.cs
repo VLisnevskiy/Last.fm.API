@@ -11,7 +11,7 @@ namespace Last.fm.API.BaseLastFm
     public static class Constants
     {
         /// <summary>
-        /// "?method="
+        /// "method="
         /// </summary>
         public const string METHOD = "?method=";
 

@@ -1,5 +1,4 @@
-﻿using System.ServiceModel;
-using Last.fm.API.AuthServices;
+﻿using Last.fm.API.AuthServices;
 using Last.fm.API.UserServices;
 
 namespace Last.fm.API.BaseLastFm
@@ -42,7 +41,7 @@ namespace Last.fm.API.BaseLastFm
         {
             _apiSig = apiSig;
         }
-
+        
         #endregion
 
         #region Public Methods
@@ -75,7 +74,7 @@ namespace Last.fm.API.BaseLastFm
         {
             return new AuthServicesClient(_apiKey, _apiSig);
         }
-
+        
         /// <summary>
         /// 
         /// </summary>
@@ -84,11 +83,9 @@ namespace Last.fm.API.BaseLastFm
         /// <returns></returns>
         public static IAuthServices CreateAuthServicesClientProxy(string apiKey, string apiSig)
         {
-            _apiKey = apiKey;
-            _apiSig = apiSig;
-            return new AuthServicesClient(_apiKey, _apiSig);
+            return new AuthServicesClient(_apiKey = apiKey, _apiSig = apiSig);
         }
-
+        
         #endregion
     }
 }

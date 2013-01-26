@@ -21,8 +21,8 @@ namespace Last.fm.API.AuthServices
          */
         [OperationContract]
         [WebInvoke(Method = "POST", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Xml,
-            UriTemplate = "?method=auth.getMobileSession&raw=true&api_key={apiKey}&password={password}&api_sig={apiSig}&username={username}")]
-        XmlDocument GetMobileSession(string apiKey, string apiSig, string password, string username);
+            UriTemplate = "?method=auth.getMobileSession&raw=true&api_key={apiKey}&authToken={authToken}&username={username}&api_sig={apiSig}")]
+        AuthSession GetMobileSession(string apiKey, string apiSig, string authToken, string username);
 
         #endregion
 
@@ -37,7 +37,7 @@ namespace Last.fm.API.AuthServices
         [OperationContract]
         [WebInvoke(Method = "POST", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Xml,
             UriTemplate = "?method=auth.getToken&raw=true&api_key={apiKey}&api_sig={apiSig}")]
-        XmlDocument GetToken(string apiKey, string apiSig);
+        AuthToken GetToken(string apiKey, string apiSig);
 
         #endregion
 
@@ -54,10 +54,8 @@ namespace Last.fm.API.AuthServices
         [OperationContract]
         [WebInvoke(Method = "POST", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Xml,
             UriTemplate = "?method=auth.getSession&raw=true&api_key={apiKey}&api_sig={apiSig}&token={token}")]
-        XmlDocument GetSession(string apiKey, string apiSig, string token);
+        AuthSession GetSession(string apiKey, string apiSig, string token);
 
         #endregion
     }
-
-
 }

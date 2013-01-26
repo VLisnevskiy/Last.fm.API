@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Xml;
 using Last.fm.API.BaseLastFm;
 
 namespace Last.fm.API.AuthServices
@@ -19,7 +18,13 @@ namespace Last.fm.API.AuthServices
          * api_sig (Required) : A Last.fm method signature. See authentication for more information.
          * 
          */
-        XmlDocument GetMobileSession(string password, string username);
+        /// <summary>
+        /// auth.getMobileSession
+        /// </summary>
+        /// <param name="password"></param>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        AuthSession GetMobileSession(string password, string username);
 
         #endregion
 
@@ -31,7 +36,11 @@ namespace Last.fm.API.AuthServices
          * api_sig (Required) : A Last.fm method signature. See authentication for more information.
          * 
          */
-        XmlDocument GetToken();
+        /// <summary>
+        /// auth.getToken
+        /// </summary>
+        /// <returns></returns>
+        AuthToken GetToken();
 
         #endregion
 
@@ -45,7 +54,12 @@ namespace Last.fm.API.AuthServices
          * api_sig (Required) : A Last.fm method signature. See authentication for more information.
          * 
          */
-        XmlDocument GetSession(string token);
+        /// <summary>
+        /// auth.getSession
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        AuthSession GetSession(string token);
 
         #endregion
     }

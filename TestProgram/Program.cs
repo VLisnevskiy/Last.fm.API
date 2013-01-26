@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Last.fm.API.BaseLastFm;
 using Last.fm.API.AuthServices;
+using Last.fm.API.BaseLastFm.Web;
 
 namespace TestProgram
 {
@@ -15,11 +16,13 @@ namespace TestProgram
             {
                 try
                 {
+                    var t = proxy.GetMobileSession("lastfm1810", "jimmy_Smile");
+
                     var r = proxy.GetToken();
 
-                    string token = "";
+                    string token = r.Token;
 
-                    var r1 = proxy.GetSession(token);
+                    var r1 = proxy.GetSession(r.Token);
                 }
                 catch (LastFmError e)
                 {
