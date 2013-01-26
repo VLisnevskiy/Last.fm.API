@@ -72,7 +72,6 @@
     <Compile Include="AuthServices\IAuthServicesApi.cs" />
     <Compile Include="BaseLastFm\MtN.cs" />
     <Compile Include="BaseLastFm\BaseLastFmClient.cs" />
-    <Compile Include="BaseLastFm\Constants.cs" />
     <Compile Include="BaseLastFm\Web\LastFmClientMessageFormatter.cs" />
     <Compile Include="BaseLastFm\Web\LastFmDispatchMessageFormatter.cs" />
     <Compile Include="BaseLastFm\LastFmHelpers.cs" />
