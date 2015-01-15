@@ -28,8 +28,8 @@ namespace Last.fm.API.UserServices
          */
         [OperationContract]
         [WebInvoke(Method = "GET", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Xml,
-            UriTemplate = "?method=" + MtN.User.RecentTracks + "&raw=true&api_key={apiKey}&user={user}&limit={limit}&page={page}&extended={extended}&from={from}&to={to}")]
-        XmlDocument GetRecentTracks(string apiKey, string user, int? limit = null, int? page = null, byte? extended = null, double? from = null, double? to = null);
+            UriTemplate = "?method=" + MtN.User.RecentTracks + "&api_key={apiKey}&user={user}&limit={limit}&page={page}&extended={extended}&from={from}&to={to}")]
+        BaseResponse GetRecentTracks(string apiKey, string user, int? limit = null, int? page = null, byte? extended = null, double? from = null, double? to = null);
 
         #endregion
 
@@ -47,8 +47,8 @@ namespace Last.fm.API.UserServices
          */
         [OperationContract]
         [WebInvoke(Method = "GET", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Xml,
-            UriTemplate = "?method=user.getArtistTracks&raw=true&api_key={apiKey}&user={user}&artist={artist}&page={page}&endTimestamp={endTimestamp}")]
-        XmlDocument GetArtistTracks(string apiKey, string user, string artist, int? page = null, double? endTimestamp = null);
+            UriTemplate = "?method=user.getArtistTracks&api_key={apiKey}&user={user}&artist={artist}&page={page}&endTimestamp={endTimestamp}")]
+        BaseResponse GetArtistTracks(string apiKey, string user, string artist, int? page = null, double? endTimestamp = null);
         
         #endregion
 
@@ -64,8 +64,8 @@ namespace Last.fm.API.UserServices
          */
         [OperationContract]
         [WebInvoke(Method = "GET", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Xml,
-            UriTemplate = "?method=user.getBannedTracks&raw=true&api_key={apiKey}&user={user}&limit={limit}&page={page}")]
-        XmlDocument GetBannedTracks(string apiKey, string user, int? limit = null, int? page = null);
+            UriTemplate = "?method=user.getBannedTracks&api_key={apiKey}&user={user}&limit={limit}&page={page}")]
+        BaseResponse GetBannedTracks(string apiKey, string user, int? limit = null, int? page = null);
         
         #endregion
 
@@ -82,8 +82,8 @@ namespace Last.fm.API.UserServices
          */
         [OperationContract]
         [WebInvoke(Method = "GET", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Xml,
-            UriTemplate = "?method=user.getEvents&raw=true&api_key={apiKey}&user={user}&page={page}&festivalsonly={festivalsonly}&limit={limit}")]
-        XmlDocument GetEvents(string apiKey, string user, int? page = null, byte? festivalsonly = null, int? limit = null);
+            UriTemplate = "?method=user.getEvents&api_key={apiKey}&user={user}&page={page}&festivalsonly={festivalsonly}&limit={limit}")]
+        BaseResponse GetEvents(string apiKey, string user, int? page = null, byte? festivalsonly = null, int? limit = null);
         
         #endregion
 
@@ -100,8 +100,8 @@ namespace Last.fm.API.UserServices
          */
         [OperationContract]
         [WebInvoke(Method = "GET", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Xml,
-            UriTemplate = "?method=user.getFriends&raw=true&api_key={apiKey}&user={user}&page={page}&recenttracks={recenttracks}&limit={limit}")]
-        XmlDocument GetFriends(string apiKey, string user, int? page = null, byte? recenttracks = 0, int? limit = null);
+            UriTemplate = "?method=user.getFriends&api_key={apiKey}&user={user}&page={page}&recenttracks={recenttracks}&limit={limit}")]
+        BaseResponse GetFriends(string apiKey, string user, int? page = null, byte? recenttracks = 0, int? limit = null);
         
         #endregion
 
@@ -115,8 +115,8 @@ namespace Last.fm.API.UserServices
          */
         [OperationContract]
         [WebInvoke(Method = "GET", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Xml,
-            UriTemplate = "?method=" + MtN.User.Info + "&raw=true&api_key={apiKey}&user={user}")]
-        XmlDocument GetInfo(string apiKey, string user);
+            UriTemplate = "?method=" + MtN.User.Info + "&api_key={apiKey}&user={user}")]
+        BaseResponse GetInfo(string apiKey, string user);
         
         #endregion
 
@@ -132,8 +132,8 @@ namespace Last.fm.API.UserServices
          */
         [OperationContract]
         [WebInvoke(Method = "GET", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Xml,
-            UriTemplate = "?method=user.getLovedTracks&raw=true&api_key={apiKey}&user={user}&limit={limit}&page={page}")]
-        XmlDocument GetLovedTracks(string apiKey, string user, int? limit = null, int? page = null);
+            UriTemplate = "?method=user.getLovedTracks&api_key={apiKey}&user={user}&limit={limit}&page={page}")]
+        BaseResponse GetLovedTracks(string apiKey, string user, int? limit = null, int? page = null);
         
         #endregion
 
@@ -148,8 +148,8 @@ namespace Last.fm.API.UserServices
          */
         [OperationContract]
         [WebInvoke(Method = "GET", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Xml,
-            UriTemplate = "?method=user.getNeighbours&raw=true&api_key={apiKey}&user={user}&limit={limit}")]
-        XmlDocument GetNeighbours(string apiKey, string user, int? limit = null);
+            UriTemplate = "?method=user.getNeighbours&api_key={apiKey}&user={user}&limit={limit}")]
+        BaseResponse GetNeighbours(string apiKey, string user, int? limit = null);
         
         #endregion
 
@@ -164,8 +164,8 @@ namespace Last.fm.API.UserServices
          */
         [OperationContract]
         [WebInvoke(Method = "GET", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Xml,
-            UriTemplate = "?method=user.getNewReleases&raw=true&api_key={apiKey}&user={user}&userecs={userecs}")]
-        XmlDocument GetNewReleases(string apiKey, string user, byte? userecs = 0);
+            UriTemplate = "?method=user.getNewReleases&api_key={apiKey}&user={user}&userecs={userecs}")]
+        BaseResponse GetNewReleases(string apiKey, string user, byte? userecs = 0);
         
         #endregion
 
@@ -181,8 +181,8 @@ namespace Last.fm.API.UserServices
          */
         [OperationContract]
         [WebInvoke(Method = "GET", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Xml,
-            UriTemplate = "?method=user.getPastEvents&raw=true&api_key={apiKey}&user={user}&limit={limit}&page={page}")]
-        XmlDocument GetPastEvents(string apiKey, string user, int? limit = null, int? page = null);
+            UriTemplate = "?method=user.getPastEvents&api_key={apiKey}&user={user}&limit={limit}&page={page}")]
+        BaseResponse GetPastEvents(string apiKey, string user, int? limit = null, int? page = null);
 
         #endregion
 
@@ -200,8 +200,8 @@ namespace Last.fm.API.UserServices
          */
         [OperationContract]
         [WebInvoke(Method = "GET", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Xml,
-            UriTemplate = "?method=user.getPersonalTags&raw=true&api_key={apiKey}&user={user}&tag={tag}&taggingtype={taggingtype}&limit={limit}&page={page}")]
-        XmlDocument GetPersonalTags(string apiKey, string user, string tag, string taggingtype, int? limit = null, int? page = null);
+            UriTemplate = "?method=user.getPersonalTags&api_key={apiKey}&user={user}&tag={tag}&taggingtype={taggingtype}&limit={limit}&page={page}")]
+        BaseResponse GetPersonalTags(string apiKey, string user, string tag, string taggingtype, int? limit = null, int? page = null);
 
         #endregion
 
@@ -215,8 +215,8 @@ namespace Last.fm.API.UserServices
          */
         [OperationContract]
         [WebInvoke(Method = "GET", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Xml,
-            UriTemplate = "?method=user.getPlaylists&raw=true&api_key={apiKey}&user={user}")]
-        XmlDocument GetPlaylists(string apiKey, string user);
+            UriTemplate = "?method=user.getPlaylists&api_key={apiKey}&user={user}")]
+        BaseResponse GetPlaylists(string apiKey, string user);
 
         #endregion
 
@@ -239,8 +239,8 @@ namespace Last.fm.API.UserServices
          */
         [OperationContract]
         [WebInvoke(Method = "GET", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Xml,
-            UriTemplate = "?method=user.getRecentStations&raw=true&api_key={apiKey}&user={user}&limit={limit}&page={page}&api_sig={apiSig}&sk={sk}")]
-        XmlDocument GetRecentStations(string apiKey, string user, string apiSig, string sk, int? limit = null, int? page = null);
+            UriTemplate = "?method=user.getRecentStations&api_key={apiKey}&user={user}&limit={limit}&page={page}&api_sig={apiSig}&sk={sk}")]
+        BaseResponse GetRecentStations(string apiKey, string user, string apiSig, string sk, int? limit = null, int? page = null);
 
         #endregion
 
@@ -258,8 +258,8 @@ namespace Last.fm.API.UserServices
          */
         [OperationContract]
         [WebInvoke(Method = "GET", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Xml,
-            UriTemplate = "?method=user.getRecommendedArtists&raw=true&api_key={apiKey}&limit={limit}&page={page}&api_sig={apiSig}&sk={sk}")]
-        XmlDocument GetRecommendedArtists(string apiKey, string apiSig, string sk, int? limit = null, int? page = null);
+            UriTemplate = "?method=user.getRecommendedArtists&api_key={apiKey}&limit={limit}&page={page}&api_sig={apiSig}&sk={sk}")]
+        BaseResponse GetRecommendedArtists(string apiKey, string apiSig, string sk, int? limit = null, int? page = null);
 
         #endregion
 
@@ -281,9 +281,9 @@ namespace Last.fm.API.UserServices
          */
         [OperationContract]
         [WebInvoke(Method = "GET", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Xml,
-            UriTemplate = "?method=user.getRecommendedEvents&raw=true&api_key={apiKey}&limit={limit}&page={page}&api_sig={apiSig}&sk={sk}" +
+            UriTemplate = "?method=user.getRecommendedEvents&api_key={apiKey}&limit={limit}&page={page}&api_sig={apiSig}&sk={sk}" +
                           "&latitude={latitude}&longitude={longitude}&country={country}&festivalsonly={festivalsonly}")]
-        XmlDocument GetRecommendedEvents(string apiKey, string apiSig, string sk, int? limit = null, int? page = null,
+        BaseResponse GetRecommendedEvents(string apiKey, string apiSig, string sk, int? limit = null, int? page = null,
             string latitude = null, string longitude = null, byte? festivalsonly = null, string country = null);
 
         #endregion

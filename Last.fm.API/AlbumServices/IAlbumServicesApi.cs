@@ -32,14 +32,14 @@ namespace Last.fm.API.AlbumServices
             BodyStyle = WebMessageBodyStyle.Bare,
             ResponseFormat = WebMessageFormat.Xml,
             UriTemplate = "?method=album.getInfo&raw=true&artist={artist}&album={album}&api_key={apiKey}")]
-        XmlDocument GetRecentTracks(string artist, string album, string apiKey);*/
+        BaseResponse GetRecentTracks(string artist, string album, string apiKey);*/
 
         [OperationContract]
         [WebInvoke(Method = "GET",
             BodyStyle = WebMessageBodyStyle.Bare,
             ResponseFormat = WebMessageFormat.Xml,
-            UriTemplate = "?method=album.getInfo&raw=true&api_key={apiKey}&artist={artist}&album={album}&mbid={mbid}&username={username}&autocorrect={autocorrect}&lang={lang}")]
-        XmlDocument GetInfo(string apiKey, string artist, string album, string mbid = "", string username = "", byte autocorrect = 0, string lang = "en");
+            UriTemplate = "?method=album.getInfo&api_key={apiKey}&artist={artist}&album={album}&mbid={mbid}&username={username}&autocorrect={autocorrect}&lang={lang}")]
+        BaseResponse GetInfo(string apiKey, string artist, string album, string mbid = "", string username = "", byte autocorrect = 0, string lang = "en");
         
         #endregion
 

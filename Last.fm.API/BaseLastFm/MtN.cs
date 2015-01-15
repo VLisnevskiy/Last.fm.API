@@ -3,7 +3,7 @@
     /// <summary>
     /// Names of service methods
     /// </summary>
-    internal abstract class MtN
+    internal static class MtN
     {
         /// <summary>
         /// Auth category

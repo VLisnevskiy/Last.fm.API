@@ -1,6 +1,10 @@
-﻿using System.ServiceModel.Channels;
+﻿using System;
+using System.IO;
+using System.ServiceModel.Channels;
 using System.ServiceModel.Description;
 using System.ServiceModel.Dispatcher;
+using System.Text;
+using System.Xml;
 
 namespace Last.fm.API.BaseLastFm.Web
 {
@@ -8,8 +12,8 @@ namespace Last.fm.API.BaseLastFm.Web
     {
         private readonly IClientMessageFormatter innerFormater;
 
-        private OperationDescription operation;
-        private ServiceEndpoint endpoint;
+        private readonly OperationDescription operation;
+        private readonly ServiceEndpoint endpoint;
 
         public LastFmClientMessageFormatter(IClientMessageFormatter original)
         {
@@ -17,7 +21,7 @@ namespace Last.fm.API.BaseLastFm.Web
         }
 
         public LastFmClientMessageFormatter(IClientMessageFormatter original,
-                                            OperationDescription operation, ServiceEndpoint endpoint)
+            OperationDescription operation, ServiceEndpoint endpoint)
             : this(original)
         {
             this.endpoint = endpoint;
@@ -48,9 +52,91 @@ namespace Last.fm.API.BaseLastFm.Web
         /// <param name="parameters">Any out values.</param>
         public object DeserializeReply(Message message, object[] parameters)
         {
-            object r = innerFormater.DeserializeReply(message, parameters);
-            string t = message.ToString();
-            return r;
+            if (null != operation)
+            {
+                Type returnType = operation.SyncMethod.ReturnType;
+                if (typeof (BaseResponse) == returnType)
+                {
+                    BaseResponse response = BaseResponse.CreateInstance();
+                    response.InnerXml = ExtractInnerXmlAndNormalize(ref message);
+
+                    return response;
+                }
+
+                if (returnType.BaseType == typeof (BaseResponse))
+                {
+                    return ProcessReplyBeforeDeserialization(message, parameters);
+                }
+            }
+
+            return innerFormater.DeserializeReply(message, parameters);
         }
+
+        private object ProcessReplyBeforeDeserialization(Message message, object[] parameters)
+        {
+            string innerXml = ExtractInnerXmlAndNormalize(ref message);
+            object results = innerFormater.DeserializeReply(message, parameters);
+            BaseResponse response = results as BaseResponse;
+            if (response != null)
+            {
+                response.InnerXml = innerXml;
+            }
+
+            return results;
+        }
+
+        private string ExtractInnerXmlAndNormalize(ref Message message)
+        {
+            string innerXml;
+            using (MessageBuffer buffer = message.CreateBufferedCopy(int.MaxValue))
+            {
+                message = buffer.CreateMessage();
+                StringBuilder sb = new StringBuilder();
+
+                #region XmlWriterSettings
+
+                Encoding encoding = Encoding.UTF8;
+                XmlWriterSettings writerSettings = new XmlWriterSettings
+                {
+                    Encoding = encoding,
+                    ConformanceLevel = ConformanceLevel.Auto,
+                    OmitXmlDeclaration = true,
+                    CloseOutput = false
+                };
+
+                #endregion XmlWriterSettings
+
+                #region Write Response to XmlWriter
+
+                using (XmlWriter writer = XmlWriter.Create(sb, writerSettings))
+                {
+                    message.WriteMessage(writer);
+                    writer.Flush();
+                }
+
+                #endregion Write Response to XmlWriter
+
+                #region Modify message and extract innerXml
+
+                innerXml = BaseResponse.ExtractLfmStatusToString(sb.ToString());
+
+                #endregion Modify message and extract innerXml
+
+                #region Creaate Message with modification
+
+                MemoryStream ms = new MemoryStream(encoding.GetBytes(innerXml));
+                XmlReader bodyReader = XmlReader.Create(ms);
+                message = buffer.CreateMessage();
+                message = Message.CreateMessage(message.Version, message.Headers.Action, bodyReader);
+                message.Headers.CopyHeadersFrom(message);
+
+                #endregion Creaate Message with modification
+
+                innerXml = string.Format("{0}{1}", Constants.XmlDocumentHeader, innerXml);
+            }
+
+            return innerXml;
+        }
+
     }
 }

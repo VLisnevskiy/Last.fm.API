@@ -27,6 +27,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -37,6 +38,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>..\dist\.net4\Last.fm.API.XML</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -45,6 +47,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
@@ -52,6 +55,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -63,6 +68,8 @@
   <ItemGroup>
     <Compile Include="AlbumServices\IAlbumServices.cs" />
     <Compile Include="AlbumServices\IAlbumServicesApi.cs" />
+    <Compile Include="ArtistServices\ArtistInfo.cs" />
+    <Compile Include="ArtistServices\ArtistServicesClient.cs" />
     <Compile Include="ArtistServices\IArtistServices.cs" />
     <Compile Include="ArtistServices\IArtistServicesApi.cs" />
     <Compile Include="AuthServices\AuthServicesClient.cs" />
@@ -70,6 +77,9 @@
     <Compile Include="AuthServices\AuthToken.cs" />
     <Compile Include="AuthServices\IAuthServices.cs" />
     <Compile Include="AuthServices\IAuthServicesApi.cs" />
+    <Compile Include="BaseLastFm\BaseResponse.cs" />
+    <Compile Include="BaseLastFm\Constants.cs" />
+    <Compile Include="BaseLastFm\LfmStatus.cs" />
     <Compile Include="BaseLastFm\MtN.cs" />
     <Compile Include="BaseLastFm\BaseLastFmClient.cs" />
     <Compile Include="BaseLastFm\Web\LastFmClientMessageFormatter.cs" />
@@ -77,10 +87,10 @@
     <Compile Include="BaseLastFm\LastFmHelpers.cs" />
     <Compile Include="BaseLastFm\Web\LastFmWebHttpBehavior.cs" />
     <Compile Include="BaseLastFm\Web\LastFmQueryStringConverter.cs" />
-    <Compile Include="BaseLastFm\Web\ServicesError.cs" />
+    <Compile Include="BaseLastFm\Web\ServiceError.cs" />
     <Compile Include="BaseLastFm\IApiKeys.cs" />
     <Compile Include="BaseLastFm\Web\LastFmChannelFactory.cs" />
-    <Compile Include="BaseLastFm\Web\LastFmError.cs" />
+    <Compile Include="BaseLastFm\Web\LastFmException.cs" />
     <Compile Include="BaseLastFm\LastFmServicesHolder.cs" />
     <Compile Include="ChartServices\IChartServices.cs" />
     <Compile Include="ChartServices\IChartServicesApi.cs" />
@@ -103,6 +113,7 @@
     <Compile Include="TasteometerServices\ITasteometerServicesApi.cs" />
     <Compile Include="TrackServices\ITrackServices.cs" />
     <Compile Include="TrackServices\ITrackServicesApi.cs" />
+    <Compile Include="TrackServices\TrackServices.cs" />
     <Compile Include="UserServices\IUserServices.cs" />
     <Compile Include="UserServices\IUserServicesApi.cs" />
     <Compile Include="UserServices\TaggingType.cs" />
@@ -131,6 +142,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ReadMe.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

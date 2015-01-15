@@ -23,7 +23,7 @@ namespace Last.fm.API.UserServices
          * 
          * api_key (Required) : A Last.fm API key.
          */
-        XmlDocument GetRecentTracks(string user, int? limit = null, int? page = null, byte? extended = null, double? from = null, double? to = null);
+        BaseResponse GetRecentTracks(string user, int? limit = null, int? page = null, byte? extended = null, double? from = null, double? to = null);
 
         #endregion
 
@@ -39,7 +39,7 @@ namespace Last.fm.API.UserServices
          * api_key (Required) : A Last.fm API key. 
          * 
          */
-        XmlDocument GetArtistTracks(string user, string artist, int? page = null, DateTime? endTimestamp = null);
+        BaseResponse GetArtistTracks(string user, string artist, int? page = null, DateTime? endTimestamp = null);
 
         #endregion
 
@@ -53,7 +53,7 @@ namespace Last.fm.API.UserServices
          * api_key (Required) : A Last.fm API key.
          * 
          */
-        XmlDocument GetBannedTracks(string user, int? limit = null, int? page = null);
+        BaseResponse GetBannedTracks(string user, int? limit = null, int? page = null);
 
         #endregion
 
@@ -68,7 +68,7 @@ namespace Last.fm.API.UserServices
          * api_key (Required) : A Last.fm API key.
          * 
          */
-        XmlDocument GetEvents(string user, int? page = null, byte? festivalsonly = null, int? limit = null);
+        BaseResponse GetEvents(string user, int? page = null, byte? festivalsonly = null, int? limit = null);
 
         #endregion
 
@@ -83,7 +83,7 @@ namespace Last.fm.API.UserServices
          * api_key (Required) : A Last.fm API key.
          * 
          */
-        XmlDocument GetFriends(string user, int? page = null, byte? recenttracks = 0, int? limit = null);
+        BaseResponse GetFriends(string user, int? page = null, byte? recenttracks = 0, int? limit = null);
 
         #endregion
 
@@ -95,7 +95,7 @@ namespace Last.fm.API.UserServices
          * api_key (Required) : A Last.fm API key.
          * 
          */
-        XmlDocument GetInfo(string user);
+        BaseResponse GetInfo(string user);
 
         #endregion
 
@@ -109,7 +109,7 @@ namespace Last.fm.API.UserServices
          * api_key (Required) : A Last.fm API key.
          * 
          */
-        XmlDocument GetLovedTracks(string user, int? limit = null, int? page = null);
+        BaseResponse GetLovedTracks(string user, int? limit = null, int? page = null);
 
         #endregion
 
@@ -122,7 +122,7 @@ namespace Last.fm.API.UserServices
          * api_key (Required) : A Last.fm API key.
          * 
          */
-        XmlDocument GetNeighbours(string user, int? limit = null);
+        BaseResponse GetNeighbours(string user, int? limit = null);
 
         #endregion
 
@@ -135,7 +135,7 @@ namespace Last.fm.API.UserServices
          * api_key (Required) : A Last.fm API key.
          * 
          */
-        XmlDocument GetNewReleases(string user, byte? userecs = 0);
+        BaseResponse GetNewReleases(string user, byte? userecs = 0);
 
         #endregion
 
@@ -149,7 +149,7 @@ namespace Last.fm.API.UserServices
          * api_key (Required) : A Last.fm API key.
          * 
          */
-        XmlDocument GetPastEvents(string user, int? limit = null, int? page = null);
+        BaseResponse GetPastEvents(string user, int? limit = null, int? page = null);
 
         #endregion
 
@@ -165,7 +165,7 @@ namespace Last.fm.API.UserServices
          * api_key (Required) : A Last.fm API key.
          * 
          */
-        XmlDocument GetPersonalTags(string user, string tag, TaggingType taggingType, int? limit = null, int? page = null);
+        BaseResponse GetPersonalTags(string user, string tag, TaggingType taggingType, int? limit = null, int? page = null);
 
         #endregion
 

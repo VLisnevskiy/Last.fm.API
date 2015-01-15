@@ -61,5 +61,6 @@ namespace Last.fm.API.BaseLastFm.Web
             IDispatchMessageFormatter formatter = base.GetReplyDispatchFormatter(operationDescription, endpoint);
             return new LastFmDispatchMessageFormatter(formatter, operationDescription, endpoint);
         }
+
     }
 }

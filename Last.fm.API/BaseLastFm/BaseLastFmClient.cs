@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Security.Cryptography;
 using System.ServiceModel.Channels;
 using System.Text;
@@ -58,7 +59,12 @@ namespace Last.fm.API.BaseLastFm
             }
             catch (Exception e)
             {
-                throw new LastFmError(e);
+                if (e.InnerException is WebException)
+                {
+                    throw new LastFmException(e);
+                }
+
+                throw new Exception("Some Exception happened during calling WebMethod", e);
             }
 
             return response;

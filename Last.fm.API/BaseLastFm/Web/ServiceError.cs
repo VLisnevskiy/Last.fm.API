@@ -1,19 +1,17 @@
-﻿using System.Text.RegularExpressions;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace Last.fm.API.BaseLastFm.Web
 {
     /// <summary>
-    /// Class ServicesError
+    /// Class ServiceError
     /// </summary>
-    [XmlType(AnonymousType = true)]
     [XmlRoot("error", IsNullable = true)]
-    public class ServicesError
+    public class ServiceError : BaseResponse
     {
         /// <summary>
-        /// Create an new instance of ServicesError
+        /// Create an new instance of ServiceError
         /// </summary>
-        public ServicesError()
+        public ServiceError()
         {
             Code = 0;
             Message = "Ok";
@@ -36,8 +34,10 @@ namespace Last.fm.API.BaseLastFm.Web
             get { return message; }
             set
             {
-                message = Regex.Replace(
-                    Regex.Replace(value, "\n    ", ""), "\n", "");
+                if (!string.IsNullOrEmpty(value))
+                {
+                    message = value.Trim();
+                }
             }
         }
     }

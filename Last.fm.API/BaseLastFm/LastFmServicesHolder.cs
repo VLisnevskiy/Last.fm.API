@@ -1,4 +1,5 @@
-﻿using Last.fm.API.AuthServices;
+﻿using Last.fm.API.ArtistServices;
+using Last.fm.API.AuthServices;
 using Last.fm.API.UserServices;
 
 namespace Last.fm.API.BaseLastFm
@@ -85,7 +86,27 @@ namespace Last.fm.API.BaseLastFm
         {
             return new AuthServicesClient(_apiKey = apiKey, _apiSig = apiSig);
         }
-        
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="apiKey"></param>
+        /// <param name="apiSig"></param>
+        /// <returns></returns>
+        public static IArtistServices CreateArtistServicesClientProxy(string apiKey, string apiSig)
+        {
+            return new ArtistServicesClient(_apiKey = apiKey, _apiSig = apiSig);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static IArtistServices CreateArtistServicesClientProxy()
+        {
+            return new ArtistServicesClient(_apiKey, _apiSig);
+        }
+
         #endregion
     }
 }

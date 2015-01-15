@@ -16,7 +16,7 @@ namespace TestProgram
             {
                 try
                 {
-                    var t = proxy.GetMobileSession("lastfm1810", "jimmy_Smile");
+                    var t = proxy.GetMobileSession("pass", "jimmy_Smile");
 
                     var r = proxy.GetToken();
 
@@ -24,7 +24,7 @@ namespace TestProgram
 
                     var r1 = proxy.GetSession(r.Token);
                 }
-                catch (LastFmError e)
+                catch (LastFmException e)
                 {
                 }
             }
@@ -36,12 +36,23 @@ namespace TestProgram
                     var r = proxy.GetInfo("jimmy_smile");
                     var r1 = proxy.GetRecentTracks("jimmy_smile",page:2);
                 }
-                catch (LastFmError e)
+                catch (LastFmException e)
                 {
                 }
             }
 
-            Console.ReadKey();
+            using (var proxy = LastFmServicesHolder.CreateArtistServicesClientProxy())
+            {
+                try
+                {
+                    var t = proxy.GetInfo("Cher", lang: "ru");
+                }
+                catch (Exception e)
+                {
+
+                }
+            }
+
         }
     }
 }
