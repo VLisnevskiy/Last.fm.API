@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Last.fm.API.BaseLastFm;
-using Last.fm.API.AuthServices;
 using Last.fm.API.BaseLastFm.Web;
+using Last.fm.API.Core;
+using Last.fm.API.Core.Settings;
 
 namespace TestProgram
 {
@@ -12,7 +13,9 @@ namespace TestProgram
     {
         static void Main(string[] args)
         {
-            using (var proxy = LastFmServicesHolder.CreateAuthServicesClientProxy())
+            LastFmSettings.LoadSettings();
+
+            /*using (var proxy = LastFmServicesHolder.CreateAuthServicesClient())
             {
                 try
                 {
@@ -29,7 +32,7 @@ namespace TestProgram
                 }
             }
 
-            using (var proxy = LastFmServicesHolder.CreateUserServicesClientProxy())
+            using (var proxy = LastFmServicesHolder.CreateUserServicesClient())
             {
                 try
                 {
@@ -39,13 +42,13 @@ namespace TestProgram
                 catch (LastFmException e)
                 {
                 }
-            }
+            }*/
 
             using (var proxy = LastFmServicesHolder.CreateArtistServicesClientProxy())
             {
                 try
                 {
-                    var t = proxy.GetInfo("Cher", lang: "ru");
+                    var t = proxy.GetInfo("Бумбокс", lang: "ru");
                 }
                 catch (Exception e)
                 {
