@@ -57,7 +57,7 @@ namespace Last.fm.API.Core.Settings
 
         private void LoadConfigurationSettings()
         {
-            LastFmApiUrl = "http://ws.audioscrobbler.com/2.0/";
+            LastFmApiUrl = "https://ws.audioscrobbler.com/2.0/";
 
             ApiKey = "4930efce82e84fef13f6309659fe2bcd";
             ApiSig = "b78261d1e86a65fe8f78abbd322681ac";

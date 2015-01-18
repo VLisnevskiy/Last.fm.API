@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using Last.fm.API.BaseLastFm;
-using Last.fm.API.BaseLastFm.Web;
 using Last.fm.API.Core;
 using Last.fm.API.Core.Settings;
+using Last.fm.API.Core.Web;
 
 namespace TestProgram
 {
@@ -15,17 +15,17 @@ namespace TestProgram
         {
             LastFmSettings.LoadSettings();
 
-            /*using (var proxy = LastFmServicesHolder.CreateAuthServicesClient())
+            using (var proxy = LastFmServicesHolder.CreateAuthServicesClient())
             {
                 try
                 {
-                    var t = proxy.GetMobileSession("pass", "jimmy_Smile");
-
                     var r = proxy.GetToken();
 
-                    string token = r.Token;
+                    Process.Start(r.Url);
 
-                    var r1 = proxy.GetSession(r.Token);
+                    string token = "6e1264c6c4f9c8336e5ab2f8a606293e";
+
+                    var r1 = proxy.GetSession(token);
                 }
                 catch (LastFmException e)
                 {
@@ -42,7 +42,7 @@ namespace TestProgram
                 catch (LastFmException e)
                 {
                 }
-            }*/
+            }
 
             using (var proxy = LastFmServicesHolder.CreateArtistServicesClientProxy())
             {

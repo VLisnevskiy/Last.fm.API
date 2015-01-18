@@ -7,7 +7,7 @@
 using System;
 using System.IO;
 using System.Net;
-using Last.fm.API.BaseLastFm.Web;
+using Last.fm.API.Core.Types;
 
 namespace Last.fm.API.Core.Web
 {
@@ -19,7 +19,7 @@ namespace Last.fm.API.Core.Web
         /// <summary>
         /// Server Error
         /// </summary>
-        public ServiceError LastFmError { get; private set; }
+        public ErrorMessage LastFmError { get; private set; }
 
         /// <summary>
         /// Create new instance of LastFmException
@@ -42,20 +42,20 @@ namespace Last.fm.API.Core.Web
             HelpLink = "http://www.last.fm/api/errorcodes";
         }
 
-        internal LastFmException(string message, Exception innerException, ServiceError error)
+        internal LastFmException(string message, Exception innerException, ErrorMessage errorMessage)
             : this(message, innerException as WebException)
         {
-            LastFmError = error;
+            LastFmError = errorMessage;
         }
 
-        private ServiceError GetBaseResponse(WebException innerException)
+        private ErrorMessage GetBaseResponse(WebException innerException)
         {
             if (innerException != null)
             {
                 HttpWebResponse rep = (HttpWebResponse)(innerException.Response);
                 Stream stream = rep.GetResponseStream();
 
-                return BaseResponse.Deserialize<ServiceError>(stream);
+                return BaseResponse.Deserialize<ErrorMessage>(stream);
             }
 
             return null;
@@ -63,34 +63,34 @@ namespace Last.fm.API.Core.Web
 
         #region Internal Exception creators
 
-        internal static Exception CreateException(string message, Exception innerException, ServiceError error)
+        internal static Exception CreateException(string message, Exception innerException, ErrorMessage errorMessage)
         {
-            if (null != error)
+            if (null != errorMessage)
             {
-                return new LastFmException(message, innerException, error);
+                return new LastFmException(message, innerException, errorMessage);
             }
 
             return new Exception(Constants.ReceivedBadRequestMsg, innerException);
         }
 
-        internal static Exception CreateException(string message, ServiceError error)
+        internal static Exception CreateException(string message, ErrorMessage errorMessage)
         {
-            if (null != error)
+            if (null != errorMessage)
             {
                 message = message.Trim();
                 return
                     new LastFmException(string.IsNullOrWhiteSpace(message)
                         ? Constants.ReceivedBadRequestMsg
                         : message,
-                        null, error);
+                        null, errorMessage);
             }
 
             return new Exception(Constants.ReceivedBadRequestMsg);
         }
 
-        internal static Exception CreateException(ServiceError error)
+        internal static Exception CreateException(ErrorMessage errorMessage)
         {
-            return CreateException(Constants.ReceivedBadRequestMsg, error);
+            return CreateException(Constants.ReceivedBadRequestMsg, errorMessage);
         }
 
         internal static Exception CreateWebException(Exception innerException)
@@ -128,6 +128,22 @@ namespace Last.fm.API.Core.Web
             }
 
             return FindWebException(exception.InnerException);
+        }
+
+        #endregion
+
+        #region Overrided
+
+        public override string ToString()
+        {
+            if (null == LastFmError)
+            {
+                return base.ToString();
+            }
+
+            return string.Format("Code [{0}] : - {1}",
+                LastFmError.Code,
+                LastFmError.Message);
         }
 
         #endregion

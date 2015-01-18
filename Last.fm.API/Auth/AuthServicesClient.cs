@@ -4,8 +4,8 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Last.fm.API.BaseLastFm;
 using Last.fm.API.Core;
+using Last.fm.API.Core.Settings;
 
 namespace Last.fm.API.Auth
 {
@@ -15,12 +15,9 @@ namespace Last.fm.API.Auth
 
         public AuthSession GetMobileSession(string password, string username)
         {
-            bool t = IsFaulted;
-
             username = username.ToLowerInvariant();
-            string authToken = GetAuthToken(password, username);
-            string apiSig = BuildSig(SigMobileSession, authToken, MtN.Auth.MobileSession, username);
-            var result =  Channel.GetMobileSession(ApiKey, apiSig, authToken, username);
+            string apiSig = BuildSig(SigMobileSession, MtN.Auth.MobileSession, password, username);
+            var result =  Channel.GetMobileSession(ApiKey, apiSig, username, password);
             return result;
         }
 
@@ -48,11 +45,23 @@ namespace Last.fm.API.Auth
         }
 
         #endregion
-        
+
+        internal const string SigMobileSession = "api_key{0}method{1}password{2}username{3}{4}";
+
+        internal const string SigSession = "api_key{0}method{1}token{2}{3}";
+
+        internal const string SigToken = "api_key{0}method{1}{2}";
+
+        #region Old implementation
+
+        /*
         internal const string SigMobileSession = "api_key{0}authToken{1}method{2}rawtrueusername{3}{4}";
         
         internal const string SigSession = "api_key{0}method{1}rawtruetoken{2}{3}";
 
         internal const string SigToken = "api_key{0}method{1}rawtrue{2}";
+        */
+
+        #endregion
     }
 }

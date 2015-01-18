@@ -4,7 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using Last.fm.API.BaseLastFm;
 using Last.fm.API.Core;
 
 namespace Last.fm.API.Artist
@@ -15,8 +14,6 @@ namespace Last.fm.API.Artist
 
         public ArtistInfo GetInfo(string artist, string username = null, string mbid = null, string lang = null, bool autocorrect = true)
         {
-            bool t = IsFaulted;
-
             var result = Channel.GetInfo(ApiKey, artist, username, mbid, lang, autocorrect);
 
             return result;

@@ -11,7 +11,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
-using Last.fm.API.BaseLastFm.Web;
+using Last.fm.API.Core.Types;
 
 namespace Last.fm.API.Core
 {
@@ -108,7 +108,7 @@ namespace Last.fm.API.Core
 
                 if (IsItError(doc, type))
                 {
-                    result = new ServiceError
+                    result = new ErrorMessage
                     {
                         Code = 999,
                         Message = Constants.ReceivedBadRequestMsg,
@@ -135,7 +135,7 @@ namespace Last.fm.API.Core
 
         private static bool IsItError(XDocument doc, Type type)
         {
-            if (typeof (ServiceError) == type)
+            if (typeof (ErrorMessage) == type)
             {
                 return null != doc &&
                     null != doc.Root &&
@@ -327,6 +327,15 @@ namespace Last.fm.API.Core
             }
 
             return null;
+        }
+
+        #endregion
+
+        #region Overrided
+
+        public override string ToString()
+        {
+            return string.Format("Status [{0}]", Success);
         }
 
         #endregion

@@ -26,8 +26,6 @@ namespace Last.fm.API.Core
         protected BaseLastFmClient()
         {
             disposed = false;
-            ApiKey = LastFmSettings.Instance.ApiKey;
-            ApiSig = LastFmSettings.Instance.ApiSig;
             Channel = CreateChannel();
         }
 
@@ -47,24 +45,6 @@ namespace Last.fm.API.Core
         }
 
         public LastFmChannelFactory<TChannel> ChannelFactory { get; private set; }
-
-        public bool IsFaulted
-        {
-            get
-            {
-                if (null == ChannelFactory)
-                {
-                    return false;
-                }
-
-                if (null == ChannelFactory.RealProxy)
-                {
-                    return false;
-                }
-
-                return ChannelFactory.RealProxy.IsFaulted;
-            }
-        }
 
         #region Auth help methods
 
@@ -149,9 +129,15 @@ namespace Last.fm.API.Core
 
         #region IApiKeys
 
-        public string ApiKey { get; private set; }
+        public string ApiKey
+        {
+            get { return LastFmSettings.Instance.ApiKey; }
+        }
 
-        public string ApiSig { get; private set; }
+        public string ApiSig
+        {
+            get { return LastFmSettings.Instance.ApiSig; }
+        }
 
         #endregion
     }

@@ -7,7 +7,6 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using Last.fm.API.BaseLastFm;
 using Last.fm.API.Core;
 using Last.fm.API.Core.Types;
 

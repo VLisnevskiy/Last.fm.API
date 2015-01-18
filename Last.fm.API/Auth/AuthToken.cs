@@ -6,8 +6,8 @@
 
 using System;
 using System.Xml.Serialization;
-using Last.fm.API.BaseLastFm;
 using Last.fm.API.Core;
+using Last.fm.API.Core.Settings;
 
 namespace Last.fm.API.Auth
 {
@@ -15,7 +15,7 @@ namespace Last.fm.API.Auth
     /// AuthToken
     /// </summary>
     [XmlRoot("token")]
-    public class AuthToken
+    public class AuthToken : BaseResponse
     {
         /// <summary>
         /// Token
@@ -31,7 +31,12 @@ namespace Last.fm.API.Auth
         /// </summary>
         public string Url
         {
-            get { return url; }
+            get
+            {
+                return string.Format(Constants.SecurityUrl,
+                    LastFmSettings.Instance.ApiKey,
+                    Token);
+            }
         }
 
         private string SetUrlValue(string apiKey)
@@ -45,16 +50,14 @@ namespace Last.fm.API.Auth
             return this;
         }
 
-        /// <summary>
-        /// Returns a <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="T:System.String"/> that represents the current <see cref="T:System.Object"/>.
-        /// </returns>
-        /// <filterpriority>2</filterpriority>
+        #region Overrided
+
         public override string ToString()
         {
-            return Token;
+            return string.Format("{0}",
+                Token);
         }
+
+        #endregion
     }
 }

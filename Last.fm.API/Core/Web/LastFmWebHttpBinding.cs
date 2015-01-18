@@ -12,12 +12,7 @@ namespace Last.fm.API.Core.Web
     internal class LastFmWebHttpBinding : WebHttpBinding
     {
         public LastFmWebHttpBinding()
-            : this(WebHttpSecurityMode.None)
-        {
-        }
-
-        public LastFmWebHttpBinding(WebHttpSecurityMode securityMode)
-            : base(securityMode)
+            : base(WebHttpSecurityMode.Transport)
         {
             SetTimeOut();
         }

@@ -1,24 +1,23 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="ServiceError.cs" company="Vyacheslav Lisnevskyi">
+// <copyright file="ErrorMessage.cs" company="Vyacheslav Lisnevskyi">
 //     Copyright MyCompany. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
 using System.Xml.Serialization;
-using Last.fm.API.Core;
 
-namespace Last.fm.API.BaseLastFm.Web
+namespace Last.fm.API.Core.Types
 {
     /// <summary>
-    /// Class ServiceError
+    /// Class ErrorMessage
     /// </summary>
     [XmlRoot("error")]
-    public class ServiceError : BaseResponse
+    public class ErrorMessage : BaseResponse
     {
         /// <summary>
-        /// Create an new instance of ServiceError
+        /// Create an new instance of ErrorMessage
         /// </summary>
-        public ServiceError()
+        public ErrorMessage()
         {
             Code = 0;
         }
@@ -46,5 +45,16 @@ namespace Last.fm.API.BaseLastFm.Web
                 }
             }
         }
+
+        #region Overrided
+
+        public override string ToString()
+        {
+            return string.Format("Code [{0}] : - {1}",
+                Code,
+                Message);
+        }
+
+        #endregion
     }
 }

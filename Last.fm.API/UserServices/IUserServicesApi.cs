@@ -1,7 +1,6 @@
 ﻿using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Xml;
-using Last.fm.API.BaseLastFm;
 using Last.fm.API.Core;
 
 namespace Last.fm.API.UserServices

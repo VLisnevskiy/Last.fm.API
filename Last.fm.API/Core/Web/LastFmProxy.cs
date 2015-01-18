@@ -7,7 +7,6 @@
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Messaging;
 using System.Runtime.Remoting.Proxies;
-using Last.fm.API.BaseLastFm.Web;
 
 namespace Last.fm.API.Core.Web
 {
@@ -16,10 +15,9 @@ namespace Last.fm.API.Core.Web
         private readonly TChannel target;
 
         public LastFmProxy(TChannel target)
-            : base(typeof (TChannel))
+            : base(typeof(TChannel))
         {
             this.target = target;
-            IsFaulted = false;
         }
 
         #region Obsolete variant
@@ -66,15 +64,13 @@ namespace Last.fm.API.Core.Web
             IMethodReturnMessage processedMsg = resMsg as IMethodReturnMessage;
             if (null != processedMsg)
             {
-                IsFaulted = null != processedMsg.Exception;
-
                 if (null == processedMsg.Exception ||
                     processedMsg.Exception is LastFmException)
                 {
                     return processedMsg;
                 }
 
-                return 
+                return
                     new ReturnMessage(LastFmException.CreateWebException(processedMsg.Exception),
                     (IMethodCallMessage)msg);
             }
@@ -84,26 +80,8 @@ namespace Last.fm.API.Core.Web
 
         public new TChannel GetTransparentProxy()
         {
-            IsFaulted = false;
-            TChannel channel = (TChannel) base.GetTransparentProxy();
+            TChannel channel = (TChannel)base.GetTransparentProxy();
             return channel;
-        }
-
-        private bool isFaulted = false;
-
-        public bool IsFaulted
-        {
-            get
-            {
-                return isFaulted;
-            }
-            private set
-            {
-                if (isFaulted != value)
-                {
-                    isFaulted = value;
-                }
-            }
         }
     }
 }

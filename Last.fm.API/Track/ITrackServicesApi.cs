@@ -7,7 +7,6 @@
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using Last.fm.API.Auth;
-using Last.fm.API.BaseLastFm;
 using Last.fm.API.Core;
 
 namespace Last.fm.API.Track

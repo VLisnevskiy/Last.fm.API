@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------
 
 using System.Xml.Serialization;
+using Last.fm.API.Core;
 
 namespace Last.fm.API.Auth
 {
@@ -12,24 +13,35 @@ namespace Last.fm.API.Auth
     /// AuthSession
     /// </summary>
     [XmlRoot("session")]
-    public class AuthSession
+    public class AuthSession : BaseResponse
     {
         /// <summary>
         /// Name
         /// </summary>
         [XmlElement("name")]
-        public string Name { get; set; }
+        public string UserName { get; set; }
 
         /// <summary>
-        /// Key
+        /// SessionKey
         /// </summary>
         [XmlElement("key")]
-        public string Key { get; set; }
+        public string SessionKey { get; set; }
 
         /// <summary>
         /// Subscriber
         /// </summary>
         [XmlElement("subscriber")]
         public bool Subscriber { get; set; }
+
+        #region Overrided
+
+        public override string ToString()
+        {
+            return string.Format("User [{0}] - sesssion key [{1}]",
+                UserName,
+                SessionKey);
+        }
+
+        #endregion
     }
 }

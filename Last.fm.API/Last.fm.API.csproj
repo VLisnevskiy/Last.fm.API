@@ -90,7 +90,9 @@
     <Compile Include="Core\Types\ImageSize.cs" />
     <Compile Include="Core\Types\LfmImage.cs" />
     <Compile Include="Core\Types\LfmLink.cs" />
+    <Compile Include="Core\Types\LfmString.cs" />
     <Compile Include="Core\Types\LfmTag.cs" />
+    <Compile Include="Core\Types\ErrorMessage.cs" />
     <Compile Include="Core\Web\LastFmClientMessageFormatter.cs" />
     <Compile Include="Core\Web\LastFmClientMessageInspector.cs" />
     <Compile Include="Core\Web\LastFmDispatchMessageFormatter.cs" />
@@ -104,7 +106,6 @@
     <Compile Include="Core\Web\LastFmChannelFactory.cs" />
     <Compile Include="Core\Web\LastFmException.cs" />
     <Compile Include="Core\LastFmServicesHolder.cs" />
-    <Compile Include="Core\Web\ServiceError.cs" />
     <Compile Include="ChartServices\IChartServices.cs" />
     <Compile Include="ChartServices\IChartServicesApi.cs" />
     <Compile Include="EventServices\IEventServices.cs" />
@@ -126,6 +127,7 @@
     <Compile Include="TasteometerServices\ITasteometerServicesApi.cs" />
     <Compile Include="Track\ITrackServices.cs" />
     <Compile Include="Track\ITrackServicesApi.cs" />
+    <Compile Include="Track\NowPlayingInfo.cs" />
     <Compile Include="Track\TrackServices.cs" />
     <Compile Include="UserServices\IUserServices.cs" />
     <Compile Include="UserServices\IUserServicesApi.cs" />

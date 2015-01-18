@@ -6,7 +6,6 @@
 
 using System.ServiceModel.Description;
 using System.ServiceModel.Dispatcher;
-using Last.fm.API.BaseLastFm.Web;
 
 namespace Last.fm.API.Core.Web
 {

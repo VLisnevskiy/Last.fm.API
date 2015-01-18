@@ -7,7 +7,7 @@
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Dispatcher;
-using Last.fm.API.BaseLastFm.Web;
+using Last.fm.API.Core.Types;
 
 namespace Last.fm.API.Core.Web
 {
@@ -18,7 +18,7 @@ namespace Last.fm.API.Core.Web
             if (reply.IsFault)
             {
                 throw LastFmException.CreateException(reply.ToString(),
-                    BaseResponse.DeserializeMessage(reply, typeof (ServiceError)) as ServiceError);
+                    BaseResponse.DeserializeMessage(reply, typeof (ErrorMessage)) as ErrorMessage);
             }
         }
 
