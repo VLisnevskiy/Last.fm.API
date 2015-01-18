@@ -4,12 +4,9 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System;
-using System.Net.Security;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using Last.fm.API.Core;
-using Last.fm.API.Core.Web;
 
 namespace Last.fm.API.Auth
 {
@@ -18,6 +15,7 @@ namespace Last.fm.API.Auth
     {
         #region auth.getMobileSession
 
+        /* Removed because of it is currently impossible to implement it using only get/post request
         /// <summary>
         /// 
         /// </summary>
@@ -31,6 +29,7 @@ namespace Last.fm.API.Auth
             UriTemplate = "?method=auth.getMobileSession&api_key={apiKey}&username={username}&password={password}&api_sig={apiSig}")]
         [Obsolete]
         AuthSession GetMobileSession(string apiKey, string apiSig, string username, string password);
+        */
 
         #endregion
 

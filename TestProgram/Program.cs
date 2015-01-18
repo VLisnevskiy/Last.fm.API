@@ -15,7 +15,7 @@ namespace TestProgram
         {
             LastFmSettings.LoadSettings();
 
-            using (var proxy = LastFmServicesHolder.CreateAuthServicesClient())
+            using (var proxy = LastFmServicesHolder.AuthServicesClient)
             {
                 try
                 {
@@ -32,7 +32,7 @@ namespace TestProgram
                 }
             }
 
-            using (var proxy = LastFmServicesHolder.CreateUserServicesClient())
+            using (var proxy = LastFmServicesHolder.UserServicesClient)
             {
                 try
                 {
@@ -44,7 +44,7 @@ namespace TestProgram
                 }
             }
 
-            using (var proxy = LastFmServicesHolder.CreateArtistServicesClientProxy())
+            using (var proxy = LastFmServicesHolder.ArtistServicesClient)
             {
                 try
                 {

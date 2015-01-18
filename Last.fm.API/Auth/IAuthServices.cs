@@ -16,6 +16,7 @@ namespace Last.fm.API.Auth
     {
         #region auth.getMobileSession
 
+        /* Removed because of it is currently impossible to implement it using only get/post request
         /// <summary>
         /// auth.getMobileSession
         /// </summary>
@@ -24,6 +25,7 @@ namespace Last.fm.API.Auth
         /// <returns></returns>
         [Obsolete]
         AuthSession GetMobileSession(string password, string username);
+        */
 
         #endregion
 

@@ -5,7 +5,6 @@
 //-----------------------------------------------------------------------
 
 using Last.fm.API.Core;
-using Last.fm.API.Core.Settings;
 
 namespace Last.fm.API.Auth
 {
@@ -13,6 +12,7 @@ namespace Last.fm.API.Auth
     {
         #region IAuthServices methods
 
+        /* Removed because of it is currently impossible to implement it using only get/post request
         public AuthSession GetMobileSession(string password, string username)
         {
             username = username.ToLowerInvariant();
@@ -20,11 +20,12 @@ namespace Last.fm.API.Auth
             var result =  Channel.GetMobileSession(ApiKey, apiSig, username, password);
             return result;
         }
+        */
 
         public AuthToken GetToken()
         {
             string apiSig = BuildSig(SigToken, MtN.Auth.Token);
-            var result = Channel.GetToken(ApiKey, apiSig).SetUrl(ApiKey);
+            var result = Channel.GetToken(ApiKey, apiSig);
             return result;
         }
 
@@ -51,17 +52,5 @@ namespace Last.fm.API.Auth
         internal const string SigSession = "api_key{0}method{1}token{2}{3}";
 
         internal const string SigToken = "api_key{0}method{1}{2}";
-
-        #region Old implementation
-
-        /*
-        internal const string SigMobileSession = "api_key{0}authToken{1}method{2}rawtrueusername{3}{4}";
-        
-        internal const string SigSession = "api_key{0}method{1}rawtruetoken{2}{3}";
-
-        internal const string SigToken = "api_key{0}method{1}rawtrue{2}";
-        */
-
-        #endregion
     }
 }

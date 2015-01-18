@@ -23,9 +23,6 @@ namespace Last.fm.API.Auth
         [XmlText]
         public string Token { get; set; }
 
-        [NonSerialized]
-        private string url;
-
         /// <summary>
         /// Url to activate access
         /// </summary>
@@ -37,17 +34,6 @@ namespace Last.fm.API.Auth
                     LastFmSettings.Instance.ApiKey,
                     Token);
             }
-        }
-
-        private string SetUrlValue(string apiKey)
-        {
-            return url = string.Format(Constants.SecurityUrl, apiKey, Token);
-        }
-
-        internal AuthToken SetUrl(string apiKey)
-        {
-            SetUrlValue(apiKey);
-            return this;
         }
 
         #region Overrided

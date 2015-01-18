@@ -18,30 +18,27 @@ namespace Last.fm.API.Core
         #region Public Methods
 
         /// <summary>
-        /// Create client for User Service
+        /// Get client for User Service
         /// </summary>
-        /// <returns></returns>
-        public static IUserServices CreateUserServicesClient()
+        public static IUserServices UserServicesClient
         {
-            return new UserServicesClient();
+            get { return new UserServicesClient(); }
         }
 
         /// <summary>
-        /// Create client for Auth Service
+        /// Get client for Auth Service
         /// </summary>
-        /// <returns></returns>
-        public static IAuthServices CreateAuthServicesClient()
+        public static IAuthServices AuthServicesClient
         {
-            return new AuthServicesClient();
+            get { return new AuthServicesClient(); }
         }
 
         /// <summary>
-        /// Create client for ArtistService
+        /// Get client for ArtistService
         /// </summary>
-        /// <returns></returns>
-        public static IArtistServices CreateArtistServicesClientProxy()
+        public static IArtistServices ArtistServicesClient
         {
-            return new ArtistServicesClient();
+            get { return new ArtistServicesClient(); }
         }
 
         #endregion
