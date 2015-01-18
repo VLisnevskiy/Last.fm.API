@@ -6,7 +6,7 @@
 
 using Last.fm.API.Artist;
 using Last.fm.API.Auth;
-using Last.fm.API.UserServices;
+using Last.fm.API.User;
 
 namespace Last.fm.API.Core
 {
