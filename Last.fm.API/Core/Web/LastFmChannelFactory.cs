@@ -21,7 +21,7 @@ namespace Last.fm.API.Core.Web
         public LastFmChannelFactory()
             : base(new LastFmWebHttpBinding())
         {
-            Endpoint.Address = new EndpointAddress(LastFmSettings.Instance.LastFmApiUrl);
+            Endpoint.Address = new EndpointAddress(LastFmSettings.LastFmApiUrl);
             Endpoint.Behaviors.Add(new LastFmWebHttpBehavior());
         }
 

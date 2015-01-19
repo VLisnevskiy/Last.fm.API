@@ -4,6 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System.Net;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Dispatcher;
@@ -20,16 +21,25 @@ namespace Last.fm.API.Core.Web
                 throw LastFmException.CreateException(reply.ToString(),
                     BaseResponse.DeserializeMessage(reply, typeof (ErrorMessage)) as ErrorMessage);
             }
+
+            if (reply != null)
+            {
+                HttpResponseMessageProperty prop = (HttpResponseMessageProperty)reply.Properties[HttpResponseMessageProperty.Name];
+                if (prop != null && prop.StatusCode == HttpStatusCode.InternalServerError)
+                {
+                    //throw DiagnosticUtility.ExceptionUtility.ThrowHelperError(new CommunicationException(prop.StatusDescription));
+                }
+            }
         }
 
         public object BeforeSendRequest(ref Message request, IClientChannel channel)
         {
             //:TODO - Maybe will be implemented sometime
-            /*HttpRequestMessageProperty httpRequest = request.Properties[HttpRequestMessageProperty.Name] as HttpRequestMessageProperty;
-            if (null != httpRequest)
-            {
-
-            }*/
+            //HttpRequestMessageProperty httpRequest = request.Properties[HttpRequestMessageProperty.Name] as HttpRequestMessageProperty;
+            //if (null != httpRequest)
+            //{
+            //
+            //}
 
             return null;
         }

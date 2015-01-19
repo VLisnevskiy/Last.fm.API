@@ -42,6 +42,11 @@ namespace Last.fm.API.Core.Web
         public Message SerializeRequest(MessageVersion messageVersion, object[] parameters)
         {
             Message message = innerFormater.SerializeRequest(messageVersion, parameters);
+            //HttpRequestMessageProperty request = (HttpRequestMessageProperty) message.Properties[HttpRequestMessageProperty.Name];
+            //if (null != request)
+            //{
+            //}
+
             return message;
         }
 

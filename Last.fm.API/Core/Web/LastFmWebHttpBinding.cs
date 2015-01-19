@@ -17,6 +17,11 @@ namespace Last.fm.API.Core.Web
             SetTimeOut();
         }
 
+        public new EnvelopeVersion EnvelopeVersion
+        {
+            get { return EnvelopeVersion.None; }
+        }
+
         private void SetTimeOut()
         {
             CloseTimeout = LastFmSettings.Instance.CloseTimeout;

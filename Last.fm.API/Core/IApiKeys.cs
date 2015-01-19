@@ -7,7 +7,7 @@
 namespace Last.fm.API.Core
 {
     /// <summary>
-    /// ApiKey & ApiSig
+    /// ApiKey and ApiSig
     /// </summary>
     public interface IApiKeys
     {
