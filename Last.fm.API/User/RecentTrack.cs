@@ -58,13 +58,7 @@ namespace Last.fm.API.User
         {
             return null;
         }
-        /*<artist>
-         * <name>Black Star</name>
-         * <mbid>02708fd6-0fe6-4738-a27d-0561ace8b4c6</mbid>
-         * <url>Black Star</url>
-         * <image size="small">http://userserve-ak.last.fm/serve/34/73929612.png</image><image size="medium">http://userserve-ak.last.fm/serve/64/73929612.png</image><image size="large">http://userserve-ak.last.fm/serve/126/73929612.png</image><image size="extralarge">http://userserve-ak.last.fm/serve/252/73929612.png</image>
-         * </artist>
-         * <loved>0</loved>*/
+
         public void ReadXml(XmlReader reader)
         {
             XDocument doc = XDocument.Load(reader);
