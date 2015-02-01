@@ -3,13 +3,26 @@
 Last.fm API - it's a library that provide capability to use Last.fm web services in C# like a ordinary functions.
 
 ##Example how use
-    using (var proxy = LastFmServicesHolder.CreateAuthServicesClientProxy())
+    //Add usings
+    using Last.fm.API;
+    using Last.fm.API.Auth;
+    using Last.fm.API.Core.Web;
+    
+    using (IAuthServices client = LastFmServices.AuthServicesClient)
     {
         try
         {
-            var response = proxy.GetToken();
+            AuthToken token = client.GetToken();
+            //Go to web browser and autorize token
+            Process.Start(token.Url);
+            //Then cotinue get session
+            AuthSession ssesion = client.GetSession(token);
         }
-        catch (LastFmError e)
+        catch (NotAuthorizedTokenException authEx)
+        {
+            //You can try to get session again.
+        }
+        catch (LastFmException commonEx)
         {
         }
     }
