@@ -65,6 +65,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization" />
@@ -92,19 +93,28 @@
     <Compile Include="Auth\AuthToken.cs" />
     <Compile Include="Auth\IAuthServices.cs" />
     <Compile Include="Auth\IAuthServicesApi.cs" />
+    <Compile Include="Auth\NotAuthorizedTokenEventArgs.cs" />
+    <Compile Include="Auth\NotAuthorizedTokenException.cs" />
     <Compile Include="Core\BaseResponse.cs" />
     <Compile Include="Core\Constants.cs" />
-    <Compile Include="Core\MtN.cs" />
     <Compile Include="Core\BaseLastFmClient.cs" />
+    <Compile Include="Core\Settings\AutoSaveSettingsMode.cs" />
+    <Compile Include="Core\Settings\ConfigurationType.cs" />
     <Compile Include="Core\Settings\LastFmSettings.cs" />
+    <Compile Include="Core\Settings\SettingsElementAttribute.cs" />
     <Compile Include="Core\Types\ImageSize.cs" />
+    <Compile Include="Core\Types\LfmDateTime.cs" />
+    <Compile Include="Core\Types\LfmGender.cs" />
     <Compile Include="Core\Types\LfmImage.cs" />
     <Compile Include="Core\Types\LfmLink.cs" />
+    <Compile Include="Core\Types\LfmShortAlbumInfo.cs" />
+    <Compile Include="Core\Types\LfmShortArtistInfo.cs" />
     <Compile Include="Core\Types\LfmStatus.cs" />
     <Compile Include="Core\Types\LfmString.cs" />
     <Compile Include="Core\Types\LfmTag.cs" />
     <Compile Include="Core\Types\ErrorMessage.cs" />
     <Compile Include="Core\Types\TaggingType.cs" />
+    <Compile Include="Core\Types\TimeSpan.cs" />
     <Compile Include="Core\Web\LastFmClientMessageFormatter.cs" />
     <Compile Include="Core\Web\LastFmClientMessageInspector.cs" />
     <Compile Include="Core\Web\LastFmDispatchMessageFormatter.cs" />
@@ -117,7 +127,6 @@
     <Compile Include="Core\IApiKeys.cs" />
     <Compile Include="Core\Web\LastFmChannelFactory.cs" />
     <Compile Include="Core\Web\LastFmException.cs" />
-    <Compile Include="Core\LastFmServicesHolder.cs" />
     <Compile Include="Chart\IChartServices.cs" />
     <Compile Include="Chart\IChartServicesApi.cs" />
     <Compile Include="Event\IEventServices.cs" />
@@ -126,6 +135,7 @@
     <Compile Include="Geo\IGeoServicesApi.cs" />
     <Compile Include="Group\IGroupServices.cs" />
     <Compile Include="Group\IGroupServicesApi.cs" />
+    <Compile Include="LastFmServices.cs" />
     <Compile Include="Library\ILibraryServices.cs" />
     <Compile Include="Library\ILibraryServicesApi.cs" />
     <Compile Include="Playlist\IPlaylistServices.cs" />
@@ -139,10 +149,13 @@
     <Compile Include="Tasteometer\ITasteometerServicesApi.cs" />
     <Compile Include="Track\ITrackServices.cs" />
     <Compile Include="Track\ITrackServicesApi.cs" />
-    <Compile Include="Track\NowPlayingInfo.cs" />
+    <Compile Include="Track\NowPlayingTrackInfo.cs" />
     <Compile Include="Track\TrackServices.cs" />
     <Compile Include="User\IUserServices.cs" />
     <Compile Include="User\IUserServicesApi.cs" />
+    <Compile Include="User\RecentTrack.cs" />
+    <Compile Include="User\RecentTracksCollection.cs" />
+    <Compile Include="User\UserInfo.cs" />
     <Compile Include="User\UserServicesClient.cs" />
     <Compile Include="Venue\IVenueServices.cs" />
     <Compile Include="Venue\IVenueServicesApi.cs" />
@@ -171,6 +184,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

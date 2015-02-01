@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
 // <copyright file="IAuthServices.cs" company="Vyacheslav Lisnevskyi">
-//     Copyright MyCompany. All rights reserved.
+//     Copyright Vyacheslav Lisnevskyi. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
@@ -14,27 +14,12 @@ namespace Last.fm.API.Auth
     /// </summary>
     public interface IAuthServices : IApiKeys, IDisposable
     {
-        #region auth.getMobileSession
-
-        /* Removed because of it is currently impossible to implement it using only get/post request
-        /// <summary>
-        /// auth.getMobileSession
-        /// </summary>
-        /// <param name="password"></param>
-        /// <param name="username"></param>
-        /// <returns></returns>
-        [Obsolete]
-        AuthSession GetMobileSession(string password, string username);
-        */
-
-        #endregion
-
         #region auth.getToken
 
         /// <summary>
-        /// auth.getToken
+        /// Fetch an unathorized request token for an API account.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>AuthToken</returns>
         AuthToken GetToken();
 
         #endregion
@@ -42,11 +27,22 @@ namespace Last.fm.API.Auth
         #region auth.getSession
 
         /// <summary>
-        /// auth.getSession
+        /// Fetch a session key for a user.
         /// </summary>
         /// <param name="token"></param>
-        /// <returns></returns>
+        /// <returns>AuthSession</returns>
         AuthSession GetSession(string token);
+
+        /// <summary>
+        /// Fetch a session key for a user. Token will be taken from settings.
+        /// </summary>
+        /// <returns>AuthSession</returns>
+        AuthSession GetSession();
+
+        /// <summary>
+        /// Occurs when using token not authorized.
+        /// </summary>
+        event EventHandler<NotAuthorizedTokenEventArgs> NotAuthorizedToken;
 
         #endregion
     }

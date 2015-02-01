@@ -1,12 +1,12 @@
 ﻿//-----------------------------------------------------------------------
 // <copyright file="IAlbumServices.cs" company="Vyacheslav Lisnevskyi">
-//     Copyright MyCompany. All rights reserved.
+//     Copyright Vyacheslav Lisnevskyi. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
 using Last.fm.API.Core;
 
-namespace Last.fm.API.AlbumServices
+namespace Last.fm.API.Album
 {
     /// <summary>
     /// 

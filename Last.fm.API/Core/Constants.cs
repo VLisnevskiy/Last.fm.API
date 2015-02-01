@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
 // <copyright file="Constants.cs" company="Vyacheslav Lisnevskyi">
-//     Copyright MyCompany. All rights reserved.
+//     Copyright Vyacheslav Lisnevskyi. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
@@ -40,6 +40,14 @@ namespace Last.fm.API.Core
         /// Url to get security
         /// </summary>
         public const string SecurityUrl = "http://www.last.fm/api/auth/?api_key={0}&token={1}";
+
+        internal const int NotAuthorizedTokenCode = 14;
+
+        internal const int InvalidMethodSignature = 13;
+
+        internal const int ThisTokenHasExpired = 15;
+
+        internal const int InvalidAuthenticationToken = 4;
 
         internal const string ReceivedBadRequestMsg = "You received bad request";
     }

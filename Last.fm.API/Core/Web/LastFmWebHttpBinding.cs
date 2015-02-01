@@ -1,6 +1,6 @@
 //-----------------------------------------------------------------------
 // <copyright file="LastFmWebHttpBinding.cs" company="Vyacheslav Lisnevskyi">
-//     Copyright MyCompany. All rights reserved.
+//     Copyright Vyacheslav Lisnevskyi. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
@@ -15,6 +15,9 @@ namespace Last.fm.API.Core.Web
             : base(WebHttpSecurityMode.Transport)
         {
             SetTimeOut();
+            MaxReceivedMessageSize = LastFmSettings.Instance.MaxReceivedMessageSize;
+            MaxBufferPoolSize = LastFmSettings.Instance.MaxReceivedMessageSize;
+            MaxBufferSize = LastFmSettings.Instance.MaxReceivedMessageSize;
         }
 
         public new EnvelopeVersion EnvelopeVersion

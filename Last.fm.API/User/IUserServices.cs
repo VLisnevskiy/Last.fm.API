@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
 // <copyright file="IUserServices.cs" company="Vyacheslav Lisnevskyi">
-//     Copyright MyCompany. All rights reserved.
+//     Copyright Vyacheslav Lisnevskyi. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
@@ -29,7 +29,7 @@ namespace Last.fm.API.User
          * 
          * api_key (Required) : A Last.fm API key.
          */
-        BaseResponse GetRecentTracks(string user, int? limit = null, int? page = null, byte? extended = null, double? from = null, double? to = null);
+        RecentTracksCollection GetRecentTracks(string user, int? limit = null, int? page = null, bool? extended = null, double? from = null, double? to = null);
 
         #endregion
 
@@ -95,13 +95,12 @@ namespace Last.fm.API.User
 
         #region user.getInfo
 
-        /*
-         * user (Optional) : The user to fetch info for. Defaults to the authenticated user.
-         * 
-         * api_key (Required) : A Last.fm API key.
-         * 
-         */
-        BaseResponse GetInfo(string user);
+        /// <summary>
+        /// Get information about a user profile. 
+        /// </summary>
+        /// <param name="user">user (Optional) : The user to fetch info for. Defaults to the authenticated user.</param>
+        /// <returns>User information</returns>
+        UserInfo GetInfo(string user);
 
         #endregion
 

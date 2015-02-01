@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
 // <copyright file="LastFmException.cs" company="Vyacheslav Lisnevskyi">
-//     Copyright MyCompany. All rights reserved.
+//     Copyright Vyacheslav Lisnevskyi. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
@@ -14,12 +14,12 @@ namespace Last.fm.API.Core.Web
     /// <summary>
     /// LastFm Exception
     /// </summary>
-    public sealed class LastFmException : Exception
+    public class LastFmException : Exception
     {
         /// <summary>
         /// Server Error
         /// </summary>
-        public ErrorMessage LastFmError { get; private set; }
+        public ErrorMessage LastFmError { get; protected set; }
 
         /// <summary>
         /// Create new instance of LastFmException
@@ -46,6 +46,11 @@ namespace Last.fm.API.Core.Web
             : this(message, innerException as WebException)
         {
             LastFmError = errorMessage;
+        }
+
+        internal LastFmException(string message, Exception exception)
+            : base(message, null != exception ? exception.InnerException : null)
+        {
         }
 
         private ErrorMessage GetBaseResponse(WebException innerException)
@@ -124,7 +129,7 @@ namespace Last.fm.API.Core.Web
 
             if (exception is WebException)
             {
-                return (WebException) exception;
+                return (WebException)exception;
             }
 
             return FindWebException(exception.InnerException);

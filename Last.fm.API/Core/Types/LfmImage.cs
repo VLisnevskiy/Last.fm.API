@@ -1,6 +1,6 @@
 //-----------------------------------------------------------------------
 // <copyright file="LfmImage.cs" company="Vyacheslav Lisnevskyi">
-//     Copyright MyCompany. All rights reserved.
+//     Copyright Vyacheslav Lisnevskyi. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
@@ -24,6 +24,18 @@ namespace Last.fm.API.Core.Types
         /// </summary>
         [XmlText]
         public string Url { get; set; }
+
+        public static implicit operator string(LfmImage image)
+        {
+            if (null == image)
+            {
+                return string.Empty;
+            }
+            else
+            {
+                return image.Url;
+            }
+        }
 
         #region Overrided
 

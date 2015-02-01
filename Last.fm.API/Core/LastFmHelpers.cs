@@ -1,10 +1,12 @@
 ﻿//-----------------------------------------------------------------------
 // <copyright file="LastFmHelpers.cs" company="Vyacheslav Lisnevskyi">
-//     Copyright MyCompany. All rights reserved.
+//     Copyright Vyacheslav Lisnevskyi. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
 using System;
+using Last.fm.API.Core.Types;
+using TimeSpan = System.TimeSpan;
 
 namespace Last.fm.API.Core
 {

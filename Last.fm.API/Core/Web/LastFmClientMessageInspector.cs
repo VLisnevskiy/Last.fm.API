@@ -1,6 +1,6 @@
 //-----------------------------------------------------------------------
 // <copyright file="LastFmClientMessageInspector.cs" company="Vyacheslav Lisnevskyi">
-//     Copyright MyCompany. All rights reserved.
+//     Copyright Vyacheslav Lisnevskyi. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
@@ -22,14 +22,14 @@ namespace Last.fm.API.Core.Web
                     BaseResponse.DeserializeMessage(reply, typeof (ErrorMessage)) as ErrorMessage);
             }
 
-            if (reply != null)
-            {
-                HttpResponseMessageProperty prop = (HttpResponseMessageProperty)reply.Properties[HttpResponseMessageProperty.Name];
-                if (prop != null && prop.StatusCode == HttpStatusCode.InternalServerError)
-                {
-                    //throw DiagnosticUtility.ExceptionUtility.ThrowHelperError(new CommunicationException(prop.StatusDescription));
-                }
-            }
+            //if (reply != null)
+            //{
+            //    HttpResponseMessageProperty prop = (HttpResponseMessageProperty)reply.Properties[HttpResponseMessageProperty.Name];
+            //    if (prop != null && prop.StatusCode == HttpStatusCode.InternalServerError)
+            //    {
+            //        //throw DiagnosticUtility.ExceptionUtility.ThrowHelperError(new CommunicationException(prop.StatusDescription));
+            //    }
+            //}
         }
 
         public object BeforeSendRequest(ref Message request, IClientChannel channel)

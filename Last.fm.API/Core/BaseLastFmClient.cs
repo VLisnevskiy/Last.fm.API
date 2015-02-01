@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
 // <copyright file="BaseLastFmClient.cs" company="Vyacheslav Lisnevskyi">
-//     Copyright MyCompany. All rights reserved.
+//     Copyright Vyacheslav Lisnevskyi. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
@@ -32,28 +32,18 @@ namespace Last.fm.API.Core
         /// <summary>
         /// Creates a channel of a specified type to a specified endpoint address.
         /// </summary>
-        /// <typeparam name="T">Type of using channel</typeparam>
         /// <returns>
-        /// The <paramref><name>T</name></paramref> of type <see cref="T:System.ServiceModel.Channels.IChannel"/> created by the factory.
+        /// The <paramref><name>TChannel</name></paramref> of type <see cref="T:System.ServiceModel.Channels.IChannel"/> created by the factory.
         /// </returns>
         public TChannel CreateChannel()
         {
             LastFmChannelFactory<TChannel> factory = new LastFmChannelFactory<TChannel>();
-            ChannelFactory = factory;
-
             return factory.CreateChannel();
         }
 
-        public LastFmChannelFactory<TChannel> ChannelFactory { get; private set; }
-
         #region Auth help methods
 
-        protected string GetAuthToken(string password, string username)
-        {
-            return CreateSignature(username + CreateSignature(password));
-        }
-
-        protected string BuildSig(string formater, params object[] args)
+        protected string BuildSignature(string formater, params object[] args)
         {
             object[] param = new object[args.Length + 2];
             param[0] = ApiKey;
@@ -63,10 +53,10 @@ namespace Last.fm.API.Core
             }
 
             param[param.Length - 1] = ApiSig;
-            return CreateSignature(string.Format(formater, param));
+            return MD5(string.Format(formater, param));
         }
 
-        protected string CreateSignature(string parameters)
+        protected string MD5(string parameters)
         {
             string res = string.Empty;
             byte[] hash = new MD5CryptoServiceProvider()

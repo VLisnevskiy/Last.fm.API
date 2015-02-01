@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
 // <copyright file="IAlbumServicesApi.cs" company="Vyacheslav Lisnevskyi">
-//     Copyright MyCompany. All rights reserved.
+//     Copyright Vyacheslav Lisnevskyi. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
@@ -8,10 +8,9 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 using Last.fm.API.Core;
 
-namespace Last.fm.API.AlbumServices
+namespace Last.fm.API.Album
 {
     [ServiceContract]
-    [XmlSerializerFormat(Style = OperationFormatStyle.Document, SupportFaults = true)]
     internal interface IAlbumServicesApi : IApiKeys
     {
         #region Don't use User Authentication
@@ -40,9 +39,7 @@ namespace Last.fm.API.AlbumServices
         BaseResponse GetRecentTracks(string artist, string album, string apiKey);*/
 
         [OperationContract]
-        [WebInvoke(Method = "GET",
-            BodyStyle = WebMessageBodyStyle.Bare,
-            ResponseFormat = WebMessageFormat.Xml,
+        [WebInvoke(Method = "GET", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Xml,
             UriTemplate = "?method=album.getInfo&api_key={apiKey}&artist={artist}&album={album}&mbid={mbid}&username={username}&autocorrect={autocorrect}&lang={lang}")]
         BaseResponse GetInfo(string apiKey, string artist, string album, string mbid = "", string username = "", byte autocorrect = 0, string lang = "en");
         

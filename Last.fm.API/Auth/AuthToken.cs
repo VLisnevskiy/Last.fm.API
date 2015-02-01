@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
 // <copyright file="AuthToken.cs" company="Vyacheslav Lisnevskyi">
-//     Copyright MyCompany. All rights reserved.
+//     Copyright Vyacheslav Lisnevskyi. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
@@ -33,6 +33,39 @@ namespace Last.fm.API.Auth
                 return string.Format(Constants.SecurityUrl,
                     LastFmSettings.Instance.ApiKey,
                     Token);
+            }
+        }
+
+        /// <summary>
+        /// Implicit cast to AuthToken from string
+        /// </summary>
+        /// <param name="input">Input string value</param>
+        /// <returns>Output AuthToken object</returns>
+        public static implicit operator AuthToken(string input)
+        {
+            return checked
+                (new AuthToken
+                {
+                    Token = (new Guid(input))
+                    .ToString("N")
+                    .ToLowerInvariant()
+                });
+        }
+
+        /// <summary>
+        /// Implicit cast to string from AuthToken
+        /// </summary>
+        /// <param name="input">Input AuthToken object value</param>
+        /// <returns>Output string object</returns>
+        public static implicit operator string(AuthToken input)
+        {
+            if (null == input)
+            {
+                return string.Empty;
+            }
+            else
+            {
+                return input.Token;
             }
         }
 

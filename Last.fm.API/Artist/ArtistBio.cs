@@ -1,6 +1,6 @@
 //-----------------------------------------------------------------------
 // <copyright file="ArtistBio.cs" company="Vyacheslav Lisnevskyi">
-//     Copyright MyCompany. All rights reserved.
+//     Copyright Vyacheslav Lisnevskyi. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 

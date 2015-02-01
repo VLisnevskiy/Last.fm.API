@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
 // <copyright file="ArtistServicesClient.cs" company="Vyacheslav Lisnevskyi">
-//     Copyright MyCompany. All rights reserved.
+//     Copyright Vyacheslav Lisnevskyi. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
@@ -14,8 +14,7 @@ namespace Last.fm.API.Artist
 
         public ArtistInfo GetInfo(string artist, string username = null, string mbid = null, string lang = null, bool autocorrect = true)
         {
-            var result = Channel.GetInfo(ApiKey, artist, username, mbid, lang, autocorrect);
-
+            ArtistInfo result = Channel.GetInfo(ApiKey, artist, username, mbid, lang, autocorrect);
             return result;
         }
 

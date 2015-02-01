@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
 // <copyright file="IUserServicesApi.cs" company="Vyacheslav Lisnevskyi">
-//     Copyright MyCompany. All rights reserved.
+//     Copyright Vyacheslav Lisnevskyi. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
@@ -32,8 +32,8 @@ namespace Last.fm.API.User
          */
         [OperationContract]
         [WebInvoke(Method = "GET", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Xml,
-            UriTemplate = "?method=" + MtN.User.RecentTracks + "&api_key={apiKey}&user={user}&limit={limit}&page={page}&extended={extended}&from={from}&to={to}")]
-        BaseResponse GetRecentTracks(string apiKey, string user, int? limit = null, int? page = null, byte? extended = null, double? from = null, double? to = null);
+            UriTemplate = "?method=user.getRecentTracks&api_key={apiKey}&user={user}&limit={limit}&page={page}&extended={extended}&from={from}&to={to}")]
+        RecentTracksCollection GetRecentTracks(string apiKey, string user, int? limit = null, int? page = null, bool? extended = null, double? from = null, double? to = null);
 
         #endregion
 
@@ -118,9 +118,9 @@ namespace Last.fm.API.User
          * 
          */
         [OperationContract]
-        [WebInvoke(Method = "GET", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Xml,
-            UriTemplate = "?method=" + MtN.User.Info + "&api_key={apiKey}&user={user}")]
-        BaseResponse GetInfo(string apiKey, string user);
+        [WebInvoke(Method = "GET",
+            UriTemplate = "?method=user.getInfo&api_key={apiKey}&user={user}")]
+        UserInfo GetInfo(string apiKey, string user);
         
         #endregion
 

@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
 // <copyright file="UserServicesClient.cs" company="Vyacheslav Lisnevskyi">
-//     Copyright MyCompany. All rights reserved.
+//     Copyright Vyacheslav Lisnevskyi. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
@@ -14,8 +14,7 @@ namespace Last.fm.API.User
     {
         #region IUserServices methods
 
-        public BaseResponse GetRecentTracks(string user, int? limit = null, int? page = null, byte? extended = null,
-                                           double? from = 0, double? to = 0)
+        public RecentTracksCollection GetRecentTracks(string user, int? limit = null, int? page = null, bool? extended = null, double? from = 0, double? to = 0)
         {
             var result = Channel.GetRecentTracks(ApiKey, user, limit, page, extended, from, to);
             return result;
@@ -45,7 +44,7 @@ namespace Last.fm.API.User
             return result;
         }
 
-        public BaseResponse GetInfo(string user)
+        public UserInfo GetInfo(string user)
         {
             var result = Channel.GetInfo(ApiKey, user);
             return result;

@@ -1,11 +1,12 @@
 ﻿//-----------------------------------------------------------------------
 // <copyright file="LastFmWebHttpBehavior.cs" company="Vyacheslav Lisnevskyi">
-//     Copyright MyCompany. All rights reserved.
+//     Copyright Vyacheslav Lisnevskyi. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
 using System.ServiceModel.Description;
 using System.ServiceModel.Dispatcher;
+using System.ServiceModel.Web;
 
 namespace Last.fm.API.Core.Web
 {
@@ -17,6 +18,9 @@ namespace Last.fm.API.Core.Web
         public LastFmWebHttpBehavior()
         {
             FaultExceptionEnabled = true;
+            DefaultBodyStyle = WebMessageBodyStyle.Bare;
+            DefaultOutgoingRequestFormat = WebMessageFormat.Xml;
+            DefaultOutgoingResponseFormat = WebMessageFormat.Xml;
         }
 
         /// <summary>
@@ -88,11 +92,6 @@ namespace Last.fm.API.Core.Web
             clientRuntime.MessageInspectors.Add(new LastFmClientMessageInspector());
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="endpoint"></param>
-        /// <param name="endpointDispatcher"></param>
         public override void ApplyDispatchBehavior(ServiceEndpoint endpoint, EndpointDispatcher endpointDispatcher)
         {
             base.ApplyDispatchBehavior(endpoint, endpointDispatcher);

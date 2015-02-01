@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
 // <copyright file="ErrorMessage.cs" company="Vyacheslav Lisnevskyi">
-//     Copyright MyCompany. All rights reserved.
+//     Copyright Vyacheslav Lisnevskyi. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
@@ -20,6 +20,7 @@ namespace Last.fm.API.Core.Types
         public ErrorMessage()
         {
             Code = 0;
+            message = Constants.Ok;
         }
 
         /// <summary>
@@ -28,7 +29,7 @@ namespace Last.fm.API.Core.Types
         [XmlAttribute("code")]
         public int Code { get; set; }
 
-        private string message = Constants.Ok;
+        private string message;
 
         /// <summary>
         /// Message

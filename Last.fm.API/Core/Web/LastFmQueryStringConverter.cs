@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
 // <copyright file="LastFmQueryStringConverter.cs" company="Vyacheslav Lisnevskyi">
-//     Copyright MyCompany. All rights reserved.
+//     Copyright Vyacheslav Lisnevskyi. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
@@ -27,18 +27,19 @@ namespace Last.fm.API.Core.Web
             {
                 return true;
             }
-
             if (type == typeof(double?))
             {
                 return true;
             }
-
             if (type == typeof(int?))
             {
                 return true;
             }
-
             if (type == typeof(byte?))
+            {
+                return true;
+            }
+            if (type == typeof(bool?))
             {
                 return true;
             }
@@ -61,18 +62,19 @@ namespace Last.fm.API.Core.Web
                 string[] parms = parameter.Split(',');
                 return parms;
             }
-
             if (parameterType == typeof(double?))
             {
                 return parameter;
             }
-
             if (parameterType == typeof(int?))
             {
                 return parameter;
             }
-
             if (parameterType == typeof(byte?))
+            {
+                return parameter;
+            }
+            if (parameterType == typeof(bool?))
             {
                 return parameter;
             }
@@ -95,23 +97,30 @@ namespace Last.fm.API.Core.Web
                 string valstring = string.Join(",", (string[])parameter);
                 return valstring;
             }
-
             if (parameterType == typeof(double?))
             {
                 double? val = (double?)parameter;
                 return val.ToString();
             }
-
             if (parameterType == typeof (int?))
             {
                 int? val = (int?) parameter;
                 return val.ToString();
             }
-
             if (parameterType == typeof(byte?))
             {
                 byte? val = (byte?)parameter;
                 return val.ToString();
+            }
+            if (parameterType == typeof(bool?))
+            {
+                bool? val = (bool?)parameter;
+                if (null == val)
+                {
+                    return 0.ToString();
+                }
+
+                return (val == true ? 1 : 0).ToString();
             }
 
             return base.ConvertValueToString(parameter, parameterType);
