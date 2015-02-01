@@ -13,9 +13,9 @@ Last.fm API - it's a library that provide capability to use Last.fm web services
         try
         {
             AuthToken token = client.GetToken();
-            //Go to web browser and autorize token
+            //Go to web browser and authorize token.
             Process.Start(token.Url);
-            //Then cotinue get session
+            //Then continue to get session.
             AuthSession ssesion = client.GetSession(token);
         }
         catch (NotAuthorizedTokenException authEx)
