@@ -35,7 +35,7 @@ namespace Last.fm.API.Core.Web
         /// </summary>
         /// <param name="message">The incoming message.</param>
         /// <param name="parameters">The objects that are passed to the operation as parameters.</param>
-        public void DeserializeRequest(Message message, object[] parameters)
+        public void DeserializeRequest(System.ServiceModel.Channels.Message message, object[] parameters)
         {
             innerFormater.DeserializeRequest(message, parameters);
         }
@@ -48,7 +48,7 @@ namespace Last.fm.API.Core.Web
         /// </returns>
         /// <param name="messageVersion">The SOAP message version.</param>
         /// <param name="parameters">The out parameters.</param><param name="result">The return value.</param>
-        public Message SerializeReply(MessageVersion messageVersion, object[] parameters, object result)
+        public System.ServiceModel.Channels.Message SerializeReply(MessageVersion messageVersion, object[] parameters, object result)
         {
             return innerFormater.SerializeReply(messageVersion, parameters, result);
         }

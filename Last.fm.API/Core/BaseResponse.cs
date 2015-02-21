@@ -69,6 +69,32 @@ namespace Last.fm.API.Core
             return result;
         }
 
+        internal static object Deserialize(Stream stream, Type type)
+        {
+            object result;
+            XDocument doc;
+            stream = ExtractLfmStatusToStream(stream, out doc);
+
+            if (typeof(BaseResponse) == type)
+            {
+                result = new BaseResponseImpl
+                {
+                    InnerXml = doc.ToString(),
+                    Success = LfmStatus.ok
+                };
+
+                return result;
+            }
+
+            stream.Position = 0;
+            XmlSerializer serializer = new XmlSerializer(type);
+            result = serializer.Deserialize(stream);
+            ((BaseResponse) result).InnerXml =
+                string.Format("{0}{1}", Constants.XmlDocumentHeader, doc);
+
+            return result;
+        }
+
         #endregion
 
         #region Process Messages
@@ -125,9 +151,7 @@ namespace Last.fm.API.Core
 
                 result = serializer.Deserialize(stream);
                 ((BaseResponse) result).InnerXml =
-                    string.Format("{0}{1}",
-                        Constants.XmlDocumentHeader,
-                        doc);
+                    string.Format("{0}{1}", Constants.XmlDocumentHeader, doc);
             }
 
             return result;

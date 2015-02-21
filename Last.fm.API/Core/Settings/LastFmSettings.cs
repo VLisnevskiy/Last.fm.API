@@ -11,8 +11,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Xml;
-using System.Xml.Linq;
 using System.Xml.Serialization;
 using Last.fm.API.Auth;
 using TimeSpan = Last.fm.API.Core.Types.TimeSpan;
@@ -73,22 +71,15 @@ namespace Last.fm.API.Core.Settings
                 publicProperties = new Dictionary<string, PropertyInfo>();
                 (typeof(LastFmSettings))
                     .GetProperties(BindingFlags.Instance | BindingFlags.Public)
-                    .Where((property) =>
-                    {
-                        bool bRes = property.CanWrite;
-                        return bRes && property
-                            .GetCustomAttributes(typeof(SettingsElementAttribute), false).Length >= 1;
-                    })
+                    .Where((property) => property.CanWrite && null != property.GetAttribute<SettingsElementAttribute>(false))
                     .ToList()
                     .ForEach((property) =>
                     {
                         string elementName = property.Name;
-                        object[] attributes = property
-                            .GetCustomAttributes(typeof(SettingsElementAttribute), false);
-                        if (attributes.Length >= 1)
+                        SettingsElementAttribute settingsElement = property.GetAttribute<SettingsElementAttribute>(false);
+                        if (null != settingsElement)
                         {
-                            SettingsElementAttribute settingsElement = (SettingsElementAttribute)attributes[0];
-                            if (!string.IsNullOrWhiteSpace(settingsElement.Name))
+                            if (!string.IsNullOrEmpty(settingsElement.Name))
                             {
                                 elementName = settingsElement.Name;
                             }
@@ -328,16 +319,17 @@ namespace Last.fm.API.Core.Settings
 
         private bool LoadConfig(object item)
         {
-            if (null != item && item is ClientSettingsSection)
+            if (item is ClientSettingsSection)
             {
-                ClientSettingsSection settings = (ClientSettingsSection)item;
+                ClientSettingsSection settings = (ClientSettingsSection) item;
                 foreach (SettingElement element in settings.Settings)
                 {
                     if (ConfigFileElement == element.Name)
                     {
-                        string fileName = element.Value.ValueXml.InnerText.Trim();
+                        string fileName = element.GetValue();
                         return Instance.LoadSettings(ConfigurationType.FromFile, fileName);
                     }
+
                     ChceckAndSet(element);
                 }
 
@@ -352,7 +344,7 @@ namespace Last.fm.API.Core.Settings
             if (publicProperties.ContainsKey(element.Name))
             {
                 isPreventSave = true;
-                object value = element.Value.ValueXml.InnerText.Trim();
+                object value = element.GetValue();
                 if (typeof(TimeSpan) == publicProperties[element.Name].PropertyType)
                 {
                     value = new TimeSpan { Value = System.TimeSpan.Parse(value.ToString()) };
@@ -409,21 +401,13 @@ namespace Last.fm.API.Core.Settings
 
         private void ChangeValue(PropertyInfo property, string elementName, ref SettingElement inputElement)
         {
-            object value = null;
             if (null == inputElement)
             {
                 inputElement = new SettingElement(elementName, SettingsSerializeAs.String);
             }
 
-            inputElement.Value = new SettingValueElement();
-            XElement xmlElement = new XElement(XName.Get("value"));
-            XmlDocument doc = new XmlDocument();
-            inputElement.Value.ValueXml = doc.ReadNode(xmlElement.CreateReader());
-            value = property.GetValue(this, null) ?? string.Empty;
-            if (null != inputElement.Value.ValueXml)
-            {
-                inputElement.Value.ValueXml.InnerText = value.ToString();
-            }
+            object value = property.GetValue(this, null) ?? string.Empty;
+            inputElement.SetValue(value);
         }
 
         #endregion
@@ -455,7 +439,7 @@ namespace Last.fm.API.Core.Settings
         /// <summary>
         /// Url on LastFm API
         /// </summary>
-        public const string LastFmApiUrl = "https://ws.audioscrobbler.com/2.0/";
+        public const string LastFmApiUrl = "http://ws.audioscrobbler.com/2.0/";
 
         internal static string FakeToken
         {
@@ -471,7 +455,6 @@ namespace Last.fm.API.Core.Settings
         /// <summary>
         /// WebServices ApiKey
         /// </summary>
-        [XmlElement]
         [SettingsElement]
         public string ApiKey
         {
@@ -508,7 +491,6 @@ namespace Last.fm.API.Core.Settings
         /// <summary>
         /// WebServices ApiSig
         /// </summary>
-        [XmlElement]
         [SettingsElement]
         public string ApiSig
         {
@@ -545,7 +527,6 @@ namespace Last.fm.API.Core.Settings
         /// <summary>
         /// Timeout in minutes before Close
         /// </summary>
-        [XmlElement]
         [SettingsElement]
         public TimeSpan CloseTimeout
         {
@@ -575,7 +556,6 @@ namespace Last.fm.API.Core.Settings
         /// <summary>
         /// Timeout in minutes before Open
         /// </summary>
-        [XmlElement]
         [SettingsElement]
         public TimeSpan OpenTimeout
         {
@@ -605,7 +585,6 @@ namespace Last.fm.API.Core.Settings
         /// <summary>
         /// Timeout in minutes before Receive
         /// </summary>
-        [XmlElement]
         [SettingsElement]
         public TimeSpan ReceiveTimeout
         {
@@ -635,7 +614,6 @@ namespace Last.fm.API.Core.Settings
         /// <summary>
         /// Timeout in minutes before Send
         /// </summary>
-        [XmlElement]
         [SettingsElement]
         public TimeSpan SendTimeout
         {
@@ -667,8 +645,7 @@ namespace Last.fm.API.Core.Settings
         /// Needed to get Last.fm user session.
         /// Will be rewriten when will generated new token by method GetToken().
         /// </summary>
-        [XmlElement("Token")]
-        [SettingsElement]
+        [SettingsElement("Token")]
         public AuthToken Token
         {
             get
@@ -702,7 +679,6 @@ namespace Last.fm.API.Core.Settings
         /// <summary>
         /// Automatically save settings when Token change
         /// </summary>
-        [XmlElement]
         [SettingsElement]
         public bool AutoSaveWhenTokeChanged
         {
@@ -729,7 +705,6 @@ namespace Last.fm.API.Core.Settings
         /// <summary>
         /// MaxReceivedMessageSize.
         /// </summary>
-        [XmlElement]
         [SettingsElement]
         public int MaxReceivedMessageSize
         {

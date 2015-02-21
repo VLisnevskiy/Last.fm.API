@@ -24,6 +24,24 @@ namespace Last.fm.API.User
             RecentTracks = new List<RecentTrack>();
         }
 
+        [XmlAttribute("user")]
+        public string User { get; set; }
+
+        [XmlAttribute("page")]
+        public int Page { get; set; }
+
+        [XmlAttribute("perPage")]
+        public int PearPage { get; set; }
+
+        [XmlAttribute("totalPages")]
+        public int TotalPages { get; set; }
+
+        [XmlAttribute("total")]
+        public int TotalTracksCount { get; set; }
+
+        [XmlElement("track")]
+        public List<RecentTrack> RecentTracks { get; set; }
+
         #region ICollection<RecentTrack>, IEnumerable
 
         public void CopyTo(Array array, int index)
@@ -109,24 +127,6 @@ namespace Last.fm.API.User
         }
 
         #endregion
-
-        [XmlAttribute("user")]
-        public string User { get; set; }
-
-        [XmlAttribute("page")]
-        public int Page { get; set; }
-
-        [XmlAttribute("perPage")]
-        public int PearPage { get; set; }
-
-        [XmlAttribute("totalPages")]
-        public int TotalPages { get; set; }
-
-        [XmlAttribute("total")]
-        public int TotalTracksCount { get; set; }
-
-        [XmlElement("track")]
-        public List<RecentTrack> RecentTracks { get; set; }
 
         #region IXmlSerializable
 

@@ -7,33 +7,38 @@
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using Last.fm.API.Core;
+using Last.fm.API.Core.Web;
 
 namespace Last.fm.API.User
 {
-    [ServiceContract]
+    [Service("User")]
     internal interface IUserServicesApi : IApiKeys
     {
         #region Don't use User Authentication
 
         #region user.getRecentTracks
 
-        /*
-         * user.getRecentTracks
-         * 
-         * limit (Optional) : The number of results to fetch per page. Defaults to 50. Maximum is 200.
-         * user (Required) : The last.fm username to fetch the recent tracks of.
-         * page (Optional) : The page number to fetch. Defaults to first page.
-         * from (Optional) : Beginning timestamp of a range - only display scrobbles after this time, in UNIX timestamp format (integer number of seconds since 00:00:00, January 1st 1970 UTC). This must be in the UTC time zone.
-         * extended (0|1) (Optional) : Includes extended data in each artist, and whether or not the user has loved each track
-         * to (Optional) : End timestamp of a range - only display scrobbles before this time, in UNIX timestamp format (integer number of seconds since 00:00:00, January 1st 1970 UTC). This must be in the UTC time zone.
-         * 
-         * api_key (Required) : A Last.fm API key.
-         * 
-         */
-        [OperationContract]
-        [WebInvoke(Method = "GET", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Xml,
-            UriTemplate = "?method=user.getRecentTracks&api_key={apiKey}&user={user}&limit={limit}&page={page}&extended={extended}&from={from}&to={to}")]
-        RecentTracksCollection GetRecentTracks(string apiKey, string user, int? limit = null, int? page = null, bool? extended = null, double? from = null, double? to = null);
+        /// <summary>
+        /// Get a list of the recent tracks listened to by this user. Also includes the
+        /// currently playing track with the nowplaying="true" attribute if the user
+        /// is currently listening.
+        /// </summary>
+        /// <param name="apiKey">api_key (Required) : A Last.fm API key.</param>
+        /// <param name="user">user (Required) : The last.fm username to fetch the recent tracks of.</param>
+        /// <param name="limit">limit (Optional) : The number of results to fetch per page. Defaults
+        /// to 50. Maximum is 200.</param>
+        /// <param name="page">page (Optional) : The page number to fetch. Defaults to first page.</param>
+        /// <param name="extended">extended (0|1) (Optional) : Includes extended data in each artist,
+        /// and whether or not the user has loved each track.</param>
+        /// <param name="from">from (Optional) : Beginning timestamp of a range - only display scrobbles
+        /// after this time, in UNIX timestamp format (integer number of seconds since 00:00:00, January
+        /// 1st 1970 UTC). This must be in the UTC time zone.</param>
+        /// <param name="to">to (Optional) : End timestamp of a range - only display scrobbles before
+        /// this time, in UNIX timestamp format (integer number of seconds since 00:00:00, January 1st
+        /// 1970 UTC). This must be in the UTC time zone.</param>
+        /// <returns></returns>
+        [WebMethod(Name = "user.getRecentTracks", Method = HttpMethod.GET)]
+        RecentTracksCollection GetRecentTracks([Parameter("api_key")] string apiKey, [Parameter("user")] string user, [Parameter("limit")] int? limit = null, [Parameter("page")] int? page = null, [Parameter("extended")] bool? extended = null, [Parameter("from")] int? from = null, [Parameter("to")] int? to = null);
 
         #endregion
 
@@ -117,10 +122,8 @@ namespace Last.fm.API.User
          * api_key (Required) : A Last.fm API key.
          * 
          */
-        [OperationContract]
-        [WebInvoke(Method = "GET",
-            UriTemplate = "?method=user.getInfo&api_key={apiKey}&user={user}")]
-        UserInfo GetInfo(string apiKey, string user);
+        [WebMethod(Name = "user.getInfo", Method = HttpMethod.GET)]
+        UserInfo GetInfo([Parameter("api_key")] string apiKey, [Parameter("user")] string user);
         
         #endregion
 

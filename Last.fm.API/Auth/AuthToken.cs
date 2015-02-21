@@ -36,6 +36,8 @@ namespace Last.fm.API.Auth
             }
         }
 
+        #region Implicit cast
+
         /// <summary>
         /// Implicit cast to AuthToken from string
         /// </summary>
@@ -69,12 +71,29 @@ namespace Last.fm.API.Auth
             }
         }
 
+        #endregion
+
         #region Overrided
 
         public override string ToString()
         {
             return string.Format("{0}",
                 Token);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (null == obj || typeof(AuthToken) != obj.GetType())
+            {
+                return false;
+            }
+
+            return null != Token && Token.Equals(((AuthToken) obj).Token);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
 
         #endregion

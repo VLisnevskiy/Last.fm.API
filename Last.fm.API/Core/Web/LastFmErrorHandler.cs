@@ -26,7 +26,7 @@ namespace Last.fm.API.Core.Web
             }
         }
 
-        public void ProvideFault(Exception error, MessageVersion version, ref Message fault)
+        public void ProvideFault(Exception error, MessageVersion version, ref System.ServiceModel.Channels.Message fault)
         {
             if (error is FaultException)
             {
@@ -40,7 +40,7 @@ namespace Last.fm.API.Core.Web
                     new FaultReason(error.Message),
                     error,
                     new NetDataContractSerializer());
-                fault = Message.CreateMessage(version, messageFault, null);
+                fault = System.ServiceModel.Channels.Message.CreateMessage(version, messageFault, null);
             }
         }
     }

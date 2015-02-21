@@ -65,9 +65,13 @@ namespace SimpleScrobbler
             {
                 using (IAuthServices client = LastFmServices.AuthServicesClient)
                 {
-                    client.NotAuthorizedToken += new EventHandler<NotAuthorizedTokenEventArgs>(NotAuthorizedToken);
-                    userSession = client.GetSession();
-                    isLogedIn = true;
+                    //userSession = client.GetMobileSession("password", "username");
+                    if (null == userSession)
+                    {
+                        client.NotAuthorizedToken += new EventHandler<NotAuthorizedTokenEventArgs>(NotAuthorizedToken);
+                        userSession = client.GetSession();
+                        isLogedIn = true;
+                    }
                 }
 
                 if (null != userSession)

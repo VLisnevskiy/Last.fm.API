@@ -5,14 +5,12 @@
 //-----------------------------------------------------------------------
 
 using System;
+using System.Xml.Serialization;
 
 namespace Last.fm.API.Core.Settings
 {
-    [AttributeUsage(AttributeTargets.Property |
-        AttributeTargets.Field |
-        AttributeTargets.Parameter |
-        AttributeTargets.ReturnValue)]
-    internal class SettingsElementAttribute : Attribute
+    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
+    internal class SettingsElementAttribute : XmlElementAttribute
     {
         public SettingsElementAttribute()
         {
@@ -21,6 +19,7 @@ namespace Last.fm.API.Core.Settings
         public SettingsElementAttribute(string name)
         {
             Name = name;
+            ElementName = name;
         }
 
         public string Name { get; set; }

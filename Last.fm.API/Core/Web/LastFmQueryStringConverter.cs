@@ -94,7 +94,7 @@ namespace Last.fm.API.Core.Web
         {
             if (parameterType == typeof(string[]))
             {
-                string valstring = string.Join(",", (string[])parameter);
+                string valstring = string.Join(",", (string[]) parameter);
                 return valstring;
             }
             if (parameterType == typeof(double?))
@@ -112,7 +112,8 @@ namespace Last.fm.API.Core.Web
                 byte? val = (byte?)parameter;
                 return val.ToString();
             }
-            if (parameterType == typeof(bool?))
+            if (parameterType == typeof(bool?) ||
+                parameterType == typeof(bool))
             {
                 bool? val = (bool?)parameter;
                 if (null == val)

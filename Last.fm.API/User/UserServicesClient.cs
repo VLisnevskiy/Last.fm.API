@@ -14,7 +14,7 @@ namespace Last.fm.API.User
     {
         #region IUserServices methods
 
-        public RecentTracksCollection GetRecentTracks(string user, int? limit = null, int? page = null, bool? extended = null, double? from = 0, double? to = 0)
+        public RecentTracksCollection GetRecentTracks(string user, int? limit = 50, int? page = null, bool? extended = null, int? from = 0, int? to = 0)
         {
             var result = Channel.GetRecentTracks(ApiKey, user, limit, page, extended, from, to);
             return result;

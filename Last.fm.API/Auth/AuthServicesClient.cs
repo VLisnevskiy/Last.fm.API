@@ -5,6 +5,7 @@
 //-----------------------------------------------------------------------
 
 using System;
+using System.Linq;
 using Last.fm.API.Core;
 using Last.fm.API.Core.Settings;
 using Last.fm.API.Core.Types;
@@ -19,7 +20,15 @@ namespace Last.fm.API.Auth
         public AuthToken GetToken()
         {
             string apiSig = BuildSignature(SigToken);
-            var result = Channel.GetToken(ApiKey, apiSig);
+            AuthToken result = Channel.GetToken(ApiKey, apiSig);
+            return result;
+        }
+
+        public AuthSession GetMobileSession(string password, string username)
+        {
+            string apiSig = BuildSignature(SigMobileSession, password, username);
+            AuthSession result = Channel.GetMobileSession(ApiKey, apiSig, password, username);
+            LastFmSettings.Instance.UserSession = result;
             return result;
         }
 
@@ -51,7 +60,7 @@ namespace Last.fm.API.Auth
                 string.IsNullOrWhiteSpace(token)
                 ? LastFmSettings.FakeToken
                 : token);
-            AuthSession result = null;
+            AuthSession result;
             try
             {
                 result = Channel.GetSession(ApiKey, apiSig, token);
@@ -71,7 +80,11 @@ namespace Last.fm.API.Auth
 
             if (null != result && result.Success == LfmStatus.ok)
             {
-                LastFmSettings.Instance.Token = token;
+                if (LastFmSettings.Instance.Token != token)
+                {
+                    LastFmSettings.Instance.Token = token;
+                }
+
                 LastFmSettings.Instance.UserSession = result;
             }
 
@@ -86,8 +99,24 @@ namespace Last.fm.API.Auth
         private event EventHandler<NotAuthorizedTokenEventArgs> notAuthorizedToken;
         public event EventHandler<NotAuthorizedTokenEventArgs> NotAuthorizedToken
         {
-            add { notAuthorizedToken += value; }
-            remove { notAuthorizedToken -= value; }
+            add
+            {
+                if (null != notAuthorizedToken)
+                {
+                    if (notAuthorizedToken.GetInvocationList().Any(@delegate => @delegate != (Delegate) value))
+                    {
+                        notAuthorizedToken += value;
+                    }
+                }
+                else
+                {
+                    notAuthorizedToken += value;
+                }
+            }
+            remove
+            {
+                notAuthorizedToken -= value;
+            }
         }
 
         #endregion
@@ -106,15 +135,17 @@ namespace Last.fm.API.Auth
             {
                 foreach (Delegate @delegate in notAuthorizedToken.GetInvocationList())
                 {
-                    notAuthorizedToken -= (EventHandler<NotAuthorizedTokenEventArgs>) @delegate;
+                    NotAuthorizedToken -= (EventHandler<NotAuthorizedTokenEventArgs>)@delegate;
                 }
             }
         }
 
         #endregion
 
+        internal const string SigToken = "api_key{0}methodauth.getToken{1}";
+
         internal const string SigSession = "api_key{0}methodauth.getSessiontoken{1}{2}";
 
-        internal const string SigToken = "api_key{0}methodauth.getToken{1}";
+        internal const string SigMobileSession = "api_key{0}methodauth.getMobileSessionpassword{1}username{2}{3}";
     }
 }

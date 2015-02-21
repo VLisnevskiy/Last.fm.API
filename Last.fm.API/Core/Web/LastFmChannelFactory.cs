@@ -33,12 +33,10 @@ namespace Last.fm.API.Core.Web
         /// </returns>
         public new TChannel CreateChannel()
         {
-            RealProxy = new LastFmProxy<TChannel>(base.CreateChannel());
-            TChannel channel = RealProxy.GetTransparentProxy();
+            LastFmProxy<TChannel> proxy = new LastFmProxy<TChannel>();
+            TChannel channel = proxy.GetTransparentProxy();
 
             return channel;
         }
-
-        public LastFmProxy<TChannel> RealProxy { get; private set; }
     }
 }

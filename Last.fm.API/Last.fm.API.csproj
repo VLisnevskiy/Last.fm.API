@@ -115,6 +115,7 @@
     <Compile Include="Core\Types\ErrorMessage.cs" />
     <Compile Include="Core\Types\TaggingType.cs" />
     <Compile Include="Core\Types\TimeSpan.cs" />
+    <Compile Include="Core\Web\HttpMethod.cs" />
     <Compile Include="Core\Web\LastFmClientMessageFormatter.cs" />
     <Compile Include="Core\Web\LastFmClientMessageInspector.cs" />
     <Compile Include="Core\Web\LastFmDispatchMessageFormatter.cs" />
@@ -129,6 +130,11 @@
     <Compile Include="Core\Web\LastFmException.cs" />
     <Compile Include="Chart\IChartServices.cs" />
     <Compile Include="Chart\IChartServicesApi.cs" />
+    <Compile Include="Core\Web\Message.cs" />
+    <Compile Include="Core\Web\WebMethodAttribute.cs" />
+    <Compile Include="Core\Web\ParameterAttribute.cs" />
+    <Compile Include="Core\Web\ServiceAttribute.cs" />
+    <Compile Include="Core\Web\WebMethod.cs" />
     <Compile Include="Event\IEventServices.cs" />
     <Compile Include="Event\IEventServicesApi.cs" />
     <Compile Include="Geo\IGeoServices.cs" />

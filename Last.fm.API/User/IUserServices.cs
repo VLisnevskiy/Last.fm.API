@@ -17,19 +17,25 @@ namespace Last.fm.API.User
     {
         #region user.getRecentTracks
 
-        /*
-         * user.getRecentTracks
-         * 
-         * limit (Optional) : The number of results to fetch per page. Defaults to 50. Maximum is 200.
-         * user (Required) : The last.fm username to fetch the recent tracks of.
-         * page (Optional) : The page number to fetch. Defaults to first page.
-         * from (Optional) : Beginning timestamp of a range - only display scrobbles after this time, in UNIX timestamp format (integer number of seconds since 00:00:00, January 1st 1970 UTC). This must be in the UTC time zone.
-         * extended (0|1) (Optional) : Includes extended data in each artist, and whether or not the user has loved each track
-         * to (Optional) : End timestamp of a range - only display scrobbles before this time, in UNIX timestamp format (integer number of seconds since 00:00:00, January 1st 1970 UTC). This must be in the UTC time zone.
-         * 
-         * api_key (Required) : A Last.fm API key.
-         */
-        RecentTracksCollection GetRecentTracks(string user, int? limit = null, int? page = null, bool? extended = null, double? from = null, double? to = null);
+        /// <summary>
+        /// Get a list of the recent tracks listened to by this user. Also includes the
+        /// currently playing track with the nowplaying="true" attribute if the user
+        /// is currently listening.
+        /// </summary>
+        /// <param name="user">The last.fm username to fetch the recent tracks of.</param>
+        /// <param name="limit">The number of results to fetch per page. Defaults to 50.
+        /// Maximum is 200.</param>
+        /// <param name="page">The page number to fetch. Defaults to first page.</param>
+        /// <param name="extended">Includes extended data in each artist, and whether or not
+        /// the user has loved each track.</param>
+        /// <param name="from">Beginning timestamp of a range - only display scrobbles after
+        /// this time, in UNIX timestamp format (integer number of seconds since 00:00:00,
+        /// January 1st 1970 UTC). This must be in the UTC time zone.</param>
+        /// <param name="to">End timestamp of a range - only display scrobbles before this time,
+        /// in UNIX timestamp format (integer number of seconds since 00:00:00, January 1st
+        /// 1970 UTC). This must be in the UTC time zone.</param>
+        /// <returns>Return recent tracks collection</returns>
+        RecentTracksCollection GetRecentTracks(string user, int? limit = 50, int? page = null, bool? extended = null, int? from = null, int? to = null);
 
         #endregion
 
@@ -98,7 +104,7 @@ namespace Last.fm.API.User
         /// <summary>
         /// Get information about a user profile. 
         /// </summary>
-        /// <param name="user">user (Optional) : The user to fetch info for. Defaults to the authenticated user.</param>
+        /// <param name="user">The user to fetch info for. Defaults to the authenticated user.</param>
         /// <returns>User information</returns>
         UserInfo GetInfo(string user);
 

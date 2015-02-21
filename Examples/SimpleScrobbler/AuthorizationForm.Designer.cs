@@ -84,6 +84,7 @@ namespace SimpleScrobbler
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AuthorizationForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Authorization";
             this.ResumeLayout(false);
             this.PerformLayout();

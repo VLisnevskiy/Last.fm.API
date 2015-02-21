@@ -39,14 +39,9 @@ namespace Last.fm.API.Core.Web
         /// </returns>
         /// <param name="messageVersion">The version of the SOAP message to use.</param>
         /// <param name="parameters">The parameters passed to the  client operation.</param>
-        public Message SerializeRequest(MessageVersion messageVersion, object[] parameters)
+        public System.ServiceModel.Channels.Message SerializeRequest(MessageVersion messageVersion, object[] parameters)
         {
-            Message message = innerFormater.SerializeRequest(messageVersion, parameters);
-            //HttpRequestMessageProperty request = (HttpRequestMessageProperty) message.Properties[HttpRequestMessageProperty.Name];
-            //if (null != request)
-            //{
-            //}
-
+            System.ServiceModel.Channels.Message message = innerFormater.SerializeRequest(messageVersion, parameters);
             return message;
         }
 
@@ -58,7 +53,7 @@ namespace Last.fm.API.Core.Web
         /// </returns>
         /// <param name="message">The inbound message.</param>
         /// <param name="parameters">Any out values.</param>
-        public object DeserializeReply(Message message, object[] parameters)
+        public object DeserializeReply(System.ServiceModel.Channels.Message message, object[] parameters)
         {
             if (null != operation)
             {

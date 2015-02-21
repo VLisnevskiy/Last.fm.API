@@ -5,8 +5,7 @@
 //-----------------------------------------------------------------------
 
 using System;
-using System.Security.Cryptography;
-using System.Text;
+using System.Collections.Generic;
 using Last.fm.API.Core.Settings;
 using Last.fm.API.Core.Web;
 
@@ -16,16 +15,18 @@ namespace Last.fm.API.Core
     /// Base client to call Last.fm services
     /// </summary>
     /// <typeparam name="TChannel">Type of using channel</typeparam>
-    internal abstract class BaseLastFmClient<TChannel> : IDisposable, IApiKeys
+    public abstract class BaseLastFmClient<TChannel> : IDisposable, IApiKeys
     {
         /// <summary>
-        /// Using Channel
+        /// Channel
         /// </summary>
         public TChannel Channel { get; protected set; }
 
+        /// <summary>
+        /// Constructor of BaseLastFmClient.
+        /// </summary>
         protected BaseLastFmClient()
         {
-            disposed = false;
             Channel = CreateChannel();
         }
 
@@ -33,47 +34,30 @@ namespace Last.fm.API.Core
         /// Creates a channel of a specified type to a specified endpoint address.
         /// </summary>
         /// <returns>
-        /// The <paramref><name>TChannel</name></paramref> of type <see cref="T:System.ServiceModel.Channels.IChannel"/> created by the factory.
+        /// The <paramref><name>TChannel</name></paramref> of type <see cref="T:Last.fm.API.Core.Web.LastFmProxy"/> created by the proxy factory.
         /// </returns>
         public TChannel CreateChannel()
         {
-            LastFmChannelFactory<TChannel> factory = new LastFmChannelFactory<TChannel>();
-            return factory.CreateChannel();
+            return new LastFmProxy<TChannel>().GetTransparentProxy();
         }
 
-        #region Auth help methods
+        #region Auth help method
 
-        protected string BuildSignature(string formater, params object[] args)
+        protected string BuildSignature(string formater, params string[] args)
         {
-            object[] param = new object[args.Length + 2];
-            param[0] = ApiKey;
-            for (int i = 0; i < args.Length; i++)
-            {
-                param[i + 1] = args[i];
-            }
+            List<object> @params = new List<object>();
+            @params.Add(ApiKey);
+            @params.AddRange(args);
+            @params.Add(ApiSig);
 
-            param[param.Length - 1] = ApiSig;
-            return MD5(string.Format(formater, param));
-        }
-
-        protected string MD5(string parameters)
-        {
-            string res = string.Empty;
-            byte[] hash = new MD5CryptoServiceProvider()
-                .ComputeHash(Encoding.UTF8.GetBytes(parameters));
-            foreach (byte b in hash)
-            {
-                res += b.ToString("x2");
-            }
-
-            return res;
+            return string.Format(formater, @params.ToArray()).MD5();
         }
 
         #endregion
 
         #region IDisposable
 
-        private bool disposed;
+        private bool disposed = false;
 
         public void Dispose()
         {
@@ -96,6 +80,7 @@ namespace Last.fm.API.Core
                 if (disposing)
                 {
                     //TODO: Dispose managed resources.
+                    Channel = default(TChannel);
                 }
 
                 // Call the appropriate methods to clean up 
