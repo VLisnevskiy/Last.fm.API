@@ -118,17 +118,10 @@
     <Compile Include="Core\Types\TaggingType.cs" />
     <Compile Include="Core\Types\TimeSpan.cs" />
     <Compile Include="Core\Web\HttpMethod.cs" />
-    <Compile Include="Core\Web\LastFmClientMessageFormatter.cs" />
-    <Compile Include="Core\Web\LastFmClientMessageInspector.cs" />
-    <Compile Include="Core\Web\LastFmDispatchMessageFormatter.cs" />
     <Compile Include="Core\LastFmHelpers.cs" />
-    <Compile Include="Core\Web\LastFmErrorHandler.cs" />
     <Compile Include="Core\Web\LastFmProxy.cs" />
-    <Compile Include="Core\Web\LastFmWebHttpBehavior.cs" />
     <Compile Include="Core\Web\LastFmQueryStringConverter.cs" />
-    <Compile Include="Core\Web\LastFmWebHttpBinding.cs" />
     <Compile Include="Core\IApiKeys.cs" />
-    <Compile Include="Core\Web\LastFmChannelFactory.cs" />
     <Compile Include="Core\Web\LastFmException.cs" />
     <Compile Include="Chart\IChartServices.cs" />
     <Compile Include="Chart\IChartServicesApi.cs" />
