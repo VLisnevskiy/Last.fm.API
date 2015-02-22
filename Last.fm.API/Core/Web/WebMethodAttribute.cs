@@ -26,10 +26,12 @@ namespace Last.fm.API.Core.Web
 
         public WebMethodAttribute()
         {
+            Method = HttpMethod.GET;
         }
 
         public WebMethodAttribute(string name)
         {
+            Method = HttpMethod.GET;
             Name = name;
         }
     }

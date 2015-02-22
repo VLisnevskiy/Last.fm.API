@@ -11,6 +11,7 @@ namespace Last.fm.API.Core.Types
     /// <summary>
     /// LastFm tag
     /// </summary>
+    [XmlRoot("tag")]
     public class LfmTag
     {
         /// <summary>
@@ -24,6 +25,12 @@ namespace Last.fm.API.Core.Types
         /// </summary>
         [XmlElement("url")]
         public string Url { get; set; }
+
+        /// <summary>
+        /// Count.
+        /// </summary>
+        [XmlElement("count")]
+        public int Count { get; set; }
 
         public override string ToString()
         {

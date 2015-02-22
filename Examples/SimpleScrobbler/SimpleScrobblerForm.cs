@@ -78,12 +78,14 @@ namespace SimpleScrobbler
                 {
                     using (IUserServices client = LastFmServices.UserServicesClient)
                     {
+                        //var test = client.GetTopTags("RJ");
+                        var test = client.GetArtistTracks("RJ", "metallica");
                         userInfo = client.GetInfo(userSession.UserName);
                         rt = client.GetRecentTracks(userSession.UserName, 200, extended: true);
                         if (null != rt)
                         {
                             recentTracks.Items.Clear();
-                            recentTracks.Items.AddRange(rt.RecentTracks.ToArray());
+                            recentTracks.Items.AddRange(rt.Tracks.ToArray());
                         }
                     }
                 }

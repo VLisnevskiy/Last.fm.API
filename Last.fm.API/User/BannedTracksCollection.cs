@@ -1,5 +1,5 @@
-﻿//-----------------------------------------------------------------------
-// <copyright file="RecentTracksCollection.cs" company="Vyacheslav Lisnevskyi">
+//-----------------------------------------------------------------------
+// <copyright file="BannedTracksCollection.cs" company="Vyacheslav Lisnevskyi">
 //     Copyright Vyacheslav Lisnevskyi. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -15,13 +15,19 @@ using Last.fm.API.Core;
 
 namespace Last.fm.API.User
 {
-    [XmlRoot("recenttracks")]
-    public class RecentTracksCollection : BaseResponse, ICollection<Track>, IEnumerable, IXmlSerializable
+    /// <summary>
+    /// Banned tracks collection.
+    /// </summary>
+    [XmlRoot("bannedtracks")]
+    public class BannedTracksCollection : BaseResponse, ICollection<Track>, IEnumerable, IXmlSerializable
     {
-        public RecentTracksCollection()
+        public BannedTracksCollection()
         {
             Tracks = new List<Track>();
         }
+
+        [XmlElement("track")]
+        public List<Track> Tracks { get; set; }
 
         [XmlAttribute("user")]
         public string User { get; set; }
@@ -37,9 +43,6 @@ namespace Last.fm.API.User
 
         [XmlAttribute("total")]
         public int TotalTracksCount { get; set; }
-
-        [XmlElement("track")]
-        public List<Track> Tracks { get; set; }
 
         #region ICollection<Track>, IEnumerable
 
@@ -152,20 +155,6 @@ namespace Last.fm.API.User
         {
             XDocument doc = new XDocument();
             doc.Save(writer);
-        }
-
-        #endregion
-
-        #region Overrided
-
-        public override string ToString()
-        {
-            return string.Format("User : {0} [{1} of {3} - {2} pear page] (Total count : {4})",
-                User,
-                Page,
-                PearPage,
-                TotalPages,
-                TotalTracksCount);
         }
 
         #endregion

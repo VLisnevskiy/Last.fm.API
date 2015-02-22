@@ -11,6 +11,7 @@ namespace Last.fm.API.Core.Types
     /// <summary>
     /// LastFm image object
     /// </summary>
+    [XmlRoot("image")]
     public class LfmImage
     {
         /// <summary>

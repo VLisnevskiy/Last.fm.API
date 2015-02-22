@@ -51,7 +51,7 @@ namespace Last.fm.API.User
          * api_key (Required) : A Last.fm API key. 
          * 
          */
-        BaseResponse GetArtistTracks(string user, string artist, int? page = null, DateTime? endTimestamp = null);
+        ArtistTracksCollection GetArtistTracks(string user, string artist, int? page = null, DateTime? startTimestamp = null, DateTime? endTimestamp = null);
 
         #endregion
 
@@ -65,7 +65,7 @@ namespace Last.fm.API.User
          * api_key (Required) : A Last.fm API key.
          * 
          */
-        BaseResponse GetBannedTracks(string user, int? limit = null, int? page = null);
+        BannedTracksCollection GetBannedTracks(string user, int? limit = null, int? page = null);
 
         #endregion
 
@@ -80,7 +80,7 @@ namespace Last.fm.API.User
          * api_key (Required) : A Last.fm API key.
          * 
          */
-        BaseResponse GetEvents(string user, int? page = null, byte? festivalsonly = null, int? limit = null);
+        UpcomingEventsCollection GetEvents(string user, int? page = null, byte? festivalsonly = null, int? limit = null);
 
         #endregion
 
@@ -107,6 +107,18 @@ namespace Last.fm.API.User
         /// <param name="user">The user to fetch info for. Defaults to the authenticated user.</param>
         /// <returns>User information</returns>
         UserInfo GetInfo(string user);
+
+        #endregion
+
+        #region user.getTopTags
+
+        /// <summary>
+        /// Get the top tags used by this user.
+        /// </summary>
+        /// <param name="user">user (Required) : The user name.</param>
+        /// <param name="limit">limit (Optional) : Limit the number of tags returned.</param>
+        /// <returns></returns>
+        TagsCollection GetTopTags(string user, int? limit = null);
 
         #endregion
 

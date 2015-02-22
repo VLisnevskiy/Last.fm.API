@@ -32,6 +32,11 @@ namespace Last.fm.API.Core
         [XmlAttribute("status")]
         public LfmStatus Success { get; set; }
 
+        protected BaseResponse()
+        {
+            Success = LfmStatus.ok;
+        }
+
         #region Create instance
 
         private class BaseResponseImpl : BaseResponse

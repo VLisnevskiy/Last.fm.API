@@ -1,5 +1,5 @@
-﻿//-----------------------------------------------------------------------
-// <copyright file="RecentTracksCollection.cs" company="Vyacheslav Lisnevskyi">
+//-----------------------------------------------------------------------
+// <copyright file="UpcomingEventsCollection.cs" company="Vyacheslav Lisnevskyi">
 //     Copyright Vyacheslav Lisnevskyi. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -15,18 +15,21 @@ using Last.fm.API.Core;
 
 namespace Last.fm.API.User
 {
-    [XmlRoot("recenttracks")]
-    public class RecentTracksCollection : BaseResponse, ICollection<Track>, IEnumerable, IXmlSerializable
+    [XmlRoot("events")]
+    public class UpcomingEventsCollection : BaseResponse, ICollection<UpcomingEvent>, IEnumerable, IXmlSerializable
     {
-        public RecentTracksCollection()
+        public UpcomingEventsCollection()
         {
-            Tracks = new List<Track>();
+            UpcomingEvents= new List<UpcomingEvent>();
         }
+
+        [XmlAttribute("event")]
+        public List<UpcomingEvent> UpcomingEvents { get; set; }
 
         [XmlAttribute("user")]
         public string User { get; set; }
 
-        [XmlAttribute("page")]
+        [XmlElement("page")]
         public int Page { get; set; }
 
         [XmlAttribute("perPage")]
@@ -36,31 +39,31 @@ namespace Last.fm.API.User
         public int TotalPages { get; set; }
 
         [XmlAttribute("total")]
-        public int TotalTracksCount { get; set; }
+        public int TotalEventsCount { get; set; }
 
-        [XmlElement("track")]
-        public List<Track> Tracks { get; set; }
+        [XmlAttribute("festivalsonly")]
+        public bool FestivalsOnly { get; set; }
 
-        #region ICollection<Track>, IEnumerable
+        #region ICollection<UpcomingEvent>, IEnumerable
 
         public void CopyTo(Array array, int index)
         {
-            List<Track> items = new List<Track>();
+            List<UpcomingEvent> items = new List<UpcomingEvent>();
             while (array.GetEnumerator().MoveNext())
             {
-                Track recentTrack = array.GetEnumerator().Current as Track;
-                if (null != recentTrack)
+                UpcomingEvent @event = array.GetEnumerator().Current as UpcomingEvent;
+                if (null != @event)
                 {
-                    items.Add(recentTrack);
+                    items.Add(@event);
                 }
             }
 
-            Tracks.CopyTo(items.ToArray(), index);
+            UpcomingEvents.CopyTo(items.ToArray(), index);
         }
 
         public int Count
         {
-            get { return Tracks.Count; }
+            get { return UpcomingEvents.Count; }
         }
 
         public bool IsSynchronized
@@ -75,39 +78,39 @@ namespace Last.fm.API.User
 
         public IEnumerator GetEnumerator()
         {
-            return Tracks.GetEnumerator();
+            return UpcomingEvents.GetEnumerator();
         }
 
-        public Track this[int index]
+        public UpcomingEvent this[int index]
         {
             get
             {
-                return Tracks[index];
+                return UpcomingEvents[index];
             }
             set
             {
-                Tracks[index] = value;
+                UpcomingEvents[index] = value;
             }
         }
 
-        public void Add(Track item)
+        public void Add(UpcomingEvent item)
         {
-            Tracks.Add(item);
+            UpcomingEvents.Add(item);
         }
 
         public void Clear()
         {
-            Tracks.Clear();
+            UpcomingEvents.Clear();
         }
 
-        public bool Contains(Track item)
+        public bool Contains(UpcomingEvent item)
         {
-            return Tracks.Contains(item);
+            return UpcomingEvents.Contains(item);
         }
 
-        public void CopyTo(Track[] array, int arrayIndex)
+        public void CopyTo(UpcomingEvent[] array, int arrayIndex)
         {
-            Tracks.CopyTo(array, arrayIndex);
+            UpcomingEvents.CopyTo(array, arrayIndex);
         }
 
         public bool IsReadOnly
@@ -115,14 +118,14 @@ namespace Last.fm.API.User
             get { return false; }
         }
 
-        public bool Remove(Track item)
+        public bool Remove(UpcomingEvent item)
         {
-            return Tracks.Remove(item);
+            return UpcomingEvents.Remove(item);
         }
 
-        IEnumerator<Track> IEnumerable<Track>.GetEnumerator()
+        IEnumerator<UpcomingEvent> IEnumerable<UpcomingEvent>.GetEnumerator()
         {
-            return Tracks.GetEnumerator();
+            return UpcomingEvents.GetEnumerator();
         }
 
         #endregion
@@ -143,8 +146,9 @@ namespace Last.fm.API.User
                 Page = doc.Root.GetAttributeValue<int>("page");
                 PearPage = doc.Root.GetAttributeValue<int>("perPage");
                 TotalPages = doc.Root.GetAttributeValue<int>("totalPages");
-                TotalTracksCount = doc.Root.GetAttributeValue<int>("total");
-                Tracks = doc.Root.ExtracktItems<Track>("track");
+                TotalEventsCount = doc.Root.GetAttributeValue<int>("total");
+                FestivalsOnly = doc.Root.GetAttributeValue<bool>("festivalsonly");
+                UpcomingEvents = doc.Root.ExtracktItems<UpcomingEvent>("event");
             }
         }
 
@@ -152,20 +156,6 @@ namespace Last.fm.API.User
         {
             XDocument doc = new XDocument();
             doc.Save(writer);
-        }
-
-        #endregion
-
-        #region Overrided
-
-        public override string ToString()
-        {
-            return string.Format("User : {0} [{1} of {3} - {2} pear page] (Total count : {4})",
-                User,
-                Page,
-                PearPage,
-                TotalPages,
-                TotalTracksCount);
         }
 
         #endregion

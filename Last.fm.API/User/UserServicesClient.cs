@@ -20,22 +20,19 @@ namespace Last.fm.API.User
             return result;
         }
 
-        public BaseResponse GetArtistTracks(string user, string artist, int? page = null, DateTime? endTimestamp = null)
+        public ArtistTracksCollection GetArtistTracks(string user, string artist, int? page = null, DateTime? startTimestamp = null, DateTime? endTimestamp = null)
         {
-            var result = Channel.GetArtistTracks(ApiKey, user, artist, page, endTimestamp.ConvertToTimestamp());
-            return result;
+            return Channel.GetArtistTracks(ApiKey, user, artist, page, startTimestamp.ToTimestamp(), endTimestamp.ToTimestamp());
         }
 
-        public BaseResponse GetBannedTracks(string user, int? limit = null, int? page = null)
+        public BannedTracksCollection GetBannedTracks(string user, int? limit = null, int? page = null)
         {
-            var result = Channel.GetBannedTracks(ApiKey, user, limit, page);
-            return result;
+            return Channel.GetBannedTracks(ApiKey, user, limit, page);
         }
 
-        public BaseResponse GetEvents(string user, int? page = null, byte? festivalsonly = null, int? limit = null)
+        public UpcomingEventsCollection GetEvents(string user, int? page = null, byte? festivalsonly = null, int? limit = null)
         {
-            var result = Channel.GetEvents(ApiKey, user, page, festivalsonly, limit);
-            return result;
+            return Channel.GetEvents(ApiKey, user, page, festivalsonly, limit);
         }
 
         public BaseResponse GetFriends(string user, int? page = null, byte? recenttracks = 0, int? limit = null)
@@ -48,6 +45,11 @@ namespace Last.fm.API.User
         {
             var result = Channel.GetInfo(ApiKey, user);
             return result;
+        }
+
+        public TagsCollection GetTopTags(string user, int? limit = null)
+        {
+            return Channel.GetTopTags(ApiKey, user, limit);
         }
 
         public BaseResponse GetLovedTracks(string user, int? limit = null, int? page = null)

@@ -25,7 +25,7 @@ namespace Last.fm.API.Auth
         /// <param name="password">password (Required) : The password in plain text.</param>
         /// <param name="username">username (Required) : The last.fm username or email address.</param>
         /// <returns></returns>
-        [WebMethod(Name = "auth.getMobileSession", Method = HttpMethod.POST)]
+        [WebMethod("auth.getMobileSession", Method = HttpMethod.POST)]
         AuthSession GetMobileSession([Parameter("api_key")] string apiKey, [Parameter("api_sig")] string apiSig, [Parameter("password")] string password, [Parameter("username")] string username);
 
         #endregion
@@ -38,7 +38,7 @@ namespace Last.fm.API.Auth
         /// <param name="apiKey">api_key (Required) : A Last.fm API key.</param>
         /// <param name="apiSig">api_sig (Required) : A Last.fm method signature. See authentication for more information.</param>
         /// <returns></returns>
-        [WebMethod(Name = "auth.getToken", Method = HttpMethod.GET)]
+        [WebMethod("auth.getToken")]
         AuthToken GetToken([Parameter("api_key")] string apiKey, [Parameter("api_sig")] string apiSig);
 
         #endregion
@@ -52,7 +52,7 @@ namespace Last.fm.API.Auth
         /// <param name="apiSig">api_sig (Required) : A Last.fm method signature. See authentication for more information.</param>
         /// <param name="token">token (Required) : A 32-character ASCII hexadecimal MD5 hash returned by step 1 of the authentication process (following the granting of permissions to the application by the user)</param>
         /// <returns></returns>
-        [WebMethod(Name = "auth.getSession", Method = HttpMethod.POST)]
+        [WebMethod("auth.getSession", Method = HttpMethod.POST)]
         AuthSession GetSession([Parameter("api_key")] string apiKey, [Parameter("api_sig")] string apiSig, [Parameter("token")] string token);
 
         #endregion

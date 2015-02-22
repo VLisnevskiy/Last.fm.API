@@ -37,62 +37,58 @@ namespace Last.fm.API.User
         /// this time, in UNIX timestamp format (integer number of seconds since 00:00:00, January 1st
         /// 1970 UTC). This must be in the UTC time zone.</param>
         /// <returns></returns>
-        [WebMethod(Name = "user.getRecentTracks", Method = HttpMethod.GET)]
+        [WebMethod("user.getRecentTracks")]
         RecentTracksCollection GetRecentTracks([Parameter("api_key")] string apiKey, [Parameter("user")] string user, [Parameter("limit")] int? limit = null, [Parameter("page")] int? page = null, [Parameter("extended")] bool? extended = null, [Parameter("from")] int? from = null, [Parameter("to")] int? to = null);
 
         #endregion
 
         #region user.getArtistTracks
 
-        /*
-         * user (Required) : The last.fm username to fetch the recent tracks of.
-         * artist (Required) : The artist name you are interested in
-         * startTimestamp (Optional) : An unix timestamp to start at.
-         * page (Optional) : The page number to fetch. Defaults to first page.
-         * endTimestamp (Optional) : An unix timestamp to end at.
-         * 
-         * api_key (Required) : A Last.fm API key. 
-         * 
-         */
-        [OperationContract]
-        [WebInvoke(Method = "GET", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Xml,
-            UriTemplate = "?method=user.getArtistTracks&api_key={apiKey}&user={user}&artist={artist}&page={page}&endTimestamp={endTimestamp}")]
-        BaseResponse GetArtistTracks(string apiKey, string user, string artist, int? page = null, double? endTimestamp = null);
+        /// <summary>
+        /// Get a list of tracks by a given artist scrobbled by this user, including scrobble time.
+        /// Can be limited to specific timeranges, defaults to all time. 
+        /// </summary>
+        /// <param name="apiKey">api_key (Required) : A Last.fm API key.</param>
+        /// <param name="user">user (Required) : The last.fm username to fetch the recent tracks of.</param>
+        /// <param name="artist">artist (Required) : The artist name you are interested in.</param>
+        /// <param name="page">page (Optional) : The page number to fetch. Defaults to first page.</param>
+        /// <param name="startTimestamp">startTimestamp (Optional) : An unix timestamp to start at.</param>
+        /// <param name="endTimestamp">endTimestamp (Optional) : An unix timestamp to end at.</param>
+        /// <returns>Return collection of artist tracks.</returns>
+        [WebMethod("user.getArtistTracks")]
+        ArtistTracksCollection GetArtistTracks([Parameter("api_key")] string apiKey, [Parameter("user")] string user, [Parameter("artist")] string artist, [Parameter("page")] int? page = null, [Parameter("startTimestamp")] double? startTimestamp = null, [Parameter("endTimestamp")] double? endTimestamp = null);
         
         #endregion
 
         #region user.getBannedTracks
 
-        /*
-         * user (Required) : The user name
-         * limit (Optional) : The number of results to fetch per page. Defaults to 50.
-         * page (Optional) : The page number to fetch. Defaults to first page.
-         * 
-         * api_key (Required) : A Last.fm API key.
-         * 
-         */
-        [OperationContract]
-        [WebInvoke(Method = "GET", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Xml,
-            UriTemplate = "?method=user.getBannedTracks&api_key={apiKey}&user={user}&limit={limit}&page={page}")]
-        BaseResponse GetBannedTracks(string apiKey, string user, int? limit = null, int? page = null);
+        /// <summary>
+        /// Returns the tracks banned by the user.
+        /// </summary>
+        /// <param name="apiKey">api_key (Required) : A Last.fm API key.</param>
+        /// <param name="user">user (Required) : The user name.</param>
+        /// <param name="limit">limit (Optional) : The number of results to fetch per page. Defaults to 50.</param>
+        /// <param name="page">page (Optional) : The page number to fetch. Defaults to first page.</param>
+        /// <returns>Return collection of banned tracks.</returns>
+        [WebMethod("user.getBannedTracks")]
+        BannedTracksCollection GetBannedTracks([Parameter("api_key")] string apiKey, [Parameter("user")] string user, [Parameter("limit")] int? limit = null, [Parameter("page")] int? page = null);
         
         #endregion
 
         #region user.getEvents
 
-        /*
-         * user (Required) : The user to fetch the events for.
-         * page (Optional) : The page number to fetch. Defaults to first page.
-         * festivalsonly[0|1] (Optional) : Whether only festivals should be returned, or all events.
-         * limit (Optional) : The number of results to fetch per page. Defaults to 50.
-         * 
-         * api_key (Required) : A Last.fm API key.
-         * 
-         */
-        [OperationContract]
-        [WebInvoke(Method = "GET", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Xml,
-            UriTemplate = "?method=user.getEvents&api_key={apiKey}&user={user}&page={page}&festivalsonly={festivalsonly}&limit={limit}")]
-        BaseResponse GetEvents(string apiKey, string user, int? page = null, byte? festivalsonly = null, int? limit = null);
+        /// <summary>
+        /// Get a list of upcoming events that this user is attending. Easily integratable into
+        /// calendars, using the ical standard (see 'more formats' section below).
+        /// </summary>
+        /// <param name="apiKey">api_key (Required) : A Last.fm API key.</param>
+        /// <param name="user">user (Required) : The user to fetch the events for.</param>
+        /// <param name="page">page (Optional) : The page number to fetch. Defaults to first page.</param>
+        /// <param name="festivalsonly">festivalsonly[0|1] (Optional) : Whether only festivals should be returned, or all events.</param>
+        /// <param name="limit">limit (Optional) : The number of results to fetch per page. Defaults to 50.</param>
+        /// <returns>Returns collection of upcoming events.</returns>
+        [WebMethod("user.getEvents")]
+        UpcomingEventsCollection GetEvents([Parameter("api_key")]string apiKey, [Parameter("user")]string user, [Parameter("page")]int? page = null, [Parameter("festivalsonly")]byte? festivalsonly = null, [Parameter("limit")]int? limit = null);
         
         #endregion
 
@@ -122,9 +118,23 @@ namespace Last.fm.API.User
          * api_key (Required) : A Last.fm API key.
          * 
          */
-        [WebMethod(Name = "user.getInfo", Method = HttpMethod.GET)]
+        [WebMethod("user.getInfo")]
         UserInfo GetInfo([Parameter("api_key")] string apiKey, [Parameter("user")] string user);
         
+        #endregion
+
+        #region user.getTopTags
+
+        /// <summary>
+        /// Get the top tags used by this user.
+        /// </summary>
+        /// <param name="apiKey">api_key (Required) : A Last.fm API key.</param>
+        /// <param name="user">user (Required) : The user name.</param>
+        /// <param name="limit">limit (Optional) : Limit the number of tags returned.</param>
+        /// <returns>Return top tags collection.</returns>
+        [WebMethod("user.getTopTags")]
+        TagsCollection GetTopTags([Parameter("api_key")] string apiKey, [Parameter("user")] string user, [Parameter("limit")] int? limit = null);
+
         #endregion
 
         #region user.getLovedTracks

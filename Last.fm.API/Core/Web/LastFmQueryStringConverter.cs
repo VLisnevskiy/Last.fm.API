@@ -23,23 +23,27 @@ namespace Last.fm.API.Core.Web
         /// <param name="type">The <see cref="T:System.Type"/> to convert.</param>
         public override bool CanConvert(Type type)
         {
-            if (type == typeof(string[]))
+            if (type == typeof (string[]))
             {
                 return true;
             }
-            if (type == typeof(double?))
+            if (type == typeof (double?))
             {
                 return true;
             }
-            if (type == typeof(int?))
+            if (type == typeof (int?))
             {
                 return true;
             }
-            if (type == typeof(byte?))
+            if (type == typeof (byte?))
             {
                 return true;
             }
-            if (type == typeof(bool?))
+            if (type == typeof (bool?))
+            {
+                return true;
+            }
+            if (type == typeof (Guid))
             {
                 return true;
             }
@@ -57,29 +61,58 @@ namespace Last.fm.API.Core.Web
         /// <param name="parameterType">The <see cref="T:System.Type"/> to convert the parameter to.</param><exception cref="T:System.FormatException">The provided string does not have the correct format.</exception>
         public override object ConvertStringToValue(string parameter, Type parameterType)
         {
-            if (parameterType == typeof(string[]))
+            if (parameterType == typeof (string[]))
             {
                 string[] parms = parameter.Split(',');
                 return parms;
             }
-            if (parameterType == typeof(double?))
+            if (parameterType == typeof (double?))
             {
                 return parameter;
             }
-            if (parameterType == typeof(int?))
+            if (parameterType == typeof (int?) ||
+                parameterType == typeof(int))
+            {
+                int val;
+                if (int.TryParse(parameter, out val))
+                {
+                    return val;
+                }
+
+                return -1;
+            }
+            if (parameterType == typeof (byte?))
             {
                 return parameter;
             }
-            if (parameterType == typeof(byte?))
+            if (parameterType == typeof (bool?) ||
+                parameterType == typeof (bool))
             {
-                return parameter;
+                return int.Parse(parameter) != 0;
             }
-            if (parameterType == typeof(bool?))
+            if (parameterType == typeof (Guid))
             {
-                return parameter;
+                Guid guid = new Guid();
+                if (!string.IsNullOrWhiteSpace(parameter))
+                {
+                    guid = Guid.Parse(parameter);
+                }
+
+                return guid;
             }
 
             return base.ConvertStringToValue(parameter, parameterType);
+        }
+
+        /// <summary>
+        /// Convert string value to TResult type.
+        /// </summary>
+        /// <typeparam name="TResult">Type of results.</typeparam>
+        /// <param name="parameter">Input value.</param>
+        /// <returns>Return results of TResult type.</returns>
+        public TResult ConvertStringToValue<TResult>(string parameter)
+        {
+            return (TResult) ConvertStringToValue(parameter, typeof (TResult));
         }
 
         /// <summary>
@@ -92,14 +125,14 @@ namespace Last.fm.API.Core.Web
         /// <param name="parameterType">The <see cref="T:System.Type"/> of the parameter to convert.</param>
         public override string ConvertValueToString(object parameter, Type parameterType)
         {
-            if (parameterType == typeof(string[]))
+            if (parameterType == typeof (string[]))
             {
                 string valstring = string.Join(",", (string[]) parameter);
                 return valstring;
             }
-            if (parameterType == typeof(double?))
+            if (parameterType == typeof (double?))
             {
-                double? val = (double?)parameter;
+                double? val = (double?) parameter;
                 return val.ToString();
             }
             if (parameterType == typeof (int?))
@@ -107,21 +140,26 @@ namespace Last.fm.API.Core.Web
                 int? val = (int?) parameter;
                 return val.ToString();
             }
-            if (parameterType == typeof(byte?))
+            if (parameterType == typeof (byte?))
             {
-                byte? val = (byte?)parameter;
+                byte? val = (byte?) parameter;
                 return val.ToString();
             }
-            if (parameterType == typeof(bool?) ||
-                parameterType == typeof(bool))
+            if (parameterType == typeof (bool?) ||
+                parameterType == typeof (bool))
             {
-                bool? val = (bool?)parameter;
+                bool? val = (bool?) parameter;
                 if (null == val)
                 {
                     return 0.ToString();
                 }
 
                 return (val == true ? 1 : 0).ToString();
+            }
+            if (parameterType == typeof (Guid))
+            {
+                Guid guid = (Guid) parameter;
+                return guid.ToString("N");
             }
 
             return base.ConvertValueToString(parameter, parameterType);

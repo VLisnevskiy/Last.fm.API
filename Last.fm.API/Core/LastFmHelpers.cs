@@ -5,13 +5,17 @@
 //-----------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
+using System.Xml.Serialization;
+using Last.fm.API.Core.Web;
 using TimeSpan = System.TimeSpan;
 
 namespace Last.fm.API.Core
@@ -21,12 +25,14 @@ namespace Last.fm.API.Core
     /// </summary>
     public static class LastFmHelpers
     {
+        #region Convertation
+
         /// <summary>
         /// Method for converting a System.DateTime value to a UNIX Timestamp
         /// </summary>
         /// <param name="value">date to convert</param>
         /// <returns>UNIX Timestamp</returns>
-        public static double ConvertToTimestamp(this DateTime value)
+        public static double ToTimestamp(this DateTime value)
         {
             //create Timespan by subtracting the value provided from
             //the Unix Epoch
@@ -40,11 +46,11 @@ namespace Last.fm.API.Core
         /// </summary>
         /// <param name="value">date to convert</param>
         /// <returns>UNIX Timestamp</returns>
-        public static double ConvertToTimestamp(this DateTime? value)
+        public static double? ToTimestamp(this DateTime? value)
         {
             if (value != null)
             {
-                DateTime locValue = (DateTime)value;
+                DateTime locValue = (DateTime) value;
                 //create Timespan by subtracting the value provided from
                 //the Unix Epoch
                 TimeSpan span = (locValue - new DateTime(1970, 1, 1, 0, 0, 0, 0).ToLocalTime());
@@ -52,8 +58,12 @@ namespace Last.fm.API.Core
                 return span.TotalSeconds;
             }
 
-            return 0;
+            return null;
         }
+
+        #endregion
+
+        #region Reflaction
 
         /// <summary>
         /// Get custom attribute from parameter info <see cref="T:System.Reflection.ParameterInfo"/>.
@@ -93,7 +103,7 @@ namespace Last.fm.API.Core
         /// <returns>Return attribute.</returns>
         public static TAttribute GetAttribute<TAttribute>(this Type type, bool inherit)
         {
-            return type.GetCustomAttributes(typeof(TAttribute), inherit)
+            return type.GetCustomAttributes(typeof (TAttribute), inherit)
                 .Cast<TAttribute>()
                 .FirstOrDefault();
         }
@@ -108,10 +118,14 @@ namespace Last.fm.API.Core
         /// <returns>Return attribute.</returns>
         public static TAttribute GetAttribute<TAttribute>(this PropertyInfo property, bool inherit)
         {
-            return property.GetCustomAttributes(typeof(TAttribute), inherit)
+            return property.GetCustomAttributes(typeof (TAttribute), inherit)
                 .Cast<TAttribute>()
                 .FirstOrDefault();
         }
+
+        #endregion
+
+        #region Extract and set
 
         /// <summary>
         /// Get value from Setting Element.
@@ -149,6 +163,97 @@ namespace Last.fm.API.Core
         }
 
         /// <summary>
+        /// Extract elements of type TResult from xml.
+        /// </summary>
+        /// <typeparam name="TResult">Type of returned elements.</typeparam>
+        /// <param name="elements">Collection of xml elements/</param>
+        /// <returns>Collection of extracted items.</returns>
+        public static List<TResult> ExtracktItems<TResult>(this IEnumerable<XElement> elements)
+            where TResult : class, new()
+        {
+            List<TResult> items = new List<TResult>();
+            XmlSerializer serializer = new XmlSerializer(typeof (TResult));
+            foreach (XElement element in elements)
+            {
+                using (Stream stream = new MemoryStream())
+                {
+                    element.Save(stream);
+                    stream.Position = 0;
+                    TResult item = serializer.Deserialize(stream) as TResult;
+                    if (null != item)
+                    {
+                        items.Add(item);
+                    }
+                }
+            }
+
+            return items;
+        }
+
+        /// <summary>
+        /// Extract elements of type TResult from xml.
+        /// </summary>
+        /// <typeparam name="TResult">Type of returned elements.</typeparam>
+        /// <param name="rootElement">Collection of xml elements.</param>
+        /// <param name="name">Name of element.</param>
+        /// <returns>Collection of extracted items.</returns>
+        public static List<TResult> ExtracktItems<TResult>(this XElement rootElement, string name)
+            where TResult : class, new()
+        {
+            return rootElement.Elements(name).ExtracktItems<TResult>();
+        }
+
+        /// <summary>
+        /// Get value of xml attribute.
+        /// </summary>
+        /// <typeparam name="TResult">Type of results.</typeparam>
+        /// <param name="element">Input element.</param>
+        /// <param name="name">Name of attribute.</param>
+        /// <returns>Return value of attribute.</returns>
+        public static TResult GetAttributeValue<TResult>(this XElement element, string name)
+        {
+            TResult result = default(TResult);
+            LastFmQueryStringConverter converter = new LastFmQueryStringConverter();
+            XAttribute attribute = element.Attribute(name);
+            if (null != attribute)
+            {
+                if (converter.CanConvert(typeof (TResult)))
+                {
+                    result = converter.ConvertStringToValue<TResult>(attribute.Value);
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Get value of xml element.
+        /// </summary>
+        /// <typeparam name="TResult">Type of results.</typeparam>
+        /// <param name="rootElement">Input element.</param>
+        /// <param name="name">Name of attribute.</param>
+        /// <returns>Return value of attribute.</returns>
+        public static TResult GetValue<TResult>(this XElement rootElement, string name)
+        {
+            TResult result = default(TResult);
+            LastFmQueryStringConverter converter = new LastFmQueryStringConverter();
+            XElement element = rootElement.Element(name);
+            if (null != element)
+            {
+                if (converter.CanConvert(typeof (TResult)))
+                {
+                    result = converter.ConvertStringToValue<TResult>(element.Value);
+                }
+            }
+
+            return result;
+        }
+
+        #endregion
+
+        #region md5 - Hash
+
+        /// <summary>
         /// md5 hasing.
         /// </summary>
         /// <param name="parameters">Input string.</param>
@@ -176,5 +281,7 @@ namespace Last.fm.API.Core
 
             return hash;
         }
+
+        #endregion
     }
 }

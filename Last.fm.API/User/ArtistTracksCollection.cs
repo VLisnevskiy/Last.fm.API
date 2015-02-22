@@ -1,5 +1,5 @@
-﻿//-----------------------------------------------------------------------
-// <copyright file="RecentTracksCollection.cs" company="Vyacheslav Lisnevskyi">
+//-----------------------------------------------------------------------
+// <copyright file="ArtistTracksCollection.cs" company="Vyacheslav Lisnevskyi">
 //     Copyright Vyacheslav Lisnevskyi. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -15,18 +15,30 @@ using Last.fm.API.Core;
 
 namespace Last.fm.API.User
 {
-    [XmlRoot("recenttracks")]
-    public class RecentTracksCollection : BaseResponse, ICollection<Track>, IEnumerable, IXmlSerializable
+    /// <summary>
+    /// Artist tracks collection.
+    /// </summary>
+    [XmlRoot("artisttracks")]
+    public class ArtistTracksCollection : BaseResponse, ICollection<Track>, IEnumerable, IXmlSerializable
     {
-        public RecentTracksCollection()
+        public ArtistTracksCollection()
         {
             Tracks = new List<Track>();
         }
 
+        [XmlElement("track")]
+        public List<Track> Tracks { get; set; }
+
         [XmlAttribute("user")]
         public string User { get; set; }
 
-        [XmlAttribute("page")]
+        [XmlAttribute("artist")]
+        public string Artist { get; set; }
+
+        [XmlAttribute("items")]
+        public int Amount { get; set; }
+
+        [XmlElement("page")]
         public int Page { get; set; }
 
         [XmlAttribute("perPage")]
@@ -37,9 +49,6 @@ namespace Last.fm.API.User
 
         [XmlAttribute("total")]
         public int TotalTracksCount { get; set; }
-
-        [XmlElement("track")]
-        public List<Track> Tracks { get; set; }
 
         #region ICollection<Track>, IEnumerable
 
@@ -140,6 +149,8 @@ namespace Last.fm.API.User
             if (null != doc.Root)
             {
                 User = doc.Root.GetAttributeValue<string>("user");
+                Artist = doc.Root.GetAttributeValue<string>("artist");
+                Amount = doc.Root.GetAttributeValue<int>("items");
                 Page = doc.Root.GetAttributeValue<int>("page");
                 PearPage = doc.Root.GetAttributeValue<int>("perPage");
                 TotalPages = doc.Root.GetAttributeValue<int>("totalPages");
@@ -152,20 +163,6 @@ namespace Last.fm.API.User
         {
             XDocument doc = new XDocument();
             doc.Save(writer);
-        }
-
-        #endregion
-
-        #region Overrided
-
-        public override string ToString()
-        {
-            return string.Format("User : {0} [{1} of {3} - {2} pear page] (Total count : {4})",
-                User,
-                Page,
-                PearPage,
-                TotalPages,
-                TotalTracksCount);
         }
 
         #endregion
