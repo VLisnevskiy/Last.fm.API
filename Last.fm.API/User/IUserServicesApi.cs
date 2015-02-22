@@ -94,30 +94,29 @@ namespace Last.fm.API.User
 
         #region user.getFriends
 
-        /*
-         * user (Required) : The last.fm username to fetch the friends of.
-         * recenttracks [0/1](Optional) : Whether or not to include information about friends' recent listening in the response.
-         * limit (Optional) : The number of results to fetch per page. Defaults to 50.
-         * page (Optional) : The page number to fetch. Defaults to first page.
-         * 
-         * api_key (Required) : A Last.fm API key.
-         * 
-         */
-        [OperationContract]
-        [WebInvoke(Method = "GET", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Xml,
-            UriTemplate = "?method=user.getFriends&api_key={apiKey}&user={user}&page={page}&recenttracks={recenttracks}&limit={limit}")]
-        BaseResponse GetFriends(string apiKey, string user, int? page = null, byte? recenttracks = 0, int? limit = null);
+        /// <summary>
+        /// Get a list of the user's friends on Last.fm.
+        /// </summary>
+        /// <param name="apiKey">api_key (Required) : A Last.fm API key.</param>
+        /// <param name="user">user (Required) : The last.fm username to fetch the friends of.</param>
+        /// <param name="recenttracks">recenttracks [0/1](Optional) : Whether or not to include information
+        /// about friends' recent listening in the response.</param>
+        /// /// <param name="page">page (Optional) : The page number to fetch. Defaults to first page.</param>
+        /// <param name="limit">limit (Optional) : The number of results to fetch per page. Defaults to 50.</param>
+        /// <returns></returns>
+        [WebMethod("user.getFriends")]
+        FriendsCollection GetFriends([Parameter("api_key")] string apiKey, [Parameter("user")] string user, [Parameter("recenttracks")]bool? recenttracks = null, [Parameter("page")]int? page = null, [Parameter("limit")] int? limit = null);
         
         #endregion
 
         #region user.getInfo
 
-        /*
-         * user (Optional) : The user to fetch info for. Defaults to the authenticated user.
-         * 
-         * api_key (Required) : A Last.fm API key.
-         * 
-         */
+        /// <summary>
+        /// Get information about a user profile. 
+        /// </summary>
+        /// <param name="apiKey">user (Optional) : The user to fetch info for. Defaults to the authenticated user.</param>
+        /// <param name="user">api_key (Required) : A Last.fm API key.</param>
+        /// <returns>Return user information.</returns>
         [WebMethod("user.getInfo")]
         UserInfo GetInfo([Parameter("api_key")] string apiKey, [Parameter("user")] string user);
         

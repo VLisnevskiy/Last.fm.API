@@ -41,16 +41,16 @@ namespace Last.fm.API.User
 
         #region user.getArtistTracks
 
-        /*
-         * user (Required) : The last.fm username to fetch the recent tracks of.
-         * artist (Required) : The artist name you are interested in
-         * startTimestamp (Optional) : An unix timestamp to start at.
-         * page (Optional) : The page number to fetch. Defaults to first page.
-         * endTimestamp (Optional) : An unix timestamp to end at.
-         * 
-         * api_key (Required) : A Last.fm API key. 
-         * 
-         */
+        /// <summary>
+        /// Get a list of tracks by a given artist scrobbled by this user, including scrobble time.
+        /// Can be limited to specific timeranges, defaults to all time. 
+        /// </summary>
+        /// <param name="user">user (Required) : The last.fm username to fetch the recent tracks of.</param>
+        /// <param name="artist">artist (Required) : The artist name you are interested in.</param>
+        /// <param name="page">page (Optional) : The page number to fetch. Defaults to first page.</param>
+        /// <param name="startTimestamp">startTimestamp (Optional) : An unix timestamp to start at.</param>
+        /// <param name="endTimestamp">endTimestamp (Optional) : An unix timestamp to end at.</param>
+        /// <returns>Return collection of artist tracks.</returns>
         ArtistTracksCollection GetArtistTracks(string user, string artist, int? page = null, DateTime? startTimestamp = null, DateTime? endTimestamp = null);
 
         #endregion
@@ -71,31 +71,31 @@ namespace Last.fm.API.User
 
         #region user.getEvents
 
-        /*
-         * user (Required) : The user to fetch the events for.
-         * page (Optional) : The page number to fetch. Defaults to first page.
-         * festivalsonly[0|1] (Optional) : Whether only festivals should be returned, or all events.
-         * limit (Optional) : The number of results to fetch per page. Defaults to 50.
-         * 
-         * api_key (Required) : A Last.fm API key.
-         * 
-         */
+        /// <summary>
+        /// Get a list of upcoming events that this user is attending. Easily integratable into
+        /// calendars, using the ical standard (see 'more formats' section below).
+        /// </summary>
+        /// <param name="user">user (Required) : The user to fetch the events for.</param>
+        /// <param name="page">page (Optional) : The page number to fetch. Defaults to first page.</param>
+        /// <param name="festivalsonly">festivalsonly[0|1] (Optional) : Whether only festivals should be returned, or all events.</param>
+        /// <param name="limit">limit (Optional) : The number of results to fetch per page. Defaults to 50.</param>
+        /// <returns>Returns collection of upcoming events.</returns>
         UpcomingEventsCollection GetEvents(string user, int? page = null, byte? festivalsonly = null, int? limit = null);
 
         #endregion
 
         #region user.getFriends
 
-        /*
-         * user (Required) : The last.fm username to fetch the friends of.
-         * recenttracks [0/1](Optional) : Whether or not to include information about friends' recent listening in the response.
-         * limit (Optional) : The number of results to fetch per page. Defaults to 50.
-         * page (Optional) : The page number to fetch. Defaults to first page.
-         * 
-         * api_key (Required) : A Last.fm API key.
-         * 
-         */
-        BaseResponse GetFriends(string user, int? page = null, byte? recenttracks = 0, int? limit = null);
+        /// <summary>
+        /// Get a list of the user's friends on Last.fm.
+        /// </summary>
+        /// <param name="user">user (Required) : The last.fm username to fetch the friends of.</param>
+        /// <param name="recenttracks">recenttracks [0/1](Optional) : Whether or not to include information
+        /// about friends' recent listening in the response.</param>
+        /// <param name="page">page (Optional) : The page number to fetch. Defaults to first page.</param>
+        /// <param name="limit">limit (Optional) : The number of results to fetch per page. Defaults to 50.</param>
+        /// <returns></returns>
+        FriendsCollection GetFriends(string user, bool? recenttracks = null, int? page = null, int? limit = null);
 
         #endregion
 

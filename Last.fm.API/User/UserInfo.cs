@@ -12,7 +12,7 @@ using Last.fm.API.Core.Types;
 namespace Last.fm.API.User
 {
     /// <summary>
-    /// Last.fm User information
+    /// Last.fm User information.
     /// </summary>
     [XmlRoot("user")]
     public class UserInfo : BaseResponse
@@ -55,6 +55,15 @@ namespace Last.fm.API.User
 
         [XmlElement("registered")]
         public LfmDateTime Registered { get; set; }
+
+        [XmlElement("type")]
+        public string Type { get; set; }
+
+        [XmlElement("scrobblesource")]
+        public ScrobbleSource ScrobbleSource { get; set; }
+
+        [XmlElement("recenttrack")]
+        public RecentTrack RecentTrack { get; set; }
 
         #region Overrided
 

@@ -26,6 +26,12 @@ namespace Last.fm.API.Core.Types
         [XmlText]
         public string Name { get; set; }
 
+        /// <summary>
+        /// Url.
+        /// </summary>
+        [XmlElement("url")]
+        public string Url { get; set; }
+
         #region Overrided
 
         public override string ToString()

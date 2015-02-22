@@ -105,8 +105,7 @@ namespace Last.fm.API.Core.Web
         /// <returns>Return deserialized object.</returns>
         protected virtual object DeserializeReply(Message message, object[] @params)
         {
-            object result = BaseResponse.Deserialize(message.ResponseStream, message.Method.ReturnType);
-            return result;
+            return BaseResponse.Deserialize(message.ResponseStream, message.Method.ReturnType);
         }
 
         /// <summary>

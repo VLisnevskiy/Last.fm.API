@@ -13,7 +13,7 @@ using Last.fm.API.Core.Types;
 namespace Last.fm.API.Artist
 {
     /// <summary>
-    /// 
+    /// Last.fm artist.
     /// </summary>
     [Serializable]
     [XmlRoot("artist")]

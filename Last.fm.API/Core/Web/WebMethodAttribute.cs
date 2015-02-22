@@ -9,7 +9,7 @@ using System;
 namespace Last.fm.API.Core.Web
 {
     /// <summary>
-    /// Last.fm method attribute
+    /// Last.fm web method attribute.
     /// </summary>
     [AttributeUsage(AttributeTargets.Method)]
     public class WebMethodAttribute : Attribute

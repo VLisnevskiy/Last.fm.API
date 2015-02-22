@@ -85,7 +85,7 @@ namespace SimpleScrobbler
                         if (null != rt)
                         {
                             recentTracks.Items.Clear();
-                            recentTracks.Items.AddRange(rt.Tracks.ToArray());
+                            recentTracks.Items.AddRange(rt.ToArray());
                         }
                     }
                 }

@@ -16,10 +16,10 @@ using Last.fm.API.Core.Types;
 namespace Last.fm.API.User
 {
     /// <summary>
-    /// LastFm reent track.
+    /// LastFm track.
     /// </summary>
     [XmlRoot("track")]
-    public class Track : IXmlSerializable
+    public class Track : LikeObject, IXmlSerializable
     {
         public Track()
         {
@@ -55,23 +55,15 @@ namespace Last.fm.API.User
 
         #region IXmlSerializable
 
-        public System.Xml.Schema.XmlSchema GetSchema()
+        public override void ReadXml(XDocument doc)
         {
-            return null;
-        }
-
-        public void ReadXml(XmlReader reader)
-        {
-            XDocument doc = XDocument.Load(reader);
             if (null != doc.Root)
             {
-                XElement rootElement = doc.Root;
                 XElement element = doc.Root.Element("artist");
                 if (null != element)
                 {
                     Artist = new LfmShortArtistInfo();
-                    List<XElement> elements = element.Elements().ToList();
-                    if (elements.Count > 1)
+                    if (element.Elements().ToList().Count > 1)
                     {
                         Artist.Name = element.GetValue<string>("name");
                         Artist.Mbid = element.GetValue<Guid>("mbid");
@@ -84,7 +76,7 @@ namespace Last.fm.API.User
                         Artist.Mbid = element.GetAttributeValue<Guid>("mbid");
                     }
                 }
-                
+
                 Name = doc.Root.GetValue<string>("name");
                 Streamable = doc.Root.GetValue<bool>("streamable");
                 Mbid = doc.Root.GetValue<Guid>("mbid");
@@ -97,7 +89,7 @@ namespace Last.fm.API.User
                 }
 
                 Url = doc.Root.GetValue<string>("url");
-                element = rootElement.Element("date");
+                element = doc.Root.Element("date");
                 if (null != element)
                 {
                     DateTime = new LfmDateTime();
@@ -109,12 +101,6 @@ namespace Last.fm.API.User
             }
         }
 
-        public void WriteXml(XmlWriter writer)
-        {
-            XDocument doc = new XDocument();
-            doc.Save(writer);
-        }
-
         #endregion
 
         #region Overrided
@@ -122,9 +108,9 @@ namespace Last.fm.API.User
         public override string ToString()
         {
             return string.Format("{0} - {1} [{2}]",
-                Artist ?? new LfmShortArtistInfo {Name = ""},
-                Name ?? "",
-                DateTime ?? new LfmDateTime {DateTime = ""});
+                Artist ?? new LfmShortArtistInfo { Name = "" },
+                Name ?? string.Empty,
+                DateTime ?? new LfmDateTime { DateTime = "" });
         }
 
         #endregion

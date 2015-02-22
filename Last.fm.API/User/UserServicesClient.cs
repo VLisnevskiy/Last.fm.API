@@ -16,8 +16,7 @@ namespace Last.fm.API.User
 
         public RecentTracksCollection GetRecentTracks(string user, int? limit = 50, int? page = null, bool? extended = null, int? from = 0, int? to = 0)
         {
-            var result = Channel.GetRecentTracks(ApiKey, user, limit, page, extended, from, to);
-            return result;
+            return Channel.GetRecentTracks(ApiKey, user, limit, page, extended, from, to);
         }
 
         public ArtistTracksCollection GetArtistTracks(string user, string artist, int? page = null, DateTime? startTimestamp = null, DateTime? endTimestamp = null)
@@ -35,16 +34,14 @@ namespace Last.fm.API.User
             return Channel.GetEvents(ApiKey, user, page, festivalsonly, limit);
         }
 
-        public BaseResponse GetFriends(string user, int? page = null, byte? recenttracks = 0, int? limit = null)
+        public FriendsCollection GetFriends(string user, bool? recenttracks = null, int? page = null, int? limit = null)
         {
-            var result = Channel.GetFriends(ApiKey, user, page, recenttracks, limit);
-            return result;
+            return Channel.GetFriends(ApiKey, user, recenttracks, page, limit);
         }
 
         public UserInfo GetInfo(string user)
         {
-            var result = Channel.GetInfo(ApiKey, user);
-            return result;
+            return Channel.GetInfo(ApiKey, user);
         }
 
         public TagsCollection GetTopTags(string user, int? limit = null)

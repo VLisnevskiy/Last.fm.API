@@ -98,10 +98,12 @@
     <Compile Include="Core\BaseResponse.cs" />
     <Compile Include="Core\Constants.cs" />
     <Compile Include="Core\BaseLastFmClient.cs" />
+    <Compile Include="Core\LikeObject.cs" />
     <Compile Include="Core\Settings\AutoSaveSettingsMode.cs" />
     <Compile Include="Core\Settings\ConfigurationType.cs" />
     <Compile Include="Core\Settings\LastFmSettings.cs" />
     <Compile Include="Core\Settings\SettingsElementAttribute.cs" />
+    <Compile Include="Core\Types\BaseCollection.cs" />
     <Compile Include="Core\Types\ImageSize.cs" />
     <Compile Include="Core\Types\LfmDateTime.cs" />
     <Compile Include="Core\Types\LfmGender.cs" />
@@ -160,9 +162,12 @@
     <Compile Include="User\ArtistTracksCollection.cs" />
     <Compile Include="User\BannedTracksCollection.cs" />
     <Compile Include="User\EventArtists.cs" />
+    <Compile Include="User\FriendsCollection.cs" />
     <Compile Include="User\GeoPoint.cs" />
     <Compile Include="User\IUserServices.cs" />
     <Compile Include="User\IUserServicesApi.cs" />
+    <Compile Include="User\RecentTrack.cs" />
+    <Compile Include="User\ScrobbleSource.cs" />
     <Compile Include="User\Ticket.cs" />
     <Compile Include="User\Venue.cs" />
     <Compile Include="User\Location.cs" />

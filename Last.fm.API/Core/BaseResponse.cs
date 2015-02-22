@@ -18,7 +18,7 @@ namespace Last.fm.API.Core
     /// <summary>
     /// Base Response from Last.fm
     /// </summary>
-    public abstract class BaseResponse
+    public abstract class BaseResponse : LikeObject
     {
         /// <summary>
         /// Inner XML text
@@ -356,6 +356,14 @@ namespace Last.fm.API.Core
             }
 
             return null;
+        }
+
+        #endregion
+
+        #region IXmlSerializable
+
+        public override void ReadXml(XDocument doc)
+        {
         }
 
         #endregion

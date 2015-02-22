@@ -17,7 +17,7 @@ namespace Last.fm.API.Core.Types
     {
         public LfmShortArtistInfo()
         {
-            Images=new List<LfmImage>();
+            Images = new List<LfmImage>();
         }
 
         /// <summary>
@@ -31,6 +31,12 @@ namespace Last.fm.API.Core.Types
         /// </summary>
         [XmlText]
         public string Name { get; set; }
+
+        /// <summary>
+        /// Url.
+        /// </summary>
+        [XmlElement("url")]
+        public string Url { get; set; }
 
         /// <summary>
         /// Images
