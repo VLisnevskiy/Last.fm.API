@@ -19,12 +19,16 @@ namespace SimpleScrobbler
             using (IUserServices client = LastFmServices.UserServicesClient)
             {
                 //var topTags = client.GetTopTags("RJ");
-                //var test = client.GetArtistTracks("RJ", "metallica");
+                //var artistTracks = client.GetArtistTracks("RJ", "metallica");
                 //var test = client.GetBannedTracks("RJ");
-                //var test = client.GetEvents("JImmy_SmIle");
+                //var events = client.GetEvents("JImmy_SmIle");
                 //var userInfo = client.GetInfo("JImmy_SmIle");
                 //var friends = client.GetFriends("JImmy_SmIle", true);
-                //var test = client.GetRecentTracks("JImmy_SmIle", 200, extended: true);
+                //var recentTracks = client.GetRecentTracks("JImmy_SmIle", 200, extended: true);
+                //var lovedTracks = client.GetLovedTracks("RJ");
+                //var neighours = client.GetNeighbours("JImmy_SmIle");
+                //var pastEvents = client.GetPastEvents("joanofarctan");
+                var newReleases = client.GetNewReleases("JImmy_SmIle");
             }
 
             Application.EnableVisualStyles();

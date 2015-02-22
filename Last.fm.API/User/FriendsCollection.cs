@@ -13,7 +13,7 @@ using Last.fm.API.Core.Types;
 namespace Last.fm.API.User
 {
     [XmlRoot("friends")]
-    public class FriendsCollection : BaseCollection<UserInfo>
+    public class FriendsCollection : PageCollection<UserInfo>
     {
         [XmlElement("for")]
         public string For { get; set; }

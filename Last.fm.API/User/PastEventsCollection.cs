@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------
-// <copyright file="BannedTracksCollection.cs" company="Vyacheslav Lisnevskyi">
+// <copyright file="PastEventsCollection.cs" company="Vyacheslav Lisnevskyi">
 //     Copyright Vyacheslav Lisnevskyi. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -12,24 +12,27 @@ using Last.fm.API.Core.Types;
 
 namespace Last.fm.API.User
 {
-    /// <summary>
-    /// Banned tracks collection.
-    /// </summary>
-    [XmlRoot("bannedtracks")]
-    public class BannedTracksCollection : PageCollection<LfmTrack>
+    [XmlRoot("events")]
+    public class PastEventsCollection : PageCollection<LfmEvent>
     {
         [XmlAttribute("user")]
         public string User { get; set; }
 
+        [XmlAttribute("url")]
+        public string Url { get; set; }
+
+        [XmlAttribute("usertimezone")]
+        public string UserTimeZone { get; set; }
+
         #region BaseCollection implementation
 
-        private List<LfmTrack> tracks = new List<LfmTrack>();
+        private List<LfmEvent> events = new List<LfmEvent>();
 
-        [XmlElement("track")]
-        public override List<LfmTrack> Collection
+        [XmlElement("event")]
+        public override List<LfmEvent> Collection
         {
-            get { return tracks; }
-            set { tracks = value; }
+            get { return events; }
+            set { events = value; }
         }
 
         #endregion
@@ -40,7 +43,9 @@ namespace Last.fm.API.User
         {
             base.ReadXml(doc);
             User = doc.Root.GetAttributeValue<string>("user");
-            Collection = doc.Root.ExtracktItems<LfmTrack>("track");
+            Url = doc.Root.GetAttributeValue<string>("url");
+            UserTimeZone = doc.Root.GetAttributeValue<string>("usertimezone");
+            Collection = doc.Root.ExtracktItems<LfmEvent>("event");
         }
 
         #endregion

@@ -1,20 +1,20 @@
 //-----------------------------------------------------------------------
-// <copyright file="UpcomingEvent.cs" company="Vyacheslav Lisnevskyi">
+// <copyright file="LfmEvent.cs" company="Vyacheslav Lisnevskyi">
 //     Copyright Vyacheslav Lisnevskyi. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using Last.fm.API.Core.Types;
+using Last.fm.API.User;
 
-namespace Last.fm.API.User
+namespace Last.fm.API.Core.Types
 {
     /// <summary>
     /// Upcoming event.
     /// </summary>
     [XmlRoot("event")]
-    public class UpcomingEvent
+    public class LfmEvent
     {
         [XmlElement("id")]
         public int Id { get; set; }
@@ -29,7 +29,7 @@ namespace Last.fm.API.User
         public EventArtists EventArtists { get; set; }
 
         [XmlElement("venue")]
-        public Venue Venue { get; set; }
+        public User.Venue Venue { get; set; }
 
         [XmlElement("startDate")]
         public string StartDate { get; set; }
@@ -41,7 +41,7 @@ namespace Last.fm.API.User
         public List<LfmImage> Images { get; set; }
 
         [XmlElement("attendance")]
-        public bool Attendance { get; set; }
+        public int Attendance { get; set; }
 
         [XmlElement("reviews")]
         public int Reviews { get; set; }
@@ -62,7 +62,7 @@ namespace Last.fm.API.User
         [XmlElement("cancelled")]
         public bool Cancelled { get; set; }
 
-        #region
+        #region Overrided
 
         public override string ToString()
         {

@@ -13,17 +13,17 @@ using Last.fm.API.Core.Types;
 namespace Last.fm.API.User
 {
     [XmlRoot("recenttracks")]
-    public class RecentTracksCollection : BaseCollection<Track>
+    public class RecentTracksCollection : PageCollection<LfmTrack>
     {
         [XmlAttribute("user")]
         public string User { get; set; }
 
         #region BaseCollection implementation
 
-        private List<Track> tracks = new List<Track>();
+        private List<LfmTrack> tracks = new List<LfmTrack>();
 
         [XmlElement("track")]
-        public override List<Track> Collection
+        public override List<LfmTrack> Collection
         {
             get { return tracks; }
             set { tracks = value; }
@@ -37,7 +37,7 @@ namespace Last.fm.API.User
         {
             base.ReadXml(doc);
             User = doc.Root.GetAttributeValue<string>("user");
-            Collection = doc.Root.ExtracktItems<Track>("track");
+            Collection = doc.Root.ExtracktItems<LfmTrack>("track");
         }
 
         #endregion

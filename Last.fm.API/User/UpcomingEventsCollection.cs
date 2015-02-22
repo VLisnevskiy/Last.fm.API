@@ -13,7 +13,7 @@ using Last.fm.API.Core.Types;
 namespace Last.fm.API.User
 {
     [XmlRoot("events")]
-    public class UpcomingEventsCollection : BaseCollection<UpcomingEvent>
+    public class UpcomingEventsCollection : PageCollection<LfmEvent>
     {
         [XmlAttribute("user")]
         public string User { get; set; }
@@ -23,13 +23,13 @@ namespace Last.fm.API.User
 
         #region BaseCollection implementation
 
-        private List<UpcomingEvent> upcomingEvents = new List<UpcomingEvent>();
+        private List<LfmEvent> events = new List<LfmEvent>();
 
         [XmlAttribute("event")]
-        public override List<UpcomingEvent> Collection
+        public override List<LfmEvent> Collection
         {
-            get { return upcomingEvents; }
-            set { upcomingEvents = value; }
+            get { return events; }
+            set { events = value; }
         }
 
         #endregion
@@ -41,7 +41,7 @@ namespace Last.fm.API.User
             base.ReadXml(doc);
             User = doc.Root.GetAttributeValue<string>("user");
             FestivalsOnly = doc.Root.GetAttributeValue<bool>("festivalsonly");
-            Collection = doc.Root.ExtracktItems<UpcomingEvent>("event");
+            Collection = doc.Root.ExtracktItems<LfmEvent>("event");
         }
 
         #endregion

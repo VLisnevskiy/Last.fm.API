@@ -13,6 +13,7 @@ namespace Last.fm.API.Core.Types
     /// <summary>
     /// LastFm short artist info.
     /// </summary>
+    [XmlRoot("artist")]
     public class LfmShortArtistInfo
     {
         public LfmShortArtistInfo()
@@ -30,6 +31,7 @@ namespace Last.fm.API.Core.Types
         /// Artist name.
         /// </summary>
         [XmlText]
+        [XmlElement("name")]
         public string Name { get; set; }
 
         /// <summary>

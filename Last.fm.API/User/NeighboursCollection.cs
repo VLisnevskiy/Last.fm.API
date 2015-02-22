@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------
-// <copyright file="BannedTracksCollection.cs" company="Vyacheslav Lisnevskyi">
+// <copyright file="NeighboursCollection.cs" company="Vyacheslav Lisnevskyi">
 //     Copyright Vyacheslav Lisnevskyi. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -12,24 +12,21 @@ using Last.fm.API.Core.Types;
 
 namespace Last.fm.API.User
 {
-    /// <summary>
-    /// Banned tracks collection.
-    /// </summary>
-    [XmlRoot("bannedtracks")]
-    public class BannedTracksCollection : PageCollection<LfmTrack>
+    [XmlRoot("neighbours")]
+    public class NeighboursCollection : BaseCollection<Neighbour>
     {
         [XmlAttribute("user")]
         public string User { get; set; }
 
         #region BaseCollection implementation
 
-        private List<LfmTrack> tracks = new List<LfmTrack>();
+        private List<Neighbour> neighbours = new List<Neighbour>();
 
-        [XmlElement("track")]
-        public override List<LfmTrack> Collection
+        [XmlElement("user")]
+        public override List<Neighbour> Collection
         {
-            get { return tracks; }
-            set { tracks = value; }
+            get { return neighbours; }
+            set { neighbours = value; }
         }
 
         #endregion
@@ -40,7 +37,7 @@ namespace Last.fm.API.User
         {
             base.ReadXml(doc);
             User = doc.Root.GetAttributeValue<string>("user");
-            Collection = doc.Root.ExtracktItems<LfmTrack>("track");
+            Collection = doc.Root.ExtracktItems<Neighbour>("user");
         }
 
         #endregion

@@ -1,5 +1,5 @@
-﻿//-----------------------------------------------------------------------
-// <copyright file="Track.cs" company="Vyacheslav Lisnevskyi">
+//-----------------------------------------------------------------------
+// <copyright file="LfmTrack.cs" company="Vyacheslav Lisnevskyi">
 //     Copyright Vyacheslav Lisnevskyi. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -7,21 +7,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
-using Last.fm.API.Core;
-using Last.fm.API.Core.Types;
 
-namespace Last.fm.API.User
+namespace Last.fm.API.Core.Types
 {
     /// <summary>
     /// LastFm track.
     /// </summary>
     [XmlRoot("track")]
-    public class Track : LikeObject, IXmlSerializable
+    public class LfmTrack : LikeObject, IXmlSerializable
     {
-        public Track()
+        public LfmTrack()
         {
             Images = new List<LfmImage>();
         }
@@ -33,7 +30,7 @@ namespace Last.fm.API.User
         public string Name { get; set; }
 
         [XmlElement("streamable")]
-        public bool Streamable { get; set; }
+        public Streamable Streamable { get; set; }
 
         [XmlElement("mbid")]
         public Guid Mbid { get; set; }
@@ -68,6 +65,7 @@ namespace Last.fm.API.User
                         Artist.Name = element.GetValue<string>("name");
                         Artist.Mbid = element.GetValue<Guid>("mbid");
                         Artist.Images = element.ExtracktItems<LfmImage>("image");
+                        Artist.Url = element.GetValue<string>("url");
                         Loved = element.GetValue<bool>("loved");
                     }
                     else
@@ -78,7 +76,7 @@ namespace Last.fm.API.User
                 }
 
                 Name = doc.Root.GetValue<string>("name");
-                Streamable = doc.Root.GetValue<bool>("streamable");
+                Streamable = doc.Root.ExtracktItem<Streamable>("streamable");
                 Mbid = doc.Root.GetValue<Guid>("mbid");
                 element = doc.Root.Element("album");
                 if (null != element)
@@ -108,9 +106,9 @@ namespace Last.fm.API.User
         public override string ToString()
         {
             return string.Format("{0} - {1} [{2}]",
-                Artist ?? new LfmShortArtistInfo { Name = "" },
+                Artist ?? new LfmShortArtistInfo {Name = ""},
                 Name ?? string.Empty,
-                DateTime ?? new LfmDateTime { DateTime = "" });
+                DateTime ?? new LfmDateTime {DateTime = ""});
         }
 
         #endregion

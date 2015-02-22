@@ -1,5 +1,5 @@
 //-----------------------------------------------------------------------
-// <copyright file="BannedTracksCollection.cs" company="Vyacheslav Lisnevskyi">
+// <copyright file="ArtistTracksCollection.cs" company="Vyacheslav Lisnevskyi">
 //     Copyright Vyacheslav Lisnevskyi. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
@@ -12,11 +12,8 @@ using Last.fm.API.Core.Types;
 
 namespace Last.fm.API.User
 {
-    /// <summary>
-    /// Banned tracks collection.
-    /// </summary>
-    [XmlRoot("bannedtracks")]
-    public class BannedTracksCollection : PageCollection<LfmTrack>
+    [XmlRoot("lovedtracks")]
+    public class LovedTracksCollection : PageCollection<LfmTrack>
     {
         [XmlAttribute("user")]
         public string User { get; set; }

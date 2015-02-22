@@ -57,14 +57,13 @@ namespace Last.fm.API.User
 
         #region user.getBannedTracks
 
-        /*
-         * user (Required) : The user name
-         * limit (Optional) : The number of results to fetch per page. Defaults to 50.
-         * page (Optional) : The page number to fetch. Defaults to first page.
-         * 
-         * api_key (Required) : A Last.fm API key.
-         * 
-         */
+        /// <summary>
+        /// Returns the tracks banned by the user.
+        /// </summary>
+        /// <param name="user">user (Required) : The user name.</param>
+        /// <param name="limit">limit (Optional) : The number of results to fetch per page. Defaults to 50.</param>
+        /// <param name="page">page (Optional) : The page number to fetch. Defaults to first page.</param>
+        /// <returns>Return collection of banned tracks.</returns>
         BannedTracksCollection GetBannedTracks(string user, int? limit = null, int? page = null);
 
         #endregion
@@ -124,55 +123,53 @@ namespace Last.fm.API.User
 
         #region user.getLovedTracks
 
-        /*
-         * user (Required) : The user name to fetch the loved tracks for.
-         * limit (Optional) : The number of results to fetch per page. Defaults to 50.
-         * page (Optional) : The page number to fetch. Defaults to first page.
-         * 
-         * api_key (Required) : A Last.fm API key.
-         * 
-         */
-        BaseResponse GetLovedTracks(string user, int? limit = null, int? page = null);
+        /// <summary>
+        /// Get the last 50 tracks loved by a user.
+        /// </summary>
+        /// <param name="user">user (Required) : The user name to fetch the loved tracks for.</param>
+        /// <param name="limit">limit (Optional) : The number of results to fetch per page. Defaults to 50.</param>
+        /// <param name="page">page (Optional) : The page number to fetch. Defaults to first page.</param>
+        /// <returns>Return collection of loved tracks.</returns>
+        LovedTracksCollection GetLovedTracks(string user, int? limit = null, int? page = null);
 
         #endregion
 
         #region user.getNeighbours
 
-        /*
-         * user (Required) : The last.fm username to fetch the neighbours of.
-         * limit (Optional) : The number of results to fetch per page. Defaults to 50.
-         * 
-         * api_key (Required) : A Last.fm API key.
-         * 
-         */
-        BaseResponse GetNeighbours(string user, int? limit = null);
+        /// <summary>
+        /// Get a list of a user's neighbours on Last.fm.
+        /// </summary>
+        /// <param name="user">user (Required) : The last.fm username to fetch the neighbours of.</param>
+        /// <param name="limit">limit (Optional) : The number of results to fetch per page. Defaults to 50.</param>
+        /// <returns>Return collection of neighbours</returns>
+        NeighboursCollection GetNeighbours(string user, int? limit = null);
 
         #endregion
 
         #region user.getNewReleases
 
-        /*
-         * user (Required) : The Last.fm username.
-         * userecs (Optional) : 0 or 1. If 1, the feed contains new releases based on Last.fm's artist recommendations for this user. Otherwise, it is based on their library (the default).
-         * 
-         * api_key (Required) : A Last.fm API key.
-         * 
-         */
-        BaseResponse GetNewReleases(string user, byte? userecs = 0);
+        /// <summary>
+        /// Gets a list of forthcoming releases based on a user's musical taste.
+        /// </summary>
+        /// <param name="user">user (Required) : The Last.fm username.</param>
+        /// <param name="userecs">userecs (Optional) : 0 or 1. If 1, the feed contains new releases based
+        /// on Last.fm's artist recommendations for this user. Otherwise, it is based on their library
+        /// (the default).</param>
+        /// <returns>Return collection with new releases albums.</returns>
+        NewReleasesCollection GetNewReleases(string user, bool? userecs = null);
 
         #endregion
 
         #region user.getPastEvents
 
-        /*
-         * user (Required) : The username to fetch the events for.
-         * page (Optional) : The page number to scan to.
-         * limit (Optional) : The number of results to fetch per page. Defaults to 50.
-         * 
-         * api_key (Required) : A Last.fm API key.
-         * 
-         */
-        BaseResponse GetPastEvents(string user, int? limit = null, int? page = null);
+        /// <summary>
+        /// Get a paginated list of all events a user has attended in the past.
+        /// </summary>
+        /// <param name="user">user (Required) : The username to fetch the events for.</param>
+        /// <param name="limit">limit (Optional) : The number of results to fetch per page. Defaults to 50.</param>
+        /// <param name="page">page (Optional) : The page number to scan to.</param>
+        /// <returns>Return collection of past events.</returns>
+        PastEventsCollection GetPastEvents(string user, int? limit = null, int? page = null);
 
         #endregion
 

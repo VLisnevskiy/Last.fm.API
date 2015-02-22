@@ -16,7 +16,7 @@ namespace Last.fm.API.User
     /// Artist tracks collection.
     /// </summary>
     [XmlRoot("artisttracks")]
-    public class ArtistTracksCollection : BaseCollection<Track>
+    public class ArtistTracksCollection : PageCollection<LfmTrack>
     {
         [XmlAttribute("user")]
         public string User { get; set; }
@@ -29,10 +29,10 @@ namespace Last.fm.API.User
 
         #region BaseCollection implementation
 
-        private List<Track> tracks = new List<Track>();
+        private List<LfmTrack> tracks = new List<LfmTrack>();
 
         [XmlElement("track")]
-        public override List<Track> Collection
+        public override List<LfmTrack> Collection
         {
             get { return tracks; }
             set { tracks = value; }
@@ -48,7 +48,7 @@ namespace Last.fm.API.User
             User = doc.Root.GetAttributeValue<string>("user");
             Artist = doc.Root.GetAttributeValue<string>("artist");
             Amount = doc.Root.GetAttributeValue<int>("items");
-            Collection = doc.Root.ExtracktItems<Track>("track");
+            Collection = doc.Root.ExtracktItems<LfmTrack>("track");
         }
 
         #endregion

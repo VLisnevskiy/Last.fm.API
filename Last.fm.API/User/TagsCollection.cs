@@ -16,7 +16,7 @@ namespace Last.fm.API.User
     /// Tags collection.
     /// </summary>
     [XmlRoot("toptags")]
-    public class TagsCollection : BaseCollection<LfmTag>
+    public class TagsCollection : PageCollection<LfmTag>
     {
         [XmlAttribute("user")]
         public string User { get; set; }

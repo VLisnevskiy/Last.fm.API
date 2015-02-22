@@ -138,67 +138,61 @@ namespace Last.fm.API.User
 
         #region user.getLovedTracks
 
-        /*
-         * user (Required) : The user name to fetch the loved tracks for.
-         * limit (Optional) : The number of results to fetch per page. Defaults to 50.
-         * page (Optional) : The page number to fetch. Defaults to first page.
-         * 
-         * api_key (Required) : A Last.fm API key.
-         * 
-         */
-        [OperationContract]
-        [WebInvoke(Method = "GET", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Xml,
-            UriTemplate = "?method=user.getLovedTracks&api_key={apiKey}&user={user}&limit={limit}&page={page}")]
-        BaseResponse GetLovedTracks(string apiKey, string user, int? limit = null, int? page = null);
+        /// <summary>
+        /// Get the last 50 tracks loved by a user.
+        /// </summary>
+        /// <param name="apiKey">api_key (Required) : A Last.fm API key.</param>
+        /// <param name="user">user (Required) : The user name to fetch the loved tracks for.</param>
+        /// <param name="limit">limit (Optional) : The number of results to fetch per page. Defaults to 50.</param>
+        /// <param name="page">page (Optional) : The page number to fetch. Defaults to first page.</param>
+        /// <returns>Return collection of loved tracks.</returns>
+        [WebMethod("user.getLovedTracks")]
+        LovedTracksCollection GetLovedTracks([Parameter("api_key")] string apiKey, [Parameter("user")] string user, [Parameter("limit")] int? limit = null, [Parameter("page")] int? page = null);
         
         #endregion
 
         #region user.getNeighbours
 
-        /*
-         * user (Required) : The last.fm username to fetch the neighbours of.
-         * limit (Optional) : The number of results to fetch per page. Defaults to 50.
-         * 
-         * api_key (Required) : A Last.fm API key.
-         * 
-         */
-        [OperationContract]
-        [WebInvoke(Method = "GET", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Xml,
-            UriTemplate = "?method=user.getNeighbours&api_key={apiKey}&user={user}&limit={limit}")]
-        BaseResponse GetNeighbours(string apiKey, string user, int? limit = null);
+        /// <summary>
+        /// Get a list of a user's neighbours on Last.fm.
+        /// </summary>
+        /// <param name="apiKey">api_key (Required) : A Last.fm API key.</param>
+        /// <param name="user">user (Required) : The last.fm username to fetch the neighbours of.</param>
+        /// <param name="limit">limit (Optional) : The number of results to fetch per page. Defaults to 50.</param>
+        /// <returns>Return collection of neighbours</returns>
+        [WebMethod("user.getNeighbours")]
+        NeighboursCollection GetNeighbours([Parameter("api_key")] string apiKey, [Parameter("user")] string user, [Parameter("limit")] int? limit = null);
         
         #endregion
 
         #region user.getNewReleases
 
-        /*
-         * user (Required) : The Last.fm username.
-         * userecs (Optional) : 0 or 1. If 1, the feed contains new releases based on Last.fm's artist recommendations for this user. Otherwise, it is based on their library (the default).
-         * 
-         * api_key (Required) : A Last.fm API key.
-         * 
-         */
-        [OperationContract]
-        [WebInvoke(Method = "GET", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Xml,
-            UriTemplate = "?method=user.getNewReleases&api_key={apiKey}&user={user}&userecs={userecs}")]
-        BaseResponse GetNewReleases(string apiKey, string user, byte? userecs = 0);
+        /// <summary>
+        /// Gets a list of forthcoming releases based on a user's musical taste.
+        /// </summary>
+        /// <param name="apiKey">api_key (Required) : A Last.fm API key.</param>
+        /// <param name="user">user (Required) : The Last.fm username.</param>
+        /// <param name="userecs">userecs (Optional) : 0 or 1. If 1, the feed contains new releases based
+        /// on Last.fm's artist recommendations for this user. Otherwise, it is based on their library
+        /// (the default).</param>
+        /// <returns>Return collection with new releases albums.</returns>
+        [WebMethod("user.getNewReleases")]
+        NewReleasesCollection GetNewReleases([Parameter("api_key")] string apiKey, [Parameter("user")] string user, [Parameter("userecs")] bool? userecs = null);
         
         #endregion
 
         #region user.getPastEvents
 
-        /*
-         * user (Required) : The username to fetch the events for.
-         * page (Optional) : The page number to scan to.
-         * limit (Optional) : The number of results to fetch per page. Defaults to 50.
-         * 
-         * api_key (Required) : A Last.fm API key.
-         * 
-         */
-        [OperationContract]
-        [WebInvoke(Method = "GET", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Xml,
-            UriTemplate = "?method=user.getPastEvents&api_key={apiKey}&user={user}&limit={limit}&page={page}")]
-        BaseResponse GetPastEvents(string apiKey, string user, int? limit = null, int? page = null);
+        /// <summary>
+        /// Get a paginated list of all events a user has attended in the past.
+        /// </summary>
+        /// <param name="apiKey">api_key (Required) : A Last.fm API key.</param>
+        /// <param name="user">user (Required) : The username to fetch the events for.</param>
+        /// <param name="limit">limit (Optional) : The number of results to fetch per page. Defaults to 50.</param>
+        /// <param name="page">page (Optional) : The page number to scan to.</param>
+        /// <returns>Return collection of past events.</returns>
+        [WebMethod("user.getPastEvents")]
+        PastEventsCollection GetPastEvents([Parameter("api_key")] string apiKey, [Parameter("user")] string user, [Parameter("limit")] int? limit = null, [Parameter("page")] int? page = null);
 
         #endregion
 

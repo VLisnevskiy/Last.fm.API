@@ -163,6 +163,32 @@ namespace Last.fm.API.Core
         }
 
         /// <summary>
+        /// Extract element of type TResult from xml.
+        /// </summary>
+        /// <typeparam name="TResult">Type of returned elements.</typeparam>
+        /// <param name="rootElement">Root element.</param>
+        /// <param name="name">Name of element.</param>
+        /// <returns>Return extracted element.</returns>
+        public static TResult ExtracktItem<TResult>(this XElement rootElement, string name)
+            where TResult : class, new()
+        {
+            TResult result = default(TResult);
+            XElement element = rootElement.Element(name);
+            if (null != element)
+            {
+                using (Stream stream = new MemoryStream())
+                {
+                    element.Save(stream);
+                    stream.Position = 0;
+                    XmlSerializer serializer = new XmlSerializer(typeof (TResult));
+                    result = serializer.Deserialize(stream) as TResult;
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
         /// Extract elements of type TResult from xml.
         /// </summary>
         /// <typeparam name="TResult">Type of returned elements.</typeparam>

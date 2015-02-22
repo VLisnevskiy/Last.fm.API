@@ -49,28 +49,24 @@ namespace Last.fm.API.User
             return Channel.GetTopTags(ApiKey, user, limit);
         }
 
-        public BaseResponse GetLovedTracks(string user, int? limit = null, int? page = null)
+        public LovedTracksCollection GetLovedTracks(string user, int? limit = null, int? page = null)
         {
-            var result = Channel.GetLovedTracks(ApiKey, user, limit, page);
-            return result;
+            return Channel.GetLovedTracks(ApiKey, user, limit, page);
         }
 
-        public BaseResponse GetNeighbours(string user, int? limit = null)
+        public NeighboursCollection GetNeighbours(string user, int? limit = null)
         {
-            var result = Channel.GetNeighbours(ApiKey, user, limit);
-            return result;
+            return Channel.GetNeighbours(ApiKey, user, limit);
         }
 
-        public BaseResponse GetNewReleases(string user, byte? userecs = 0)
+        public NewReleasesCollection GetNewReleases(string user, bool? userecs = null)
         {
-            var result = Channel.GetNewReleases(ApiKey, user, userecs);
-            return result;
+            return Channel.GetNewReleases(ApiKey, user, userecs);
         }
 
-        public BaseResponse GetPastEvents(string user, int? limit = null, int? page = null)
+        public PastEventsCollection GetPastEvents(string user, int? limit = null, int? page = null)
         {
-            var result = Channel.GetPastEvents(ApiKey, user, limit, page);
-            return result;
+            return Channel.GetPastEvents(ApiKey, user, limit, page);
         }
 
         public BaseResponse GetPersonalTags(string user, string tag, TaggingType taggingType, int? limit = null, int? page = null)
