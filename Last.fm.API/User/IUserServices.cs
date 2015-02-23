@@ -175,19 +175,73 @@ namespace Last.fm.API.User
 
         #region user.getPersonalTags
 
-        /*
-         * user (Required) : The user who performed the taggings.
-         * tag (Required) : The tag you're interested in.
-         * taggingType[artist|album|track] (Required) : The type of items which have been tagged
-         * limit (Optional) : The number of results to fetch per page. Defaults to 50.
-         * page (Optional) : The page number to fetch. Defaults to first page.
-         * 
-         * api_key (Required) : A Last.fm API key.
-         * 
-         */
+        /// <summary>
+        /// Get the user's personal tags.
+        /// </summary>
+        /// <param name="user">user (Required) : The user who performed the taggings.</param>
+        /// <param name="tag">tag (Required) : The tag you're interested in.</param>
+        /// <param name="taggingType">taggingtype[artist|album|track] (Required) : The type of items which have been tagged</param>
+        /// <param name="limit">limit (Optional) : The number of results to fetch per page. Defaults to 50.</param>
+        /// <param name="page">page (Optional) : The page number to fetch. Defaults to first page.</param>
+        /// <returns>Return collection of personal tags.</returns>
         BaseResponse GetPersonalTags(string user, string tag, TaggingType taggingType, int? limit = null, int? page = null);
 
         #endregion
 
+        #region user.getPlaylists
+
+        /// <summary>
+        /// Get a list of a user's playlists on Last.fm.
+        /// </summary>
+        /// <param name="user">user (Required) : The last.fm username to fetch the playlists of.</param>
+        /// <returns>Return collection of user playlists.</returns>
+        PlaylistsCollection GetPlaylists(string user);
+
+        #endregion
+
+        #region user.getShouts
+
+        /// <summary>
+        /// Get shouts for this user. Also available as an rss feed.
+        /// </summary>
+        /// <param name="user">user (Required) : The username to fetch shouts for.</param>
+        /// <param name="limit">limit (Optional) : The number of results to fetch per page. Defaults to 50.</param>
+        /// <param name="page">page (Optional) : The page number to fetch. Defaults to first page.</param>
+        /// <returns>Return collection of shouts.</returns>
+        BaseResponse GetShouts(string user, int? limit = null, int? page = null);
+
+        #endregion
+
+        #region user.getTopAlbums
+
+        /// <summary>
+        /// Get the top albums listened to by a user. You can stipulate a time period.
+        /// Sends the overall chart by default.
+        /// </summary>
+        /// <param name="user">user (Required) : The user name to fetch top albums for.</param>
+        /// <param name="period">period (Optional) : overall | 7day | 1month | 3month | 6month | 12month
+        /// - The time period over which to retrieve top albums for.</param>
+        /// <param name="limit">limit (Optional) : The number of results to fetch per page. Defaults to 50.</param>
+        /// <param name="page">page (Optional) : The page number to fetch. Defaults to first page.</param>
+        /// <returns>Return collection of top user's albums.</returns>
+        BaseResponse GetTopAlbums(string user, string period = "overall", int? limit = null, int? page = null);
+
+        #endregion
+
+        #region user.getTopArtists
+
+        /// <summary>
+        /// Get the top artists listened to by a user. You can stipulate a time period.
+        /// Sends the overall chart by default.
+        /// </summary>
+        /// <param name="user">user (Required) : The user name to fetch top albums for.</param>
+        /// <param name="period">period (Optional) : overall | 7day | 1month | 3month | 6month | 12month
+        /// - The time period over which to retrieve top albums for.</param>
+        /// <param name="limit">limit (Optional) : The number of results to fetch per page. Defaults to 50.</param>
+        /// <param name="page">page (Optional) : The page number to fetch. Defaults to first page.</param>
+        /// <returns>Return collection of top user's artists.</returns>
+        BaseResponse GetTopArtists(string user, string period = "overall", int? limit = null, int? page = null);
+
+        #endregion
     }
 }

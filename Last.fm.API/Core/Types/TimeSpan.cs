@@ -4,6 +4,8 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
+using System;
+using System.Globalization;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
@@ -99,6 +101,25 @@ namespace Last.fm.API.Core.Types
         public static implicit operator System.TimeSpan(TimeSpan value)
         {
             return value._value;
+        }
+
+        /// <summary>
+        /// Total milliseconds.
+        /// </summary>
+        public int TotalMilliseconds
+        {
+            get
+            {
+                int milliseconds;
+                string input = Math.Truncate(Value.TotalMilliseconds)
+                    .ToString(CultureInfo.InvariantCulture);
+                if (int.TryParse(input, out milliseconds))
+                {
+                    return milliseconds;
+                }
+
+                return 100000;
+            }
         }
 
         #region IXmlSerializable

@@ -11,6 +11,7 @@ namespace Last.fm.API.Core.Types
     /// <summary>
     /// Last.fm Date & Time value
     /// </summary>
+    [XmlRoot("date")]
     public class LfmDateTime
     {
         /// <summary>

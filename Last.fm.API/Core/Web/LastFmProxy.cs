@@ -218,6 +218,7 @@ namespace Last.fm.API.Core.Web
         private void PrepareRequest(ref Message message)
         {
             message.Request = WebRequest.Create(GetServiceUrl(message));
+            message.Request.Timeout = LastFmSettings.Instance.OperationTimeout.TotalMilliseconds;
             message.Request.ContentType = "application/x-www-form-urlencoded; charset=UTF-8;";
             if (message.Method.Method == HttpMethod.POST)
             {

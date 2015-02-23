@@ -71,8 +71,27 @@ namespace Last.fm.API.User
 
         public BaseResponse GetPersonalTags(string user, string tag, TaggingType taggingType, int? limit = null, int? page = null)
         {
-            var result = Channel.GetPersonalTags(ApiKey, user, tag, taggingType.ToString().ToLowerInvariant(), limit, page);
-            return result;
+            return Channel.GetPersonalTags(ApiKey, user, tag, taggingType.ToString().ToLowerInvariant(), limit, page);
+        }
+
+        public PlaylistsCollection GetPlaylists(string user)
+        {
+            return Channel.GetPlaylists(ApiKey, user);
+        }
+
+        public BaseResponse GetShouts(string user, int? limit = null, int? page = null)
+        {
+            return Channel.GetShouts(ApiKey, user, limit, page);
+        }
+
+        public BaseResponse GetTopAlbums(string user, string period = "overall", int? limit = null, int? page = null)
+        {
+            return Channel.GetTopAlbums(ApiKey, user, period, limit, page);
+        }
+
+        public BaseResponse GetTopArtists(string user, string period = "overall", int? limit = null, int? page = null)
+        {
+            return Channel.GetTopArtists(ApiKey, user, period, limit, page);
         }
 
         #endregion

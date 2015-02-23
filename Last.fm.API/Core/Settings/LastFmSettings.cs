@@ -54,12 +54,8 @@ namespace Last.fm.API.Core.Settings
         private LastFmSettings()
         {
             AutoSaveWhenTokeChanged = false;
-            MaxReceivedMessageSize = 125000000;
 
-            CloseTimeout = new TimeSpan(0, 1, 0);
-            OpenTimeout = new TimeSpan(0, 1, 0);
-            ReceiveTimeout = new TimeSpan(0, 10, 0);
-            SendTimeout = new TimeSpan(0, 1, 0);
+            OperationTimeout = new TimeSpan(0, 1, 40);
             AutoSaveSettings = AutoSaveSettingsMode.None;
             GetSettingsElements();
         }
@@ -520,112 +516,25 @@ namespace Last.fm.API.Core.Settings
 
         #endregion
 
-        #region CloseTimeout
+        #region OperationTimeout
 
-        private TimeSpan closeTimeout;
+        private TimeSpan operationTimeout;
 
         /// <summary>
-        /// Timeout in minutes before Close
+        /// Opearion timeout in minutes before the request times out.
         /// </summary>
         [SettingsElement]
-        public TimeSpan CloseTimeout
+        public TimeSpan OperationTimeout
         {
             get
             {
-                return closeTimeout;
+                return operationTimeout;
             }
             set
             {
-                if (!value.Equals(closeTimeout))
+                if (!value.Equals(operationTimeout))
                 {
-                    closeTimeout = value;
-                    if (!isPreventSave)
-                    {
-                        contextChanged = true;
-                    }
-                }
-            }
-        }
-
-        #endregion
-
-        #region OpenTimeout
-
-        private TimeSpan openTimeout;
-
-        /// <summary>
-        /// Timeout in minutes before Open
-        /// </summary>
-        [SettingsElement]
-        public TimeSpan OpenTimeout
-        {
-            get
-            {
-                return openTimeout;
-            }
-            set
-            {
-                if (!value.Equals(openTimeout))
-                {
-                    openTimeout = value;
-                    if (!isPreventSave)
-                    {
-                        contextChanged = true;
-                    }
-                }
-            }
-        }
-
-        #endregion
-
-        #region ReceiveTimeout
-
-        private TimeSpan receiveTimeout;
-
-        /// <summary>
-        /// Timeout in minutes before Receive
-        /// </summary>
-        [SettingsElement]
-        public TimeSpan ReceiveTimeout
-        {
-            get
-            {
-                return receiveTimeout;
-            }
-            set
-            {
-                if (!value.Equals(receiveTimeout))
-                {
-                    receiveTimeout = value;
-                    if (!isPreventSave)
-                    {
-                        contextChanged = true;
-                    }
-                }
-            }
-        }
-
-        #endregion
-
-        #region SendTimeout
-
-        private TimeSpan sendTimeout;
-
-        /// <summary>
-        /// Timeout in minutes before Send
-        /// </summary>
-        [SettingsElement]
-        public TimeSpan SendTimeout
-        {
-            get
-            {
-                return sendTimeout;
-            }
-            set
-            {
-                if (!value.Equals(sendTimeout))
-                {
-                    sendTimeout = value;
+                    operationTimeout = value;
                     if (!isPreventSave)
                     {
                         contextChanged = true;
@@ -689,32 +598,6 @@ namespace Last.fm.API.Core.Settings
             set
             {
                 autoSaveWhenTokeChanged = value;
-                if (!isPreventSave)
-                {
-                    contextChanged = true;
-                }
-            }
-        }
-
-        #endregion
-
-        #region MaxReceivedMessageSize
-
-        private int maxReceivedMessageSize;
-
-        /// <summary>
-        /// MaxReceivedMessageSize.
-        /// </summary>
-        [SettingsElement]
-        public int MaxReceivedMessageSize
-        {
-            get
-            {
-                return maxReceivedMessageSize;
-            }
-            set
-            {
-                maxReceivedMessageSize = value;
                 if (!isPreventSave)
                 {
                     contextChanged = true;

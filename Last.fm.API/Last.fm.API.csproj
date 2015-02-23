@@ -169,6 +169,8 @@
     <Compile Include="User\NeighboursCollection.cs" />
     <Compile Include="User\NewReleasesCollection.cs" />
     <Compile Include="User\PastEventsCollection.cs" />
+    <Compile Include="User\Playlist.cs" />
+    <Compile Include="User\PlaylistsCollection.cs" />
     <Compile Include="User\RecentTrack.cs" />
     <Compile Include="User\ScrobbleSource.cs" />
     <Compile Include="User\Ticket.cs" />

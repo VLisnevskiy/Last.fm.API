@@ -4,7 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using System.ServiceModel;
 using System.ServiceModel.Web;
 using Last.fm.API.Core;
 using Last.fm.API.Core.Web;
@@ -198,35 +197,82 @@ namespace Last.fm.API.User
 
         #region user.getPersonalTags
 
-        /*
-         * user (Required) : The user who performed the taggings.
-         * tag (Required) : The tag you're interested in.
-         * taggingtype[artist|album|track] (Required) : The type of items which have been tagged
-         * limit (Optional) : The number of results to fetch per page. Defaults to 50.
-         * page (Optional) : The page number to fetch. Defaults to first page.
-         * 
-         * api_key (Required) : A Last.fm API key.
-         * 
-         */
-        [OperationContract]
-        [WebInvoke(Method = "GET", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Xml,
-            UriTemplate = "?method=user.getPersonalTags&api_key={apiKey}&user={user}&tag={tag}&taggingtype={taggingtype}&limit={limit}&page={page}")]
-        BaseResponse GetPersonalTags(string apiKey, string user, string tag, string taggingtype, int? limit = null, int? page = null);
+        /// <summary>
+        /// Get the user's personal tags.
+        /// </summary>
+        /// <param name="apiKey">api_key (Required) : A Last.fm API key.</param>
+        /// <param name="user">user (Required) : The user who performed the taggings.</param>
+        /// <param name="tag">tag (Required) : The tag you're interested in.</param>
+        /// <param name="taggingtype">taggingtype[artist|album|track] (Required) : The type of items which have been tagged</param>
+        /// <param name="limit">limit (Optional) : The number of results to fetch per page. Defaults to 50.</param>
+        /// <param name="page">page (Optional) : The page number to fetch. Defaults to first page.</param>
+        /// <returns>Return collection of personal tags.</returns>
+        [WebMethod("user.getPersonalTags")]
+        BaseResponse GetPersonalTags([Parameter("api_key")] string apiKey, [Parameter("user")] string user, [Parameter("tag")] string tag, [Parameter("taggingtype")] string taggingtype, [Parameter("limit")] int? limit = null, [Parameter("page")] int? page = null);
 
         #endregion
 
         #region user.getPlaylists
 
-        /*
-         * user (Required) : The last.fm username to fetch the playlists of.
-         * 
-         * api_key (Required) : A Last.fm API key.
-         * 
-         */
-        [OperationContract]
-        [WebInvoke(Method = "GET", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Xml,
-            UriTemplate = "?method=user.getPlaylists&api_key={apiKey}&user={user}")]
-        BaseResponse GetPlaylists(string apiKey, string user);
+        /// <summary>
+        /// Get a list of a user's playlists on Last.fm.
+        /// </summary>
+        /// <param name="apiKey">api_key (Required) : A Last.fm API key.</param>
+        /// <param name="user">user (Required) : The last.fm username to fetch the playlists of.</param>
+        /// <returns>Return collection of user playlists.</returns>
+        [WebMethod("user.getPlaylists")]
+        PlaylistsCollection GetPlaylists([Parameter("api_key")] string apiKey, [Parameter("user")] string user);
+
+        #endregion
+
+        #region user.getShouts
+
+        /// <summary>
+        /// Get shouts for this user. Also available as an rss feed.
+        /// </summary>
+        /// <param name="apiKey">api_key (Required) : A Last.fm API key.</param>
+        /// <param name="user">user (Required) : The username to fetch shouts for.</param>
+        /// <param name="limit">limit (Optional) : The number of results to fetch per page. Defaults to 50.</param>
+        /// <param name="page">page (Optional) : The page number to fetch. Defaults to first page.</param>
+        /// <returns>Return collection of shouts.</returns>
+        [WebMethod("user.getShouts")]
+        BaseResponse GetShouts([Parameter("api_key")] string apiKey, [Parameter("user")] string user, [Parameter("limit")] int? limit = null, [Parameter("page")] int? page = null);
+
+        #endregion
+
+        #region user.getTopAlbums
+
+        /// <summary>
+        /// Get the top albums listened to by a user. You can stipulate a time period.
+        /// Sends the overall chart by default.
+        /// </summary>
+        /// <param name="apiKey">api_key (Required) : A Last.fm API key.</param>
+        /// <param name="user">user (Required) : The user name to fetch top albums for.</param>
+        /// <param name="period">period (Optional) : overall | 7day | 1month | 3month | 6month | 12month
+        /// - The time period over which to retrieve top albums for.</param>
+        /// <param name="limit">limit (Optional) : The number of results to fetch per page. Defaults to 50.</param>
+        /// <param name="page">page (Optional) : The page number to fetch. Defaults to first page.</param>
+        /// <returns>Return collection of top user's albums.</returns>
+        [WebMethod("user.getTopAlbums")]
+        BaseResponse GetTopAlbums([Parameter("api_key")] string apiKey, [Parameter("user")] string user, [Parameter("period")] string period = "overall", [Parameter("limit")] int? limit = null, [Parameter("page")] int? page = null);
+
+        #endregion
+
+        #region user.getTopArtists
+
+        /// <summary>
+        /// Get the top artists listened to by a user. You can stipulate a time period.
+        /// Sends the overall chart by default.
+        /// </summary>
+        /// <param name="apiKey">api_key (Required) : A Last.fm API key.</param>
+        /// <param name="user">user (Required) : The user name to fetch top albums for.</param>
+        /// <param name="period">period (Optional) : overall | 7day | 1month | 3month | 6month | 12month
+        /// - The time period over which to retrieve top albums for.</param>
+        /// <param name="limit">limit (Optional) : The number of results to fetch per page. Defaults to 50.</param>
+        /// <param name="page">page (Optional) : The page number to fetch. Defaults to first page.</param>
+        /// <returns>Return collection of top user's artists.</returns>
+        [WebMethod("user.getTopArtists")]
+        BaseResponse GetTopArtists([Parameter("api_key")] string apiKey, [Parameter("user")] string user, [Parameter("period")] string period = "overall", [Parameter("limit")] int? limit = null, [Parameter("page")] int? page = null);
 
         #endregion
 
@@ -247,7 +293,7 @@ namespace Last.fm.API.User
          * sk (Required) : A session key generated by authenticating a user via the authentication protocol. 
          * 
          */
-        [OperationContract]
+        
         [WebInvoke(Method = "GET", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Xml,
             UriTemplate = "?method=user.getRecentStations&api_key={apiKey}&user={user}&limit={limit}&page={page}&api_sig={apiSig}&sk={sk}")]
         BaseResponse GetRecentStations(string apiKey, string user, string apiSig, string sk, int? limit = null, int? page = null);
@@ -257,6 +303,8 @@ namespace Last.fm.API.User
         #region user.getRecommendedArtists
 
         /*
+         * Get Last.fm artist recommendations for a user 
+         * 
          * page (Optional) : The page number to fetch. Defaults to first page.
          * limit (Optional) : The number of results to fetch per page. Defaults to 50.
          * 
@@ -266,7 +314,7 @@ namespace Last.fm.API.User
          * sk (Required) : A session key generated by authenticating a user via the authentication protocol. 
          * 
          */
-        [OperationContract]
+
         [WebInvoke(Method = "GET", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Xml,
             UriTemplate = "?method=user.getRecommendedArtists&api_key={apiKey}&limit={limit}&page={page}&api_sig={apiSig}&sk={sk}")]
         BaseResponse GetRecommendedArtists(string apiKey, string apiSig, string sk, int? limit = null, int? page = null);
@@ -276,6 +324,8 @@ namespace Last.fm.API.User
         #region user.getRecommendedEvents
 
         /*
+         * Get a paginated list of all events recommended to a user by Last.fm, based on their listening profile. 
+         * 
          * imit (Optional) : The number of results to fetch per page. Defaults to 20.
          * page (Optional) : The page number to scan to.
          * latitude (Optional) : Optionally find events at a particular location (must be paired with a valid longitude)
@@ -289,12 +339,29 @@ namespace Last.fm.API.User
          * sk (Required) : A session key generated by authenticating a user via the authentication protocol. 
          * 
          */
-        [OperationContract]
+
         [WebInvoke(Method = "GET", BodyStyle = WebMessageBodyStyle.Bare, ResponseFormat = WebMessageFormat.Xml,
             UriTemplate = "?method=user.getRecommendedEvents&api_key={apiKey}&limit={limit}&page={page}&api_sig={apiSig}&sk={sk}" +
                           "&latitude={latitude}&longitude={longitude}&country={country}&festivalsonly={festivalsonly}")]
         BaseResponse GetRecommendedEvents(string apiKey, string apiSig, string sk, int? limit = null, int? page = null,
             string latitude = null, string longitude = null, byte? festivalsonly = null, string country = null);
+
+        #endregion
+
+        #region user.shout
+
+        /*
+         *  Shout on this user's shoutbox
+         *  Params
+         *  
+         * user (Required) : The name of the user to shout on.
+         * message (Required) : The message to post to the shoutbox.
+         * 
+         * api_key (Required) : A Last.fm API key.
+         * 
+         * api_sig (Required) : A Last.fm method signature. See authentication for more information.
+         * sk (Required) : A session key generated by authenticating a user via the authentication protocol. 
+         */
 
         #endregion
 

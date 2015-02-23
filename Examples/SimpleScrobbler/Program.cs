@@ -28,7 +28,12 @@ namespace SimpleScrobbler
                 //var lovedTracks = client.GetLovedTracks("RJ");
                 //var neighours = client.GetNeighbours("JImmy_SmIle");
                 //var pastEvents = client.GetPastEvents("joanofarctan");
-                var newReleases = client.GetNewReleases("JImmy_SmIle");
+                //var newReleases = client.GetNewReleases("JImmy_SmIle");
+                //var perTags = client.GetPersonalTags("RJ", "rock", TaggingType.Artist);
+                //var playlists = client.GetPlaylists("RJ");
+                //var shouts = client.GetShouts("RJ", 20);
+                //var topAlbums = client.GetTopAlbums("RJ", "overall", 20, 0);
+                var topArtists = client.GetTopArtists("RJ", "overall", 20, 0);
             }
 
             Application.EnableVisualStyles();
